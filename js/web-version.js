@@ -3555,8 +3555,8 @@ resetButton.onclick = function() {clear()};
 
 // Button to open the suggestions popup
 const suggestionsBtn = document.getElementById("suggestionsBtn");
-suggestionsBtn.style.display = "inline-block";
 suggestionsBtn.onclick = function() {getSuggestion()};
+suggestionsBtn.style.display = "inline-block";
 
 // Originally hidden
 // Can be accessed with a keyboard shortcut (Alt+S or Alt+C on chrome or firefox respectively) or by clicking the button (android)
@@ -3655,7 +3655,7 @@ function clear() {
 document.addEventListener("click", (event) => {
     // Closes the suggestion popup if the users clicks anywhere except on the suggestion popup itself or input box
     if (suggestionsPopup.style.display === "inline-block") {
-        if (event.target != "[object HTMLTextAreaElement]") {
+        if ((event.target.id !== "text_in") && (event.target.id !== "suggestionsBtn")) {
             closeSuggestions();
         };
     };
