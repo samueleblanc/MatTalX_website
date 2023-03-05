@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://mattalx.org/css/web-version.css">
+    <script src="https://mattalx.org/js/web-version.js" defer></script>
+    <link rel="icon" href="https://mattalx.org/images/mattalx favicon.png">
+    <title>MatTalX</title>
+</head>
+<body>
+    <header>
+        <div class="infoDiv">
+            <button class="infoButton_light"><img class="info_light" alt="Info" src="https://mattalx.org/images/question_mark_nobg_light.png"></button>
+            <button class="infoButton_dark"><img class="info_dark" alt="Info" src="https://mattalx.org/images/question_mark_nobg_dark.png"></button><br>
+        <div class="dropdownInfo">
+            <a target="_blank" href="https://mattalx.org/documentation.html"><input type="button" value="Documentation" id="docs"></a>
+            <a target="_blank" href="https://github.com/samueleblanc/MatTalX"><input type="button" value="Code (GitHub)" id="git"></a>
+            <a target="_blank" href="https://chrome.google.com/webstore/detail/mattalx-write-math-symbol/jllceliamggkpffccbefpefgmcigaglb"><input type="button" value="Chrome extension" id="chromeext"></a>
+            <a target="_blank" href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/"><input type="button" value="Firefox add-on" id="firefoxadd"></a>
+            <span id="adjustSpaces"><label for="adjust">Adjust spaces</label><input type="checkbox" name="adjust" id="adjust" checked></span>
+            <span id="changeFont"><label for="mathFont">Mathematical font</label><input type="checkbox" name="mathFont" id="mathFont" checked></span>
+            <span id="changeMode"><label for="mathMode">Math mode</label><input type="checkbox" name="mathMode" id="mathMode" checked></span>
+        </div>
+        </div>
+        <a href="index.html"><img id="title_light" alt="MatTalX" src="https://mattalx.org/images/mattalx_logo_nobg_light.png"></a>
+        <a href="index.html"><img id="title_dark" alt="MatTalX" src="https://mattalx.org/images/mattalx_logo_nobg_dark.png"></a>
+    </header>
+    <div id="body">
+    <form name="text_input">
+        <textarea type="text" name="text_in" id="text_in" spellcheck="false"></textarea>
+        <div class="suggestion"><table id="suggestions"></table></div><br>
+        <input type="button" value="Convert" id="convert">
+        <input type="button" value="Suggestions" id="suggestionsBtn">  <!--suggestionsBtn is used with the android version-->
+        <input type="reset" value="Clear" id="reset"><br><br>
+        <textarea type="text" name="text_out" id="text_out" spellcheck="false" disabled></textarea><br><br>
+        <input type="button" value="Copy text" id="copy"><br>
+        <p id="mistakes"></p><br>
+    </form>
+</div>
+</body>
+</html>

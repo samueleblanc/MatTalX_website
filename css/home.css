@@ -1,0 +1,127 @@
+body {
+    margin: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+header,
+footer {
+    background-color: black;
+    text-align: right;
+}
+header input[type=button],
+footer input[type=button] {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}
+header input[type=button]:hover,
+footer input[type=button]:hover {
+    background-color: rgb(51, 51, 51);
+}
+header a,
+footer a {
+    text-decoration: none;
+}
+#mattalx_logo {
+    display: block;
+    margin: auto;
+    width: 45%;
+    height: auto;
+}
+h1, h2, h3, p, ul, li {
+    margin: 2% 10%;
+}
+p, li{
+    font-size: 18px;
+}
+.grey_box {
+    margin: 2% 10%;
+    background-color: lightgrey;
+    padding: 7px;
+    border-radius: 7px;
+}
+#exemples li {
+    text-align: center;
+    list-style: none;
+}
+#pics_block {
+    display: flex;
+    text-align: center;
+}
+#pics_block::after {
+    clear: both;
+}
+#pics_block h3 {
+    font-size: 20px;
+}
+#pics_block .cols {
+    flex: 50%;
+    padding: 10px;
+}
+#pics_block #before_twitter,
+#pics_block #after_twitter {
+    width: 70%;
+    height: auto;
+}
+#pics_block #messenger_chat {
+    width: 100%;
+}
+#pics_block #chromelogo,
+#pics_block #firefoxlogo {
+    width: 20%;
+    padding: 20px;
+}
+#pics_block #availableText {
+    padding: 15px;
+    font-size: 20px;
+}
+#pics_block a {
+    cursor: pointer;
+}
+#getMatTalXCellphone {
+    display: none;
+}
+
+@media only screen and (max-device-width: 550px) {
+    #mattalx_logo {
+        width: 90%;
+        height: auto;
+    }
+    h1, h2, h3, p, ul, li {
+        margin: 1% 4%;
+    }
+    #pics_block {
+        display: block;
+        text-align: center;
+    }
+    #pics_block .cols {
+        padding: 10px;
+    }
+    #pics_block #before_twitter,
+    #pics_block #after_twitter {
+        width: 90%;
+        height: auto;
+    }
+    #getMatTalX {
+        display: none;
+    }
+    #getMatTalXCellphone {
+        display: block;
+        text-align: center;
+    }
+    #getMatTalXCellphone #availableText {
+        padding: 15px;
+        font-size: 20px;
+    }
+    #getMatTalXCellphone #chromelogo,
+    #getMatTalXCellphone #firefoxlogo {
+        width: 20%;
+        padding: 20px;
+    }
+    #noCellphone {
+        display: none;
+    }
+}

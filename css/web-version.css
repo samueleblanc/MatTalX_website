@@ -1,0 +1,330 @@
+/* Position and size */
+#body {
+    margin: auto;
+    width: 80%;
+    padding: 1%;
+}
+header {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.infoDiv {
+    position: relative;
+    float: right;
+}
+a {
+    text-decoration: none;
+}
+.infoDiv:hover .dropdownInfo {
+    text-align: center;
+    display: block;
+    padding: 8px;
+}
+.shortcutTitle {
+    padding-top: 6px;
+    padding-bottom: 0px;
+    cursor: default;
+}
+.suggestion {
+    display: inline-block;
+    position: relative;
+}
+body {
+    min-width: 500px;
+    height: auto;
+}
+#text_in {
+    border-radius: 4px;
+    width: 100%;
+    height: 100px;
+    font-size: 14px;
+    text-decoration: none;
+}
+#text_out {
+    border-radius: 4px;
+    width: 100%;
+    height: 100px;
+    font-size: 15px;
+    text-decoration: none;
+}
+.shortcuts {
+    font-size: 15x;
+    font-family: 'Times New Roman';
+    text-decoration: none;
+    cursor: default;
+}
+.dropdownInfo {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    width: max-content;
+    overflow: auto;
+    right: 0;
+    border-radius: 7px;
+}
+#docs, 
+#git, 
+#adjustSpaces,
+#changeFont,
+#changeMode,
+#chromeext,
+#firefoxadd {
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    font-family: 'Times New Roman';
+    text-decoration: none;
+    border: none;
+}
+#convert,
+#reset {
+    font-size: 14px;
+    font-family: 'Lucida Grande';
+    border: none;
+    padding: 8px;
+}
+#suggestionsBtn {
+    display: none;
+    font-size: 14px;
+    font-family: 'Lucida Grande';
+    border: none;
+    padding: 8px;
+}
+#copy {
+    font-size: 14px;
+    font-family: 'Lucida Grande';
+    border: none;
+    padding: 8px;
+    min-width: 70px;
+    width: fit-content;
+    height: auto;
+}
+#mistakes {
+    white-space: pre-wrap;
+    font-size: 15x;
+    font-family: 'Times New Roman';
+}
+#suggestions {
+    display: none;
+    text-align: center;
+    width: fit-content;
+    min-width: 140px;
+    min-height: 20px;
+    height: fit-content;
+    border-radius: 5px;
+    position: absolute;
+}
+tr, td {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Colors and style */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: white;
+    }
+    #title_light {
+        width: 25%;
+        height: 25%;
+        display: block;
+        margin: auto;
+    }
+    #title_dark {
+        display: none;
+    }
+    #text_in, 
+    #text_out {
+        color: black;
+        border: 2px solid rgb(231, 231, 231);
+        background-color: whitesmoke;
+    }
+    .infoButton_dark {
+        display: none;
+    }
+    .infoButton_light {
+        background-color: white;
+        border: none;
+        float: right;
+    }
+    .info_dark {
+        display: none;
+    }
+    .info_light {
+        width: 15px;
+        height: 15px;
+        cursor: default;
+        float: right;
+    }
+    .shortcuts {
+        color: black;
+    }
+    .dropdownInfo {
+        background-color: whitesmoke;
+    }
+    #docs, 
+    #git, 
+    #adjustSpaces,
+    #changeFont,
+    #changeMode,
+    #chromeext,
+    #firefoxadd {
+        color: black;
+        background-color: whitesmoke;
+    }
+    #docs:hover,
+    #git:hover,
+    #adjustSpaces:hover,
+    #changeFont:hover,
+    #changeMode:hover,
+    #chromeext:hover,
+    #firefoxadd:hover {
+        background-color: lightgrey;
+    }
+    #convert,
+    #reset,
+    #suggestionsBtn {
+        color: black;
+        background-color: rgb(230, 229, 229);
+    }
+    #convert:hover,
+    #reset:hover,
+    #suggestionsBtn:hover {
+        background-color: lightgrey;
+    }
+    #copy {
+        color: black;
+        background-color: rgb(230, 229, 229);
+    }
+    #copy:hover {
+        background-color: lightgrey;
+    }
+    #mistakes {
+        color: black;
+    }
+    #suggestions {
+        border: 1px solid rgb(238, 238, 238);
+        background-color: rgb(238, 238, 238);
+    }
+    tr, td {
+        border: 1px solid rgb(238, 238, 238);
+        background-color: white;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(39, 39, 39);
+    }
+    #title_light {
+        display: none;
+    }
+    #title_dark {
+        width: 25%;
+        height: 25%;
+        display: block;
+        margin: auto;
+        opacity: 85%;
+    }
+    #text_in, 
+    #text_out {
+        color: whitesmoke;
+        border: 2px solid rgb(83, 83, 83);
+        background-color: rgb(83, 83, 83);
+    }
+    .infoButton_light {
+        display: none;
+    }
+    .infoButton_dark {
+        background-color: rgb(39, 39, 39);
+        border: none;
+        float: right;
+    }
+    .info_light {
+        display: none;
+    }
+    .info_dark {
+        width: 15px;
+        height: 15px;
+        cursor: default;
+        float: right;
+    }
+    .shortcuts {
+        color: whitesmoke;
+    }
+    .dropdownInfo {
+        background-color: rgb(31, 31, 31);
+    }
+    #docs, 
+    #git, 
+    #adjustSpaces,
+    #changeFont,
+    #changeMode,
+    #chromeext,
+    #firefoxadd {
+        color: whitesmoke;
+        background-color: rgb(31, 31, 31);
+    }
+    #docs:hover,
+    #git:hover,
+    #adjustSpaces:hover,
+    #changeFont:hover,
+    #changeMode:hover,
+    #chromeext:hover,
+    #firefoxadd:hover  {
+        background-color: rgb(41, 41, 41);
+    }
+    #convert,
+    #reset,
+    #suggestionsBtn {
+        color: whitesmoke;
+        background-color: rgb(53, 53, 53);
+    }
+    #convert:hover,
+    #reset:hover,
+    #suggestionsBtn:hover {
+        background-color: rgb(61, 61, 61);
+    }
+    #copy {
+        color: whitesmoke;
+        background-color: rgb(53, 53, 53);
+    }
+    #copy:hover {
+        background-color: rgb(61, 61, 61);
+    }
+    #mistakes {
+        color: whitesmoke;
+    }
+    #suggestions {
+        border: 1px solid rgb(31, 31, 31);
+        background-color: rgb(31, 31, 31);
+    }
+    tr, td {
+        border: 1px solid rgb(31, 31, 31);
+        background-color: rgb(39, 39, 39);
+    }
+}
+@media only screen and (max-device-width: 550px) {
+    #title_dark {
+        width: 70%;
+    }
+    #title_light {
+        width: 70%;
+    }
+    #info_dark {
+        width: 50px;
+        height: 50px;
+    }
+    #info_light {
+        width: 50px;
+        height: 50px;
+    }
+    #convert,
+    #suggestionsBtn,
+    #reset,
+    #copy {
+        font-size: 28px;
+        width: 32%;
+        height: auto;
+        margin-left: 4px;
+    }
+}
