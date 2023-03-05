@@ -304,15 +304,48 @@ tr, td {
     }
 }
 @media only screen and (max-device-width: 550px) {
+    #body {
+        margin: auto;
+        width: 85%;
+        padding: 1%;
+    }
+    .infoDiv {
+        position: relative;
+        float: right;
+    }
+    .infoDiv:hover .dropdownInfo {
+        text-align: center;
+        display: block;
+        padding: 8px;
+    }
+    .suggestion {
+        display: inline-block;
+        position: relative;
+    }
+    #text_in {
+        height: 200px;
+        font-size: 28px;
+    }
+    #text_out {
+        height: 200px;
+        font-size: 29px;
+    }
+    #mistakes {
+        font-size: 28x;
+    }
     #title_dark {
         width: 70%;
     }
     #title_light {
         width: 70%;
     }
+    .infoButton_dark {
+        width: 50%;
+        height: auto;
+    }
     #info_dark {
-        width: 50px;
-        height: 50px;
+        width: 100%;
+        height: auto;
     }
     #info_light {
         width: 50px;
@@ -326,5 +359,14 @@ tr, td {
         width: 32%;
         height: auto;
         margin-left: 4px;
+    }
+    #docs, 
+    #git, 
+    #adjustSpaces,
+    #changeFont,
+    #changeMode,
+    #chromeext,
+    #firefoxadd {
+        font-size: 28px;
     }
 }
