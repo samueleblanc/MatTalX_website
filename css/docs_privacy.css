@@ -41,6 +41,9 @@ h1, h2, h3, h4 {
     width: 500px;
     height: 300px;
 }
+#refLinks {
+    text-align: left;
+}
 @media only screen and (max-device-width: 550px) {
     #logo {
         width: 25%;
