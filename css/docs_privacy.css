@@ -1,14 +1,32 @@
 body {
-    text-align: center;
-    margin-left: 7%;
-    margin-right: 7%;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin: auto;
+}
+header {
+    background-color: black;
+    text-align: left;
+}
+header #logo {
+    padding-left: 10px;
+    opacity: 100%;
+}
+header #logo:hover {
+    opacity: 80%;
+}
+header a {
+    text-decoration: none;
+    cursor: default;
 }
 #logo {
     width: 11%;
     height: 11%;
     display: block;
+}
+p {
+    text-align: center;
+    margin-left: 7%;
+    margin-right: 7%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 h1, h2, h3, h4 {
     text-align: center;
@@ -46,9 +64,8 @@ h1, h2, h3, h4 {
 }
 @media only screen and (max-device-width: 550px) {
     #logo {
-        width: 25%;
-        height: 25%;
-        float: left;
+        width: 35%;
+        height: auto;
     }
     #promoVideo {
         width: 100%;
