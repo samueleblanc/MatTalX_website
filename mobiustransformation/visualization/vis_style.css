@@ -1,0 +1,50 @@
+body {
+    margin: 0em 3em;
+}
+header h1 {
+    text-align: center;
+    color: black;
+}
+header h1 a {
+    text-decoration: none;
+    color: black;
+}
+.canvasContainer {
+    position: relative;
+    margin: auto;
+    width: 700px;
+    height: 600px;
+}
+#CSCanvas{
+    margin: auto;
+}
+#imzText {
+    text-align: center;
+}
+#rezText {
+    position: absolute;
+    top: 51%;
+    left: 0%;
+}
+.settingBlock {
+    float: right;
+    padding: 20px;
+}
+input[type=button],
+input[type=reset] {
+    border: none;
+    border-radius: 7px;
+    background-color: whitesmoke;
+    padding: 12px;
+}
+input[type=number] {
+    border: none;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    padding: 7px;
+}
+input[type=button]:hover,
+input[type=reset]:hover,
+input[type=number]:hover {
+    background-color: lightgray;
+}

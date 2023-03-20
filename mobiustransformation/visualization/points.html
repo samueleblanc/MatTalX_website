@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Möbius Transformation</title>
+        <link rel="icon" href="https://mattalx.org/mobiustransformation/images/riemann_sphere">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="mathematics, geometry, mobius">
+        <link rel="stylesheet" href="https://mattalx.org/mobiustransformation/visualization/vis_style.css">
+
+        <script type="text/javascript" src="https://cindyjs.org/dist/v0.8/Cindy.js"></script>
+        <script type="text/javascript" src="https://cindyjs.org/dist/v0.8/CindyGL.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script>
+    </head>
+    <body>
+        <header><h1><a href="https://mattalx.org/mobiustransformation/index.html">Möbius Transformation</a></h1></header>
+
+        <div class="settingBlock">
+            <form id="points_form">
+                <a href="https://mattalx.org/mobiustransformation/domaincoloring.html"><input type="button" value="Domain coloring" id=""></a>
+                <h4>\(\mathfrak{R}(z)\)</h4>
+                <label for="x_min">Min:</label>
+                <input type="number" name="x_min" id="x_min" value="-5"><br>
+                <label for="x_max">Max:</label>
+                <input type="number" name="x_max" id="x_max" value="5"><br><br>
+                <h4>\(\mathfrak{I}(z)\)</h4>
+                <label for="y_min">Min:</label>
+                <input type="number" name="y_min" id="y_min" value="-5"><br>
+                <label for="y_max">Max:</label>
+                <input type="number" name="y_max" id="y_max" value="5"><br><br>
+                <label for="btninfty">Send a point to \(\infty\)</label><input type="checkbox" name="btninfty" id="btninfty" unchecked><br><br>
+                <input type="button" value="Show" id="show">
+                <input type="reset" value="Reset" id="reset">
+            </form>
+        </div>
+
+        <div class="canvasContainer">
+            <p id="imzText">\(\mathfrak{I}(z)\)</p>
+            <p id="rezText">\(\mathfrak{R}(z)\)</p>
+            <canvas id="CSCanvas"></canvas>
+        </div>
+
+        <script id="csinit" type="text/x-cindyscript">
+            storedM = [[1,0],[0,1]];  // Stores the matrix that represent the transformation
+            transfoM = [[1,0],[0,1]];  // Is the matrix of the current transformation
+            
+            applyMob = false;  // Currently applying a transformation?
+            draggingZ1 = false;  // Currently dragging a point?
+            draggingZ2 = false;
+
+            dstToPoint = 0.15;  // Used to know at which distant of a point should you drag it
+            // Also used for the radius of the circles
+
+            // Default values of the domain
+            reRange = -5..5;
+            imRange = -5..5;
+            
+            updateMatrix(start,current) := (
+                // This function updates 'transfoM' which is the matrix that represent the transformation
+
+                regional(fixed1, fixed2, fix1p0, fix1p1, fix2p0, fix2p1);
+
+                fixed1 = if ([0,0,1]*Z1.homog == 0, [complex([1,0]),0], [complex(Z1), 1]);
+                fixed2 = [complex(Z2), 1];
+                fix1p0 = fixed1_1;
+                fix1p1 = fixed1_2;
+                fix2p0 = fixed2_1;
+                fix2p1 = fixed2_2;
+
+                A = [[fix1p1*det([start,fixed2]), -fix1p0*det([start,fixed2])], 
+                    [fix2p1*det([start,fixed1]), -fix2p0*det([start,fixed1])]];
+
+                B = [[fix1p1*det([current,fixed2]), -fix1p0*det([current,fixed2])], 
+                    [fix2p1*det([current,fixed1]), -fix2p0*det([current,fixed1])]];
+
+                mult(inverse(B),A);
+            );
+
+            updateDstToPoint(rangeMax) := (
+                // Called by JavaScript to make sure the 'effective range'
+                // of the points are adequate (based on the domain)
+
+                dstToPoint = 0.015 * rangeMax;
+            );
+
+            updateRanges(re, im) := (
+                // Called by JavaScript
+                reRange = re;
+                imRange = im;
+            );
+
+            /* 
+            // Not used
+            hslToRgb(H,L) := (
+                regional(C, X, m, r, g, b);
+                C = 1 - |2*L-1|;
+                H = mod(H,360°);
+                H = H/60°;
+                X = C * (1-|mod(H,2)-1|);
+                m = L - (C/2);
+                if ((H >= 0) & (H < 1),
+                    r = C;
+                    g = X;
+                    b = 0;
+                    ,
+                if ((H >= 1) & (H < 2),
+                    r = X;
+                    g = C;
+                    b = 0;
+                    ,
+                if ((H >= 2) & (H < 3),
+                    r = 0;
+                    g = C;
+                    b = X;
+                    ,
+                if ((H >= 3) & (H < 4),
+                    r = 0;
+                    g = X;
+                    b = C;
+                    ,
+                if ((H >= 4) & (H < 5),
+                    r = X;
+                    g = 0;
+                    b = C;
+                    ,
+                if ((H >= 5) & (H <= 6),
+                    r = C;
+                    g = 0;
+                    b = X;
+                );
+                );
+                );
+                );
+                );
+                );
+                [r+m, g+m, b+m];
+            );
+            */
+        </script>
+
+        <script id="csmousedrag" type="text/x-cindyscript">
+            // Move points
+            if ((|mouse()-Z1| < dstToPoint) & !applyMob & !draggingZ2,
+                draggingZ1 = true;
+            );
+            if ((|mouse()-Z2| < dstToPoint) & !applyMob & !draggingZ1,
+                draggingZ2 = true;
+            );
+            if (draggingZ1,
+                moveto(Z1,mouse());
+            );
+            if (draggingZ2,
+                moveto(Z2,mouse());
+            );
+
+            // Update transfoM and the starting point
+            if (applyMob,
+                if (!draggingZ1 & !draggingZ2,
+                    transfoM = updateMatrix(start,[complex(mouse()),1]);
+                    ,
+                    applyMob = false;
+                );
+                ,
+                if (!draggingZ1 & !draggingZ2,
+                    start = [complex(mouse()),1];
+                    applyMob = true;
+                );
+            );
+        </script>
+
+        <script id="csmouseup" type="text/x-cindyscript">
+            // Update storedM and assing other variables to their starting value
+
+            storedM = mult(transfoM, storedM);
+            transfoM = [[1,0],[0,1]];
+            applyMob = false;
+            draggingZ1 = false;
+            draggingZ2 = false;
+        </script>
+
+        <script id="csdraw" type="text/x-cindyscript">
+            // Tranform from homogeneous coordinates to number on the Riemann sphere
+            // and color the canvas accordingly
+            forall(reRange,i,
+                forall(imRange,j,
+                    fz = mult(mult(transfoM, storedM), [complex([i,j]),1]);
+                    // N.B. arctan2(z) treats z has a vector in R^2 => arctan2(z) = arg(z) = arg([a,b]) if z=a+bi
+                    fillcircle(gauss(fz_1/fz_2), dstToPoint, color->if([i,j] != [0,0], hue(arctan2([i,j])/(2*pi)), [0,0,0]));
+                );
+            );
+        </script>
+
+        <script type="text/javascript">
+            function float(array) {
+                return array.map(i => parseFloat(i));
+            }
+        </script>
+        
+        <script type="text/javascript">
+            const showBtn = document.getElementById("show");
+            const resetBtn = document.getElementById("reset");
+            const inftyBtn = document.getElementById("btninfty");
+
+            const reMin = document.getElementById("x_min");
+            const reMax = document.getElementById("x_max");
+            const imMin = document.getElementById("y_min");
+            const imMax = document.getElementById("y_max");
+
+            let reMinV, imMaxV, reMaxV, imMinV;
+            [reMinV, imMaxV, reMaxV, imMinV] = float([reMin.value, imMax.value, reMax.value, imMin.value]);
+
+            // Homogeneous coordinates
+            let z1Pos = [((reMaxV+reMinV)/2) + (reMinV/2), (imMaxV+imMinV)/2, 1];
+            let z2Pos = [((reMaxV+reMinV)/2) + (reMaxV/2), (imMaxV+imMinV)/2, 1];
+
+            let lastZ1Pos = z1Pos;
+
+            let cdy = CindyJS({
+                    canvasname: "CSCanvas",
+                    scripts: "cs*",
+                    animation: {autoplay: false},
+                    geometry : [
+                        {name: "Z1", kind: "P", type: "Free", pos: z1Pos, color: [1,1,1], size: 5, pinned: true},
+                        {name: "Z2", kind: "P", type: "Free", pos: z2Pos, color: [1,1,1], size: 5, pinned: true},
+                        {name: "re_axis", type: "FreeLine", pos: [0,1,0], color: [0,0,0], pinned: true},
+                        {name: "im_axis", type: "FreeLine", pos: [1,0,0], color: [0,0,0], pinned: true}
+                    ],
+                    grid: 1,
+                    ports: [{
+                        id: "CSCanvas",
+                        width: 600,
+                        height: 600,
+                        transform: [{visibleRect: [reMinV, imMaxV, reMaxV, imMinV]}]
+                    }],
+                    use: ["CindyGL"]
+                });
+
+            // [1,0,0] (i.e. [1+0i,0]) is the point at infinity in homogeneous coordinates
+            if (inftyBtn.checked) {z1Pos = [1,0,0]}
+            
+            showBtn.addEventListener("click", () => {
+                // Call CindyJS again but with the (potentially) new parameters
+                [reMinV, imMaxV, reMaxV, imMinV] = float([reMin.value, imMax.value, reMax.value, imMin.value]);
+                z1Pos = (inftyBtn.checked) ? [1,1,0] : [((reMaxV+reMinV)/2) + (reMinV/2), (imMaxV+imMinV)/2, 1];
+                z2Pos = [((reMaxV+reMinV)/2) + (reMaxV/2), (imMaxV+imMinV)/2, 1];                
+                makeCanvas();
+                updateDstToPoint();
+                updateRanges();
+                verifyDomain();
+            });
+
+            resetBtn.addEventListener("click", () => {
+                location.reload();
+            });
+
+            inftyBtn.addEventListener("click", () => {
+                // Send a point to infinity or bring it back!
+                if (inftyBtn.checked) {
+                    lastZ1Pos = getZ1();
+                    z1Pos = [1,0,0];
+                    updateZ1(z1Pos);
+                } else {
+                    z1Pos = lastZ1Pos;
+                    updateZ1(z1Pos);
+                };
+            });
+
+            function makeCanvas() {
+                cdy = CindyJS({
+                    canvasname: "CSCanvas",
+                    scripts: "cs*",
+                    animation: {autoplay: false},
+                    geometry : [
+                        {name: "Z1", kind: "P", type: "Free", pos: z1Pos, color: [1,1,1], size: 5, pinned: true},
+                        {name: "Z2", kind: "P", type: "Free", pos: z2Pos, color: [1,1,1], size: 5, pinned: true},
+                        {name: "re_axis", type: "FreeLine", pos: [0,1,0], color: [0,0,0], pinned: true},
+                        {name: "im_axis", type: "FreeLine", pos: [1,0,0], color: [0,0,0], pinned: true}
+                    ],
+                    grid: 1,
+                    ports: [{
+                        id: "CSCanvas",
+                        width: 600,
+                        height: 600,
+                        transform: [{visibleRect: [reMinV, imMaxV, reMaxV, imMinV]}]
+                    }],
+                    use: ["CindyGL"]
+                });
+            };
+
+            function updateZ1(Z1) {
+                // Changes the position of Z1
+                cdy.evokeCS('moveto(Z1,['+Z1.join(",")+']);');
+            };
+
+            function getZ1() {
+                // Returns the position of Z1
+                return cdy.saveState().geometry[0].pos;
+            };
+
+            function updateDstToPoint() {
+                // Updates the value of 'dstToPoint' (CindyScript)
+                cdy.evokeCS('updateDstToPoint('+Math.max((reMaxV-reMinV), (imMaxV-imMinV))+');');
+            };
+
+            function updateRanges() {
+                cdy.evokeCS('updateRanges('+reMinV+'..'+reMaxV+','+imMinV+'..'+imMaxV+');');
+            };
+
+            function verifyDomain() {
+                if (reMaxV <= reMinV) {
+                    alert("Error: ℜₘₐₓ(𝑧) ≤ ℜₘᵢₙ(𝑧)");
+                } else if (imMaxV <= imMinV) {
+                    alert("Error: ℑₘₐₓ(𝑧) ≤ ℑₘᵢₙ(𝑧)");
+                };
+                if ((reMaxV-reMinV)*(imMaxV-imMinV) > 3600) {
+                    alert("Perhaps consider using 'Domain coloring' for improved performance.");
+                };
+            };
+
+            updateDstToPoint();
+            updateRanges();
+            verifyDomain();
+
+        </script>
+    </body>
+</html>

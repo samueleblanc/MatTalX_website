@@ -1,0 +1,23 @@
+body {
+    margin: 0% 5%;
+}
+header h1 {
+    text-align: center;
+}
+p {
+    margin: 2% 10%;
+}
+.picture_box {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+.picture_box img {
+    width: 40%;
+    height: auto;
+    display: inline-block;
+    opacity: 75%;
+}
+.picture_box img:hover {
+    opacity: 100%;
+}
