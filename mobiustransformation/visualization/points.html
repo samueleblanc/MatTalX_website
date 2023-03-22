@@ -311,10 +311,10 @@
             };
 
             function verifyDomain() {
-                if (reMaxV <= reMinV) {
-                    alert("Error: ℜₘₐₓ(𝑧) ≤ ℜₘᵢₙ(𝑧)");
-                } else if (imMaxV <= imMinV) {
-                    alert("Error: ℑₘₐₓ(𝑧) ≤ ℑₘᵢₙ(𝑧)");
+                if (reMaxV < reMinV) {
+                    alert("Error: ℜₘₐₓ(𝑧) < ℜₘᵢₙ(𝑧)");
+                } else if (imMaxV < imMinV) {
+                    alert("Error: ℑₘₐₓ(𝑧) < ℑₘᵢₙ(𝑧)");
                 };
                 if ((reMaxV-reMinV)*(imMaxV-imMinV) > 3600) {
                     alert("Perhaps consider using 'Domain coloring' for improved performance.");
