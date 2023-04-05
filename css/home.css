@@ -77,6 +77,14 @@ p, li{
     width: 20%;
     padding: 20px;
 }
+#chromelogo,
+#firefoxlogo {
+    opacity: 85%;
+}
+#chromelogo:hover,
+#firefoxlogo:hover {
+    opacity: 100%;
+}
 #pics_block #availableText {
     padding: 15px;
     font-size: 20px;
