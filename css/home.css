@@ -40,6 +40,42 @@ h1, h2, h3, ul, li {
 p, li{
     font-size: 18px;
 }
+.slideshow {
+    position: relative;
+    margin: auto;
+}
+.slideshow .img-slide {
+    display: none;
+    margin: auto;
+    width: 50%;
+    height: auto;
+    border-radius: 5px;
+}
+#previous,
+#next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.5s ease;
+    border-radius: 4px;
+    user-select: none;
+}
+#previous {
+    left: 7%;
+}
+#next {
+    right: 7%;
+}
+#previous:hover, 
+#next:hover {
+    background-color: rgba(0,0,0,0.4);
+}
 .grey_box {
     margin: 2% 10%;
     background-color: lightgrey;
@@ -111,6 +147,23 @@ p, li{
     content: "...  ";
 }
 
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: white;
+    }
+    .dark {
+        display: none;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: whitesmoke;
+    }
+    .light {
+        display: none;
+    }
+}
+
 @media only screen and (max-device-width: 550px) {
     #mattalx_logo {
         width: 90%;
@@ -118,6 +171,21 @@ p, li{
     }
     h1, h2, h3, p, ul, li {
         margin: 1% 4%;
+    }
+    .slideshow .img-slide {
+        width: 80%;
+        height: auto;
+    }
+    #previous,
+    #next {
+        padding: 10px;
+        font-size: 14px;
+    }
+    #previous {
+        left: 2%;
+    }
+    #next {
+        right: 2%;
     }
     #pics_block {
         display: block;

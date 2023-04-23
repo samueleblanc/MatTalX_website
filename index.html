@@ -25,9 +25,29 @@
             <a href="https://github.com/samueleblanc/MatTalX" target="_blank"><input type="button" value="GitHub"></a>
             <a href="https://mattalx.org/#about"><input type="button" value="About"></a>
         </header>
-        <img src="https://mattalx.org/images/mattalx_logo.png" id="mattalx_logo" alt="MatTalX logo"><br>
+        <img src="https://mattalx.org/images/mattalx_logo_nobg_light.png" id="mattalx_logo" alt="MatTalX logo"><br>
         <h1>Write <i style="font-family: Georgia, serif;">math</i> anywhere</h1>
-        <!-- Include video here -->
+        <div class="slideshow">
+            <div class="light">
+                <img src="images/mattalx entropy light message.png" class="img-slide" alt="Example MatTalX">
+                <img src="images/mattalx subset suggest light.png" class="img-slide">
+                <img src="images/mattalx math font light.png" class="img-slide">
+                <img src="images/mattalx n-sphere light.png" class="img-slide">
+                <img src="images/mattalx matrix light.png" class="img-slide">
+                <img src="images/mattalx cheby ineq light.png" class="img-slide">
+            </div>
+            <div class="dark">
+                <img src="images/mattalx entropy dark message.png" class="img-slide" alt="Example MatTalX">
+                <img src="images/mattalx subset suggest dark.png" class="img-slide">
+                <img src="images/mattalx math font dark.png" class="img-slide">
+                <img src="images/mattalx n-sphere dark.png" class="img-slide">
+                <img src="images/mattalx matrix dark.png" class="img-slide">
+                <img src="images/mattalx cheby ineq dark.png" class="img-slide">
+            </div>
+            <a id="previous">❮</a>
+            <a id="next">❯</a>
+        </div>
+        <br><br>
         <p>With MatTalX, you can easily write any symbol and send them via all your favorite platform and website!</p>
         <ul id="exemples">
             <li>𝐻(𝑡)|𝜓(𝑡)⟩ = 𝑖ℏ(∂/∂𝑡)|𝜓(𝑡)⟩</li>
@@ -96,5 +116,34 @@
             <a href="https://mattalx.org/privacy.html"><input type="button" value="Privacy"></a>
             <a href="mailto:samuel.leblanc6@usherbrooke.ca"><input type="button" value="Contact"></a>
         </footer>
+        <script>
+            const prevBtn = document.getElementById("previous");
+            const nextBtn = document.getElementById("next");
+            const startingPicture = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 6 : 0;
+            let slideIndex = startingPicture;
+
+            prevBtn.addEventListener("click", () => {
+                plusSlides(-1);
+            });
+            nextBtn.addEventListener("click", () => {
+                plusSlides(1);
+            });
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            };
+
+            function showSlides(n) {
+                let slides = document.getElementsByClassName("img-slide");
+                if (n >= slides.length-6+startingPicture) {slideIndex = startingPicture}
+                if (n < startingPicture) {slideIndex = (slides.length/2)+startingPicture-1}
+                for (let i=0; i<slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                slides[slideIndex].style.display = "block";
+            };
+            
+            showSlides(slideIndex);
+        </script>
     </body>
 </html>

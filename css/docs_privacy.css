@@ -62,6 +62,18 @@ h1, h2, h3, h4 {
 #refLinks {
     text-align: left;
 }
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: white;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: whitesmoke;
+    }
+}
+
 @media only screen and (max-device-width: 550px) {
     #logo {
         width: 35%;
