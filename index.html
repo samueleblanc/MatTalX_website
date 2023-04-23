@@ -29,20 +29,20 @@
         <h1>Write <i style="font-family: Georgia, serif;">math</i> anywhere</h1>
         <div class="slideshow">
             <div class="light">
-                <img src="images/mattalx entropy light message.png" class="img-slide" alt="Example MatTalX">
-                <img src="images/mattalx subset suggest light.png" class="img-slide">
-                <img src="images/mattalx math font light.png" class="img-slide">
-                <img src="images/mattalx n-sphere light.png" class="img-slide">
-                <img src="images/mattalx matrix light.png" class="img-slide">
-                <img src="images/mattalx cheby ineq light.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx entropy light message.png" class="img-slide" alt="Example MatTalX">
+                <img src="https://mattalx.org/images/mattalx subset suggest light.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx math font light.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx n-sphere light.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx matrix light.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx cheby ineq light.png" class="img-slide">
             </div>
             <div class="dark">
-                <img src="images/mattalx entropy dark message.png" class="img-slide" alt="Example MatTalX">
-                <img src="images/mattalx subset suggest dark.png" class="img-slide">
-                <img src="images/mattalx math font dark.png" class="img-slide">
-                <img src="images/mattalx n-sphere dark.png" class="img-slide">
-                <img src="images/mattalx matrix dark.png" class="img-slide">
-                <img src="images/mattalx cheby ineq dark.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx entropy dark message.png" class="img-slide" alt="Example MatTalX">
+                <img src="https://mattalx.org/images/mattalx subset suggest dark.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx math font dark.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx n-sphere dark.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx matrix dark.png" class="img-slide">
+                <img src="https://mattalx.org/images/mattalx cheby ineq dark.png" class="img-slide">
             </div>
             <a id="previous">❮</a>
             <a id="next">❯</a>
@@ -52,7 +52,7 @@
         <ul id="exemples">
             <li>𝐻(𝑡)|𝜓(𝑡)⟩ = 𝑖ℏ(∂/∂𝑡)|𝜓(𝑡)⟩</li>
             <li>∀𝑋 [∅ ∉ 𝑋 ⟹ ∃𝑓∶𝑋 → ∪𝑋 : ∀𝐴 ∈ 𝑋 (𝑓(𝐴) ∈ 𝐴)]</li>
-            <li>ℙ(|𝑋 − 𝔼(𝑋)| ≥ 𝛼) ≤ 𝜎²/𝛼²</li>
+            <li>ℙ(𝑋 ≥ 𝛼) ≤ 𝔼[𝑋]/𝛼</li>
         </ul>
         <p>It works by converting the commands into text, therefore making it possible to communicate math concepts in messages, emails, 
             and social media posts!
@@ -117,9 +117,10 @@
             <a href="mailto:samuel.leblanc6@usherbrooke.ca"><input type="button" value="Contact"></a>
         </footer>
         <script>
+            const slides = document.getElementsByClassName("img-slide");
             const prevBtn = document.getElementById("previous");
             const nextBtn = document.getElementById("next");
-            const startingPicture = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 6 : 0;
+            const startingPicture = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? slides.length/2 : 0;
             let slideIndex = startingPicture;
 
             prevBtn.addEventListener("click", () => {
@@ -130,13 +131,16 @@
             });
 
             function plusSlides(n) {
-                showSlides(slideIndex += n);
+                slideIndex += n;
+                showSlides(slideIndex);
             };
 
             function showSlides(n) {
-                let slides = document.getElementsByClassName("img-slide");
-                if (n >= slides.length-6+startingPicture) {slideIndex = startingPicture}
-                if (n < startingPicture) {slideIndex = (slides.length/2)+startingPicture-1}
+                if (n < startingPicture) {
+                    slideIndex = (slides.length/2 + startingPicture) - 1;
+                } else if (n >= slides.length/2 + startingPicture) {
+                    slideIndex = startingPicture;
+                };
                 for (let i=0; i<slides.length; i++) {
                     slides[i].style.display = "none";
                 }
