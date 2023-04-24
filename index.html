@@ -133,7 +133,7 @@
             });
 
             copyBtn.addEventListener("click", () => {
-                copyTextOut();
+                copyExample();
             });
 
             function updateSlides(n) {
@@ -156,7 +156,7 @@
             
             showSlide(slideIndex);
 
-            function copyTextOut() {
+            function copyExample() {
                 // Copy example to clipboard
                 navigator.clipboard.writeText(exampleToCopy.textContent);
                 copyBtn.value = "Copied!";
