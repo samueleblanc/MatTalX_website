@@ -47,7 +47,7 @@ p, li{
 .slideshow .img-slide {
     display: none;
     margin: auto;
-    width: 50%;
+    width: 60%;
     height: auto;
     border-radius: 5px;
 }
@@ -76,15 +76,27 @@ p, li{
 #next:hover {
     background-color: rgba(0,0,0,0.4);
 }
-.grey_box {
+.box {
     margin: 2% 10%;
-    background-color: lightgrey;
     padding: 7px;
     border-radius: 7px;
+}
+.grey {
+    background-color: lightgrey;
 }
 #exemples li {
     text-align: center;
     list-style: none;
+}
+#copy {
+    font-size: 14px;
+    font-family: 'Lucida Grande';
+    border: none;
+    padding: 8px;
+    min-width: 70px;
+    width: fit-content;
+    height: auto;
+    margin-left: 8px;
 }
 #pics_block {
     display: flex;
@@ -154,6 +166,13 @@ p, li{
     .dark {
         display: none;
     }
+    #copy {
+        color: black;
+        background-color: rgb(230, 229, 229);
+    }
+    #copy:hover {
+        background-color: lightgrey;
+    }
 }
 @media (prefers-color-scheme: dark) {
     body {
@@ -161,6 +180,13 @@ p, li{
     }
     .light {
         display: none;
+    }
+    #copy {
+        color: whitesmoke;
+        background-color: rgb(53, 53, 53);
+    }
+    #copy:hover {
+        background-color: rgb(61, 61, 61);
     }
 }
 

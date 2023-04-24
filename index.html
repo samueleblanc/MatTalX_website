@@ -27,7 +27,16 @@
         </header>
         <img src="https://mattalx.org/images/mattalx_logo_nobg_light.png" id="mattalx_logo" alt="MatTalX logo"><br>
         <h1>Write <i style="font-family: Georgia, serif;">math</i> anywhere</h1>
-        <div class="slideshow">
+        <p>With MatTalX, you can easily write any symbol and send them via all your favorite platform and website!</p>
+        <ul id="exemples">
+            <li>𝐻(𝑡)|𝜓(𝑡)⟩ = 𝑖ℏ(∂/∂𝑡)|𝜓(𝑡)⟩</li>
+            <li>∀𝑋 [∅ ∉ 𝑋 ⟹ ∃𝑓∶𝑋 → ∪𝑋 : ∀𝐴 ∈ 𝑋 (𝑓(𝐴) ∈ 𝐴)]</li>
+            <li>ℙ(𝑋 ≥ 𝛼) ≤ 𝔼[𝑋]/𝛼</li>
+        </ul>
+        <p>It works by converting the commands into text, therefore making it possible to communicate math concepts in messages, emails, 
+            and social media posts!
+        </p>
+        <div class="slideshow grey box">
             <div class="light">
                 <img src="https://mattalx.org/images/mattalx entropy light message.png" class="img-slide" alt="Example MatTalX">
                 <img src="https://mattalx.org/images/mattalx subset suggest light.png" class="img-slide">
@@ -48,29 +57,20 @@
             <a id="next">❯</a>
         </div>
         <br><br>
-        <p>With MatTalX, you can easily write any symbol and send them via all your favorite platform and website!</p>
-        <ul id="exemples">
-            <li>𝐻(𝑡)|𝜓(𝑡)⟩ = 𝑖ℏ(∂/∂𝑡)|𝜓(𝑡)⟩</li>
-            <li>∀𝑋 [∅ ∉ 𝑋 ⟹ ∃𝑓∶𝑋 → ∪𝑋 : ∀𝐴 ∈ 𝑋 (𝑓(𝐴) ∈ 𝐴)]</li>
-            <li>ℙ(𝑋 ≥ 𝛼) ≤ 𝔼[𝑋]/𝛼</li>
-        </ul>
-        <p>It works by converting the commands into text, therefore making it possible to communicate math concepts in messages, emails, 
-            and social media posts!
-        </p>
-
-        <div class="grey_box">
-        <h3>Example</h3>
-        <ul>
-            <li><i>Input:</i> \sum a_{n} \rightarrow c \implies (a_{n}) \rightarrow 0,\: c \in \mathbb{R}</li>
-            <li><i>Output:</i> ∑𝑎ₙ → 𝑐 ⟹ (𝑎ₙ) → 0, 𝑐 ∈ ℝ</li>
-        </ul>
+        <div class="box">
+            <h2>Example</h2>
+            <ul>
+              <li><i>Input:</i> \sum a_{n} \rightarrow c \implies (a_{n}) \rightarrow 0,\: c \in \mathbb{R}</li>
+              <li><i>Output:</i> <span id="exampleToCopy">∑𝑎ₙ → 𝑐 ⟹ (𝑎ₙ) → 0, 𝑐 ∈ ℝ</span></li>
+              <li style="list-style-type:none"><input type="button" value="Copy text" id="copy"></li>
+            </ul>
         </div>
         <br>
         <h2>Discuss math on the web</h2>
         <div id="pics_block">
             <div class="cols">
                 <h3>Before</h3><br>
-                <img src="https://mattalx.org/images/before_mattalx_twitter.png" id="before_twitter"><br><br>
+                <img src="https://mattalx.org/images/before_mattalx_twitter_nobg.png" id="before_twitter" alt="Twitter with MatTalX"><br><br>
                 <span id="noCellphone"><br><br><br></span>
                 <div class="grey_box" id="getMatTalX">
                 <h1>Get MatTalX</h1>
@@ -81,17 +81,17 @@
             </div>
             <div class="cols">
                 <h3>After</h3><br>
-                <img src="https://mattalx.org/images/after_mattalx_twitter.png" id="after_twitter"><br><br>
+                <img src="https://mattalx.org/images/after_mattalx_twitter_nobg.png" id="after_twitter" alt="Twitter without MatTalX"><br><br>
                 <img src="https://mattalx.org/images/messenger_chat.png" id="messenger_chat">
             </div>
         </div>
-        <div class="grey_box" id="getMatTalXCellphone">
+        <div class="grey box" id="getMatTalXCellphone">
             <h1>Get MatTalX</h1>
             <span id="availableText">Available in the Chrome webstore and in the Firefox add-ons marketplace</span><br>
             <a href="https://chrome.google.com/webstore/detail/mattalx-write-math-symbol/jllceliamggkpffccbefpefgmcigaglb" target="_blank"><img src="https://mattalx.org/images/chromelogo.png" id="chromelogo" alt="Chrome logo"></a>
             <a href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/" target="_blank"><img src="https://mattalx.org/images/firefoxlogo.png" id="firefoxlogo" alt="Firefox logo"></a>
         </div>
-        <div class="grey_box">
+        <div class="grey box">
             <h2>What's next?</h2>
             <p>
                 MatTalX is still in developement, here are some features coming soon!
@@ -121,21 +121,28 @@
             const prevBtn = document.getElementById("previous");
             const nextBtn = document.getElementById("next");
             const startingPicture = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? slides.length/2 : 0;
+            const copyBtn = document.getElementById("copy");
+            const exampleToCopy = document.getElementById("exampleToCopy");
             let slideIndex = startingPicture;
 
             prevBtn.addEventListener("click", () => {
-                plusSlides(-1);
+                updateSlides(-1);
             });
             nextBtn.addEventListener("click", () => {
-                plusSlides(1);
+                updateSlides(1);
             });
 
-            function plusSlides(n) {
+            copyBtn.addEventListener("click", () => {
+                copyTextOut();
+            });
+
+            function updateSlides(n) {
                 slideIndex += n;
-                showSlides(slideIndex);
+                showSlide(slideIndex);
             };
 
-            function showSlides(n) {
+            function showSlide(n) {
+                // Hide every picture except the one at position n
                 if (n < startingPicture) {
                     slideIndex = (slides.length/2 + startingPicture) - 1;
                 } else if (n >= slides.length/2 + startingPicture) {
@@ -147,7 +154,16 @@
                 slides[slideIndex].style.display = "block";
             };
             
-            showSlides(slideIndex);
+            showSlide(slideIndex);
+
+            function copyTextOut() {
+                // Copy example to clipboard
+                navigator.clipboard.writeText(exampleToCopy.textContent);
+                copyBtn.value = "Copied!";
+                setTimeout(() => {
+                    copyBtn.value = "Copy text";
+                }, 2500)  // Returns to initial copyBtn
+            };
         </script>
     </body>
 </html>
