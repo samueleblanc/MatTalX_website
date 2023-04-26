@@ -924,15 +924,29 @@ const textbf = (arg, initialCommand) => {
     // This function converts the list of characters to the corresponding (text) bold font character
 	const symbols = {
         "A" : "\u{1D5D4}",
+        "À" : "𝗔̀",
+        "Â" : "𝗔̂",
         "a" : "\u{1D5EE}",
+        "à" : "𝗮̀",
+        "â" : "𝗮̂",
         "B" : "\u{1D5D5}",
         "b" : "\u{1D5EF}",
         "C" : "\u{1D5D6}",
+        "Ç" : "𝗖̧",
         "c" : "\u{1D5F0}",
+        "ç" : "𝗰̧",
         "D" : "\u{1D5D7}",
         "d" : "\u{1D5F1}",
         "E" : "\u{1D5D8}",
+        "É" : "𝗘́",
+        "Ê" : "𝗘̂",
+        "Ë" : "𝗘̈",
+        "È" : "𝗘̀",
         "e" : "\u{1D5F2}",
+        "é" : "𝗲́",
+        "ê" : "𝗲̂",
+        "ë" : "𝗲̈",
+        "è" : "𝗲̀",
         "F" : "\u{1D5D9}",
         "f" : "\u{1D5F3}",
         "G" : "\u{1D5DA}",
@@ -952,7 +966,11 @@ const textbf = (arg, initialCommand) => {
         "N" : "\u{1D5E1}",
         "n" : "\u{1D5FB}",
         "O" : "\u{1D5E2}",
+        "Ô" : "𝗢̂",
+        "Ö" : "𝗢̈",
         "o" : "\u{1D5FC}",
+        "ô" : "𝗼̂",
+        "ö" : "𝗼̈",
         "P" : "\u{1D5E3}",
         "p" : "\u{1D5FD}",
         "Q" : "\u{1D5E4}",
@@ -964,7 +982,11 @@ const textbf = (arg, initialCommand) => {
         "T" : "\u{1D5E7}",
         "t" : "\u{1D601}",
         "U" : "\u{1D5E8}",
+        "Û" : "𝗨̂",
+        "Ù" : "𝗨̀",
         "u" : "\u{1D602}",
+        "û" : "𝘂̂",
+        "ù" : "𝘂̀",
         "V" : "\u{1D5E9}",
         "v" : "\u{1D603}",
         "W" : "\u{1D5EA}",
@@ -1146,15 +1168,29 @@ const textit = (arg, initialCommand) => {
     // This function converts the list of characters to the corresponding italic character
     const symbols = {
         "A" : "\u{1D608}",
+        "Â" : "𝘈̂",
+        "À" : "𝘈̀",
         "a" : "\u{1D622}",
+        "â" : "𝘢̂",
+        "à" : "𝘢̀",
         "B" : "\u{1D609}",
         "b" : "\u{1D623}",
         "C" : "\u{1D60A}",
+        "Ç" : "𝘊̧",
         "c" : "\u{1D624}",
+        "ç" : "𝘤̧",
         "D" : "\u{1D60B}",
         "d" : "\u{1D625}",
         "E" : "\u{1D60C}",
+        "É" : "𝘌́",
+        "Ê" : "𝘌̂",
+        "È" : "𝘌̀",
+        "Ë" : "𝘌̈",
         "e" : "\u{1D626}",
+        "é" : "𝘦́",
+        "ê" : "𝘦̂",
+        "è" : "𝘦̀",
+        "ë" : "𝘦̈",
         "F" : "\u{1D60D}",
         "f" : "\u{1D627}",
         "G" : "\u{1D60E}",
@@ -1174,7 +1210,11 @@ const textit = (arg, initialCommand) => {
         "N" : "\u{1D615}",
         "n" : "\u{1D62F}",
         "O" : "\u{1D616}",
+        "Ô" : "𝘖̂",
+        "Ö" : "𝘖̈",
         "o" : "\u{1D630}",
+        "ô" : "𝘰̂",
+        "ö" : "𝘰̈",
         "P" : "\u{1D617}",
         "p" : "\u{1D631}",
         "Q" : "\u{1D618}",
@@ -1186,7 +1226,11 @@ const textit = (arg, initialCommand) => {
         "T" : "\u{1D61B}",
         "t" : "\u{1D635}",
         "U" : "\u{1D61C}",
+        "Û" : "𝘜̂",
+        "Ù" : "𝘜̀",
         "u" : "\u{1D636}",
+        "û" : "𝘶̂",
+        "ù" : "𝘶̀",
         "V" : "\u{1D61D}",
         "v" : "\u{1D637}",
         "W" : "\u{1D61E}",
@@ -1378,15 +1422,29 @@ const texttt = (arg, initialCommand) => {
     // This function converts the list of characters to the corresponding typewriter character
     const symbols = {
         "A" : "\u{1D670}",
+        "Â" : "𝙰̂",
+        "À" : "𝙰̀",
         "a" : "\u{1D68A}",
+        "â" : "𝚊̂",
+        "à" : "𝚊̀",
         "B" : "\u{1D671}",
         "b" : "\u{1D68B}",
         "C" : "\u{1D672}",
+        "Ç" : "𝙲̧",
         "c" : "\u{1D68C}",
+        "ç" : "𝚌̧",
         "D" : "\u{1D673}",
         "d" : "\u{1D68D}",
         "E" : "\u{1D674}",
+        "É" : "𝙴́",
+        "È" : "𝙴̀",
+        "Ê" : "𝙴̂",
+        "Ë" : "𝙴̈",
         "e" : "\u{1D68E}",
+        "é" : "𝚎́",
+        "ê" : "𝚎̂",
+        "è" : "𝚎̀",
+        "ë" : "𝚎̈",
         "F" : "\u{1D675}",
         "f" : "\u{1D68F}",
         "G" : "\u{1D676}",
@@ -1406,7 +1464,11 @@ const texttt = (arg, initialCommand) => {
         "N" : "\u{1D67D}",
         "n" : "\u{1D697}",
         "O" : "\u{1D67E}",
+        "Ô" : "𝙾̂",
+        "Ö" : "𝙾̈",
         "o" : "\u{1D698}",
+        "ô" : "𝚘̂",
+        "ö" : "𝚘̈",
         "P" : "\u{1D67F}",
         "p" : "\u{1D699}",
         "Q" : "\u{1D680}",
@@ -1418,7 +1480,11 @@ const texttt = (arg, initialCommand) => {
         "T" : "\u{1D683}",
         "t" : "\u{1D69D}",
         "U" : "\u{1D684}",
+        "Û" : "𝚄̂",
+        "Ù" : "𝚄̀",
         "u" : "\u{1D69E}",
+        "û" : "𝚞̂",
+        "ù" : "𝚞̀",
         "V" : "\u{1D685}",
         "v" : "\u{1D69F}",
         "W" : "\u{1D686}",
@@ -1587,8 +1653,10 @@ const text = (arg, initialCommand) => {
         "n" : "n",
         "O" : "O",
         "Ô" : "Ô",
+        "Ö" : "Ö",
         "o" : "o",
         "ô" : "ô",
+        "ö" : "ö",
         "P" : "P",
         "p" : "p",
         "Q" : "Q",
@@ -1601,6 +1669,8 @@ const text = (arg, initialCommand) => {
         "t" : "t",
         "U" : "U",
         "u" : "u",
+        "Û" : "Û",
+        "û" : "û",
         "Ù" : "Ù",
         "ù" : "ù",
         "V" : "V",
@@ -1953,6 +2023,13 @@ const singleCharFrac = (arg, initialCommand) => {
 const pmod = (arg, initialCommand) => {
     // returns ' (mod arg)'
     return ["\u2710(mod\u2710" + arg.join("") + ")"];
+};
+
+const today = () => {
+    // returns today's date
+    let date = new Date();
+    let month = date.toLocaleString('en', {month: 'long'});  // Will change to 'default' when many languages will be supported
+    return month + " " + date.getDate() + ", " + date.getFullYear();
 };
 
 // These functions call combineSymbols with a predetermined symbol
@@ -2606,6 +2683,9 @@ const mathDictionary = {
     "\\radioactive" : "\u2622",
     "\\biohazard" : "\u2623",
     "\\atom" : "\u269B",
+    "\\permil" : "‰",
+    "\\textperthousand" : "‰",  // Weird command name, but trying to respect LaTeX's nomenclature
+    "\\perthousand" : "‱",
     "\\angle" : "\u2220",
     "\\measuredangle" : "\u2221",
     "\\sphericalangle" : "\u2222",
@@ -2626,6 +2706,7 @@ const mathDictionary = {
     "\\im" : "\u2111",
     "\\fourier" : "\u2131",
     "\\angstrom" : "\u212B",
+    "\\mho" : "\u2127",
     "\\emdash" : "\u2014",
     "\\bullet" : "\u2219",
     "\\textbullet" : "\u2022",
@@ -2851,7 +2932,8 @@ const textCommands = {
     "\\d" : dotBelow,
     "\\r" : ringAbove,
     "\\u" : breve,
-    "\\v" : caron
+    "\\v" : caron,
+    "\\today" : today()
 };
 
 // Superscript is used (by the superscript function) to convert characters to the corresponding superscript character
@@ -2871,13 +2953,39 @@ const Superscript = {
     "-" : "\u207B",
     "\u2212" : "\u207B",
     "=" : "\u207C",
+    "≠" : "ᙿ",
     "(" : "\u207D",
     ")" : "\u207E",
     "\\" : "ᐠ",
+    "∖" : "ᐠ",
     "/" : "ᐟ",
     "." : "ᐧ",
     "," : "\u02D2",
+    "!" : "ꜝ",
     "$" : "ᙚ",
+    "⟂" : "ᗮ",
+    "×" : "ᕁ",
+    "∫" : "ᶴ",
+    "∘" : "°",
+    "∞" : "\u2710\u1AB2\u2710",  // Only works on certain website/apps
+    "∅" : "\u{1D1A9}",
+    "*" : "*",
+    "<" : "ᑉ",
+    "∥" : "ᐦ",
+    "⊂" : "ᒼ",
+    "⊃" : "ᐣ",
+    "∪" : "ᐡ",
+    "∩" : "ᐢ",
+    "∨" : "ᘁ",
+    "∧" : "ᶺ",
+    "⌊" : "ᒻ",
+    "⌋" : "ᒽ",
+    "℧" : "ᶷ",
+    "↑" : "ꜛ",
+    "↓" : "ꜜ",
+    "Œ" : "𐞣",
+    "œ" : "ꟹ",
+    "æ" : "𐞃",
 
     "A" : "ᴬ",
     "a" : "ᵃ",
@@ -2925,7 +3033,7 @@ const Superscript = {
     "X" : "ˣ",
     "x" : "ˣ",
     "y" : "ʸ",
-    "Z" : "ᶻ",
+    "Z" : "ᙆ",
     "z" : "ᶻ",
 
     "𝐴" : "ᴬ",
@@ -2978,28 +3086,35 @@ const Superscript = {
     "𝑧" : "ᶻ",
 
     "𝛽" : "\u1D5D",
+    "β" : "\u1D5D", 
     "𝛤" : "ᣘ",
+    "Γ" : "ᣘ",
     "𝛾" : "\u1D5E",
+    "γ" : "\u1D5E",
     "Δ" : "ᐞ",
     "δ" : "\u1D5F",
+    "𝛿" : "\u1D5F",
     "ϵ" : "ᵋ",
+    "ε" : "ᵋ",
+    "𝛬" : "ᣔ",
     "Λ" : "ᣔ",
     "𝜃" : "\u1DBF",
+    "θ" : "\u1DBF", 
     "𝜄" : "ᶥ",
+    "ι" : "ᶥ",
     "𝜈" : "ᶹ",
+    "ν" : "ᶹ",
+    "𝜎" : "ᣙ",
     "σ" : "ᣙ",
+    "Φ" : "ᶲ",
     "𝜙" : "ᶲ",
+    "ϕ" : "ᶲ",
     "𝜑" : "\u1D60",
+    "φ" : "\u1D60",
     "𝜌" : "ᣖ",
+    "ρ" : "ᣖ",
     "𝜒" : "\u1D61",
-
-    "∫" : "ᶴ",
-    "≠" : "ᙾ",
-    "∘" : "°",
-    "$" : "ᙚ",
-    "∞" : "\u2710\u1AB2\u2710",  // Only works on certain website/apps
-    "∅" : "\u{1D1A9}",
-    "*" : "*",
+    "χ" : "\u1D61",
 
     "\u2710" : "\u2710",
     "\u270E" : "\u270E",
@@ -3029,6 +3144,7 @@ const Subscript = {
     ")" : "\u208E",
     "," : "\u2710\u0326\u2710",
     "." : "\u2710\u0323\u2710",
+    "×" : "᙮",
 
     "a" : "\u2090",
     "e" : "\u2091",
@@ -3075,11 +3191,17 @@ const Subscript = {
     "𝑥" : "\u2093",
 
     "𝛽" : "\u1D66",
+    "β" : "\u1D66",
     "𝛾" : "\u1D67",
+    "γ" : "\u1D67",
     "𝜌" : "\u1D68",
+    "ρ" : "\u1D68",
     "𝜑" : "\u1D69",
+    "φ" : "\u1D69",
     "𝜙" : "\u1D69",
+    "ϕ" : "\u1D69",
     "𝜒" : "\u1D6A",
+    "χ" : "\u1D6A",
 
     "→" : "\u2710\u2710\u0362\u2710\u2710",
     "∞" : "\u2710\u035A\u2710",
@@ -3148,7 +3270,9 @@ const Above = {
     "𝑥" : "\u036F",
 
     "𝛼" : "\u1DE7",
+    "α" : "\u1DE7",
     "𝛽" : "\u1DE9",
+    "β" : "\u1DE9",
 
     "↼" : "\u20D0",
     "⇀" : "\u20D1",
@@ -3739,12 +3863,15 @@ function findWord(text, cursorPosition, addedLetter="") {
 
 function suggestions(command) {
     // Outputs list of other commands that are similar to the one currently being written
+    const btnBackColor = getComputedStyle(document.body).backgroundColor;
+    const btnFontColor = (btnBackColor === "rgb(255, 255, 255)") ? "black" : "whitesmoke"; 
     if (command === "") {
         closeSuggestions();
     } else if (command[0] !== "\\") {
         let row = suggestionsPopup.insertRow(-1);
         let cell = row.insertCell(0);
         cell.textContent = "The first character of the command must be a backslash (\\). Superscript starts with ^ and subscript with _";
+        cell.style.color = btnFontColor;
     } else {
         command = command.substring(1, command.length);  // Erases the backslash so that, for instance, \arrow will also show \rightarrow, etc.
         for (let keys in defaultDict) {
@@ -3759,8 +3886,6 @@ function suggestions(command) {
                 // Button style
                 btn.style.width = "145px";  // Would be cleaner with something like 'fit-content', but is way to slow
                 btn.style.height = "17px";
-                const btnBackColor = getComputedStyle(document.body).backgroundColor;
-                const btnFontColor = (btnBackColor === "rgb(255, 255, 255)") ? "black" : "whitesmoke"; 
                 btn.style.backgroundColor = btnBackColor;
                 btn.style.border = "1px solid " + btnBackColor;
                 btn.style.color = btnFontColor;
@@ -3776,14 +3901,14 @@ function suggestions(command) {
 
                 // Shows what the command ouputs on mouseover, return to normal on mouseout
                 btn.addEventListener("mouseover", () => {
-                    let x = btn.textContent;
+                    let tmp = btn.textContent;
                     btn.textContent = btn.value;
-                    btn.value = x;
+                    btn.value = tmp;
                 });
                 btn.addEventListener("mouseout", () => {
-                    let x = btn.textContent;
+                    let tmp = btn.textContent;
                     btn.textContent = btn.value;
-                    btn.value = x;
+                    btn.value = tmp;
                 });
                 cell.appendChild(btn);
             };
@@ -3823,11 +3948,11 @@ function showCommand(key) {
         } else if ((key == "\\above") || (key == "\\below") || (key == "\\hspace") || (key == "\\vskip")) {
             return key + "{}";
         } else if ((key == "_") || (key == "^")) {
-            return "x" + key + "{a1} \u2192 𝑥" + (defaultDict[key](["a", "1"], defaultDict[key])).join("");
+            return "x" + key + "{a1} \u2192 𝑥" + spaceCommand((defaultDict[key](["a", "1"], defaultDict[key])).join(""));
         } else if (key == "\\pmod") {
             return key + "{n} \u2192 " + spaceCommand(defaultDict[key](["n"], defaultDict[key]));
         } else {
-            return key + "{abc} \u2192 " + (defaultDict[key](["a", "b", "c"], defaultDict[key])).join("");
+            return key + "{abc} \u2192 " + spaceCommand((defaultDict[key](["a", "b", "c"], defaultDict[key])).join(""));
         };
     } else {
         if (key == "\\:") {
@@ -4561,9 +4686,9 @@ function adjustSpaces(input) {
                           "\u22D0", "\u22D1", "\u2ABF", "\u2AC0", "\u27C3", "\u27C4", "\u2245", "\u2247", "\u221D", "\u2261", "\u2A67", "\u2263",
                           "\u2260", "\u226E", "\u226F", "\u2264", "\u2A7D", "\u2265", "\u2A7E", "\u2270", "\u2271", "\u2A87", "\u2268", "\u2A88",
                           "\u2269", "\u2A89", "\u2A8A", "\u22E6", "\u22E7", "\u226A", "\u22D8", "\u226B", "\u22D9", "\u227A", "\u227B", "\u2280",
-                          "\u2281", "\u227C", "\u227D", "\u2AB5", "\u2AB6", "\u2AB9", "\u2ABA", "\u22E8", "\u22E9", "\u27C2", "\u2AEB", "\u2225",
-                          "\u2226", "\u2AF4", "\u2AF5", "\u224D", "\u2227", "\u2228", "\u27CE", "\u27CF", "\u2971", "\u2972", "\u2974", "\u2250",
-                          "\u2A66", "\u00D7", "\u22CA", "\u22C9", "\u225D", "\u2254", "\u2255"];
+                          "\u2281", "\u227C", "\u227D", "\u2AB5", "\u2AB6", "\u2AB9", "\u2ABA", "\u22E8", "\u22E9", "\u27C2", "\u2AEB", "\u2226",
+                          "\u2AF4", "\u2AF5", "\u224D", "\u2227", "\u2228", "\u27CE", "\u27CF", "\u2971", "\u2972", "\u2974", "\u2250", "\u2A66",
+                          "\u00D7", "\u22CA", "\u22C9", "\u225D", "\u2254", "\u2255"];
     const conditionalSpaces = ["\u002B", "\u2212", "\u00B1", "\u2213", "\u2248", "\u223C", "\u224C", "\u2241"];
     return adjustSpacesCommon(input, symbolSpaced, conditionalSpaces);
 };
@@ -4578,9 +4703,9 @@ function adjustSpaceChem(input) {
                           "\u22D0", "\u22D1", "\u2ABF", "\u2AC0", "\u27C3", "\u27C4", "\u2245", "\u2247", "\u221D", "\u2A67", "\u2250", "\u2A66",
                           "\u2260", "\u226E", "\u226F", "\u2264", "\u2A7D", "\u2265", "\u2A7E", "\u2270", "\u2271", "\u2A87", "\u2268", "\u2A88",
                           "\u2269", "\u2A89", "\u2A8A", "\u22E6", "\u22E7", "\u226A", "\u22D8", "\u226B", "\u22D9", "\u227A", "\u227B", "\u2280",
-                          "\u2281", "\u227C", "\u227D", "\u2AB5", "\u2AB6", "\u2AB9", "\u2ABA", "\u22E8", "\u22E9", "\u27C2", "\u2AEB", "\u2225",
-                          "\u2226", "\u2AF4", "\u2AF5", "\u224D", "\u2227", "\u2228", "\u27CE", "\u27CF", "\u2971", "\u2972", "\u2974", "\u00D7", 
-                          "\u22CA", "\u22C9", "\u225D", "\u2254", "\u2255"];
+                          "\u2281", "\u227C", "\u227D", "\u2AB5", "\u2AB6", "\u2AB9", "\u2ABA", "\u22E8", "\u22E9", "\u27C2", "\u2AEB", "\u2226", 
+                          "\u2AF4", "\u2AF5", "\u224D", "\u2227", "\u2228", "\u27CE", "\u27CF", "\u2971", "\u2972", "\u2974", "\u00D7", "\u22CA",
+                          "\u22C9", "\u225D", "\u2254", "\u2255"];
     const conditionalSpaces = ["\u002B", "\u00B1", "\u2213", "\u2248", "\u223C", "\u224C", "\u2241"];
     return adjustSpacesCommon(input, symbolSpaced, conditionalSpaces);
 };
