@@ -118,6 +118,30 @@ tr, td {
     border-collapse: collapse;
     width: 100%;
 }
+.box {
+    width: 30%;
+    margin: 2% 10%;
+    padding: 7px;
+    border-radius: 7px;
+    text-align: center;
+}
+.grey {
+    background-color: lightgrey;
+}
+#availableText {
+    padding: 15px;
+    font-size: 20px;
+}
+#chromelogo,
+#firefoxlogo {
+    width: 20%;
+    padding: 20px;
+    opacity: 85%;
+}
+#chromelogo:hover,
+#firefoxlogo:hover {
+    opacity: 100%;
+}
 
 /* Colors and style */
 @media (prefers-color-scheme: light) {
@@ -368,5 +392,17 @@ tr, td {
     #chromeext,
     #firefoxadd {
         font-size: 28px;
+    }
+    .box {
+        width: 80%;
+    }
+    #availableText {
+        padding: 15px;
+        font-size: 20px;
+    }
+    #chromelogo,
+    #firefoxlogo {
+        width: 20%;
+        padding: 20px;
     }
 }
