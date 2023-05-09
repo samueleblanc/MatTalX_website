@@ -125,9 +125,6 @@ tr, td {
     border-radius: 7px;
     text-align: center;
 }
-.grey {
-    background-color: lightgrey;
-}
 #availableText {
     padding: 15px;
     font-size: 20px;
@@ -234,6 +231,9 @@ tr, td {
         border: 1px solid rgb(238, 238, 238);
         background-color: white;
     }
+    .grey {
+        background-color: lightgrey;
+    }
 }
 @media (prefers-color-scheme: dark) {
     body {
@@ -325,6 +325,9 @@ tr, td {
     tr, td {
         border: 1px solid rgb(31, 31, 31);
         background-color: rgb(39, 39, 39);
+    }
+    .grey {
+        background-color: grey;
     }
 }
 @media only screen and (max-device-width: 550px) {
