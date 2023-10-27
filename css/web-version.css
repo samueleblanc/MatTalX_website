@@ -83,8 +83,8 @@ body {
     border: none;
     padding: 8px;
 }
-#suggestionsBtn {
-    display: none;
+#completionBtn {
+    display: inline-block;
     font-size: 14px;
     font-family: 'Lucida Grande';
     border: none;
@@ -104,7 +104,7 @@ body {
     font-size: 15x;
     font-family: 'Times New Roman';
 }
-#suggestions {
+#completion {
     display: none;
     text-align: center;
     width: fit-content;
@@ -204,13 +204,13 @@ tr, td {
     }
     #convert,
     #reset,
-    #suggestionsBtn {
+    #completionBtn {
         color: black;
         background-color: rgb(230, 229, 229);
     }
     #convert:hover,
     #reset:hover,
-    #suggestionsBtn:hover {
+    #completionBtn:hover {
         background-color: lightgrey;
     }
     #copy {
@@ -223,7 +223,7 @@ tr, td {
     #mistakes {
         color: black;
     }
-    #suggestions {
+    #completion {
         border: 1px solid rgb(238, 238, 238);
         background-color: rgb(238, 238, 238);
     }
@@ -299,13 +299,13 @@ tr, td {
     }
     #convert,
     #reset,
-    #suggestionsBtn {
+    #completionBtn {
         color: whitesmoke;
         background-color: rgb(53, 53, 53);
     }
     #convert:hover,
     #reset:hover,
-    #suggestionsBtn:hover {
+    #completionBtn:hover {
         background-color: rgb(61, 61, 61);
     }
     #copy {
@@ -318,7 +318,7 @@ tr, td {
     #mistakes {
         color: whitesmoke;
     }
-    #suggestions {
+    #completion {
         border: 1px solid rgb(31, 31, 31);
         background-color: rgb(31, 31, 31);
     }
@@ -379,7 +379,7 @@ tr, td {
         height: 50px;
     }
     #convert,
-    #suggestionsBtn,
+    #completionBtn,
     #reset,
     #copy {
         font-size: 28px;

@@ -1,6 +1,6 @@
 /*
     The main purpose of this program is to take a text as input (mostly LaTeX commands), 
-    to convert them into the desired symbol (UTF) and finally to display them so they can 
+    to convert them into the desired symbol (character) and finally to display them so they can 
     be copied and sent via Messenger, Instagram, Twitter, etc.
 */
 
@@ -21,12 +21,12 @@
     /// FUNCTIONS ///  -> All the functions
     │
     ├─ Front-end
-    ├─ Suggestion box (or completion)
+    ├─ Completion box
     ├─ Convert text
     │   ├─ Main functions
     │   └─ Used by main functions
     ├─ Check mistakes
-    ├─ Matrix document class
+    ├─ Matrix function
     ├─ Automatic spacing
     └─ Main
 */
@@ -181,16 +181,16 @@ const mathbb = (arg, initialCommand) => {
         ")" : "⦆",
 
         // Spaces (\:, \;, \quad and \qquad are passed as a single character in mistakes) 
-        "\u2710" : "\u2710",
-        "\u2710\u2710" : "\u2710\u2710",
-        "\u2710\u2710\u2710" : "\u2710\u2710\u2710",
-        "\u2710\u2710\u2710\u2710" : "\u2710\u2710\u2710\u2710",
-        "\u270E" : "\u270E",
+        "\u2710" : spacesChar.add,
+        "\u2710\u2710" : spacesChar.add+spacesChar.add,
+        "\u2710\u2710\u2710" : spacesChar.add+spacesChar.add+spacesChar.add,
+        "\u2710\u2710\u2710\u2710" : spacesChar.add+spacesChar.add+spacesChar.add+spacesChar.add,
+        "\u270E" : spacesChar.remove,
         " " : " ",
         "\u000A" : "\u000A",
         "" : ""
     };
-    return replaceLetters(arg, symbols, initialCommand);
+    return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const mathbf = (arg, initialCommand) => {
@@ -533,16 +533,16 @@ const mathbf = (arg, initialCommand) => {
         "𝔷" : "\u{1D59F}",
 
         // Spaces (\:, \;, \quad and \qquad are passed as a single character in mistakes) 
-        "\u2710" : "\u2710",
-        "\u2710\u2710" : "\u2710\u2710",
-        "\u2710\u2710\u2710" : "\u2710\u2710\u2710",
-        "\u2710\u2710\u2710\u2710" : "\u2710\u2710\u2710\u2710",
-        "\u270E" : "\u270E",
+        "\u2710" : spacesChar.add,
+        "\u2710\u2710" : spacesChar.add+spacesChar.add,
+        "\u2710\u2710\u2710" : spacesChar.add+spacesChar.add+spacesChar.add,
+        "\u2710\u2710\u2710\u2710" : spacesChar.add+spacesChar.add+spacesChar.add+spacesChar.add,
+        "\u270E" : spacesChar.remove,
         " " : " ",
         "\u000A" : "\u000A",
         "" : ""
     };
-    return replaceLetters(arg, symbols, initialCommand);
+    return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const mathcal = (arg, initialCommand) => {
@@ -709,16 +709,16 @@ const mathcal = (arg, initialCommand) => {
         "𝒛" : "\u{1D503}",
 
         // Spaces (\:, \;, \quad and \qquad are passed as a single character in mistakes) 
-        "\u2710" : "\u2710",
-        "\u2710\u2710" : "\u2710\u2710",
-        "\u2710\u2710\u2710" : "\u2710\u2710\u2710",
-        "\u2710\u2710\u2710\u2710" : "\u2710\u2710\u2710\u2710",
-        "\u270E" : "\u270E",
+        "\u2710" : spacesChar.add,
+        "\u2710\u2710" : spacesChar.add+spacesChar.add,
+        "\u2710\u2710\u2710" : spacesChar.add+spacesChar.add+spacesChar.add,
+        "\u2710\u2710\u2710\u2710" : spacesChar.add+spacesChar.add+spacesChar.add+spacesChar.add,
+        "\u270E" : spacesChar.remove,
         " " : " ",
         "\u000A" : "\u000A",
         "" : ""
     };
-    return replaceLetters(arg, symbols, initialCommand);
+    return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const mathfrak = (arg, initialCommand) => {
@@ -885,37 +885,37 @@ const mathfrak = (arg, initialCommand) => {
         "𝒛" : "\u{1D59F}",
 
         // Spaces (\:, \;, \quad and \qquad are passed as a single character in mistakes) 
-        "\u2710" : "\u2710",
-        "\u2710\u2710" : "\u2710\u2710",
-        "\u2710\u2710\u2710" : "\u2710\u2710\u2710",
-        "\u2710\u2710\u2710\u2710" : "\u2710\u2710\u2710\u2710",
-        "\u270E" : "\u270E",
+        "\u2710" : spacesChar.add,
+        "\u2710\u2710" : spacesChar.add+spacesChar.add,
+        "\u2710\u2710\u2710" : spacesChar.add+spacesChar.add+spacesChar.add,
+        "\u2710\u2710\u2710\u2710" : spacesChar.add+spacesChar.add+spacesChar.add+spacesChar.add,
+        "\u270E" : spacesChar.remove,
         " " : " ",
         "\u000A" : "\u000A",
         "" : ""
     };
-    return replaceLetters(arg, symbols, initialCommand);
+    return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const superscript = (arg, initialCommand, forFrac=false) => {
     // Sends input to be converted by replaceLetters
     // This function is by default not called by the frac function
-    let output = replaceLetters(arg, Superscript, initialCommand, !forFrac);
-    if ((output.indexOf(errSymbol) === -1) || (forFrac)) {
-        return output;
+    let output = replaceLetters(arg[0], Superscript, initialCommand, !forFrac);
+    if (((output.indexOf(errSymbol) === -1) && (output.filter(e => accents[e] !== undefined).length === 0)) || (forFrac)) {
+        return output.concat(extraArgs(arg.slice(1), initialCommand));
     } else {
-        return ["^(" + arg.join("") + ")"];
+        return ["^(" + arg[0].join("") + ")"].concat(extraArgs(arg.slice(1), initialCommand));
     };
 };
 
 const subscript = (arg, initialCommand, forFrac=false) => {
     // Sends input to be converted by replaceLetters
     // This function is by default not called by the frac function
-    let output = replaceLetters(arg, Subscript, initialCommand, !forFrac);
-    if ((output.indexOf(errSymbol) === -1) || (forFrac)) {
-        return output;
+    let output = replaceLetters(arg[0], Subscript, initialCommand, !forFrac);
+    if (((output.indexOf(errSymbol) === -1) && (output.filter(e => accents[e] !== undefined).length === 0)) || (forFrac)) {
+        return output.concat(extraArgs(arg.slice(1), initialCommand));
     } else {
-        return ["_(" + arg.join("") + ")"];
+        return ["_(" + arg[0].join("") + ")"].concat(extraArgs(arg.slice(1), initialCommand));
     };
 };
 
@@ -924,29 +924,15 @@ const textbf = (arg, initialCommand) => {
     // This function converts the list of characters to the corresponding (text) bold font character
 	const symbols = {
         "A" : "\u{1D5D4}",
-        "À" : "𝗔̀",
-        "Â" : "𝗔̂",
         "a" : "\u{1D5EE}",
-        "à" : "𝗮̀",
-        "â" : "𝗮̂",
         "B" : "\u{1D5D5}",
         "b" : "\u{1D5EF}",
         "C" : "\u{1D5D6}",
-        "Ç" : "𝗖̧",
         "c" : "\u{1D5F0}",
-        "ç" : "𝗰̧",
         "D" : "\u{1D5D7}",
         "d" : "\u{1D5F1}",
         "E" : "\u{1D5D8}",
-        "É" : "𝗘́",
-        "Ê" : "𝗘̂",
-        "Ë" : "𝗘̈",
-        "È" : "𝗘̀",
         "e" : "\u{1D5F2}",
-        "é" : "𝗲́",
-        "ê" : "𝗲̂",
-        "ë" : "𝗲̈",
-        "è" : "𝗲̀",
         "F" : "\u{1D5D9}",
         "f" : "\u{1D5F3}",
         "G" : "\u{1D5DA}",
@@ -966,11 +952,7 @@ const textbf = (arg, initialCommand) => {
         "N" : "\u{1D5E1}",
         "n" : "\u{1D5FB}",
         "O" : "\u{1D5E2}",
-        "Ô" : "𝗢̂",
-        "Ö" : "𝗢̈",
         "o" : "\u{1D5FC}",
-        "ô" : "𝗼̂",
-        "ö" : "𝗼̈",
         "P" : "\u{1D5E3}",
         "p" : "\u{1D5FD}",
         "Q" : "\u{1D5E4}",
@@ -982,11 +964,7 @@ const textbf = (arg, initialCommand) => {
         "T" : "\u{1D5E7}",
         "t" : "\u{1D601}",
         "U" : "\u{1D5E8}",
-        "Û" : "𝗨̂",
-        "Ù" : "𝗨̀",
         "u" : "\u{1D602}",
-        "û" : "𝘂̂",
-        "ù" : "𝘂̀",
         "V" : "\u{1D5E9}",
         "v" : "\u{1D603}",
         "W" : "\u{1D5EA}",
@@ -1154,13 +1132,13 @@ const textbf = (arg, initialCommand) => {
         "{" : "{",
         "}" : "}",
 
-        "\u2710" : "\u2710",
-        "\u270E" : "\u270E",
-		" " : "\u2710",
+        "\u2710" : spacesChar.add,
+        "\u270E" : spacesChar.remove,
+		" " : spacesChar.add,
         "\u000A" : "\u000A",
         "" : ""
 	};
-	return replaceLetters(arg, symbols, initialCommand);
+	return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const textit = (arg, initialCommand) => {
@@ -1168,29 +1146,15 @@ const textit = (arg, initialCommand) => {
     // This function converts the list of characters to the corresponding italic character
     const symbols = {
         "A" : "\u{1D608}",
-        "Â" : "𝘈̂",
-        "À" : "𝘈̀",
         "a" : "\u{1D622}",
-        "â" : "𝘢̂",
-        "à" : "𝘢̀",
         "B" : "\u{1D609}",
         "b" : "\u{1D623}",
         "C" : "\u{1D60A}",
-        "Ç" : "𝘊̧",
         "c" : "\u{1D624}",
-        "ç" : "𝘤̧",
         "D" : "\u{1D60B}",
         "d" : "\u{1D625}",
         "E" : "\u{1D60C}",
-        "É" : "𝘌́",
-        "Ê" : "𝘌̂",
-        "È" : "𝘌̀",
-        "Ë" : "𝘌̈",
         "e" : "\u{1D626}",
-        "é" : "𝘦́",
-        "ê" : "𝘦̂",
-        "è" : "𝘦̀",
-        "ë" : "𝘦̈",
         "F" : "\u{1D60D}",
         "f" : "\u{1D627}",
         "G" : "\u{1D60E}",
@@ -1210,11 +1174,7 @@ const textit = (arg, initialCommand) => {
         "N" : "\u{1D615}",
         "n" : "\u{1D62F}",
         "O" : "\u{1D616}",
-        "Ô" : "𝘖̂",
-        "Ö" : "𝘖̈",
         "o" : "\u{1D630}",
-        "ô" : "𝘰̂",
-        "ö" : "𝘰̈",
         "P" : "\u{1D617}",
         "p" : "\u{1D631}",
         "Q" : "\u{1D618}",
@@ -1226,11 +1186,7 @@ const textit = (arg, initialCommand) => {
         "T" : "\u{1D61B}",
         "t" : "\u{1D635}",
         "U" : "\u{1D61C}",
-        "Û" : "𝘜̂",
-        "Ù" : "𝘜̀",
         "u" : "\u{1D636}",
-        "û" : "𝘶̂",
-        "ù" : "𝘶̀",
         "V" : "\u{1D61D}",
         "v" : "\u{1D637}",
         "W" : "\u{1D61E}",
@@ -1408,13 +1364,13 @@ const textit = (arg, initialCommand) => {
         "8" : "8",
         "9" : "9",
 
-        "\u2710" : "\u2710",
-        "\u270E" : "\u270E",
-        " " : "\u2710",
+        "\u2710" : spacesChar.add,
+        "\u270E" : spacesChar.remove,
+        " " : spacesChar.add,
         "\u000A" : "\u000A",
         "" : ""
 	};
-	return replaceLetters(arg, symbols, initialCommand);
+	return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const texttt = (arg, initialCommand) => {
@@ -1422,29 +1378,15 @@ const texttt = (arg, initialCommand) => {
     // This function converts the list of characters to the corresponding typewriter character
     const symbols = {
         "A" : "\u{1D670}",
-        "Â" : "𝙰̂",
-        "À" : "𝙰̀",
         "a" : "\u{1D68A}",
-        "â" : "𝚊̂",
-        "à" : "𝚊̀",
         "B" : "\u{1D671}",
         "b" : "\u{1D68B}",
         "C" : "\u{1D672}",
-        "Ç" : "𝙲̧",
         "c" : "\u{1D68C}",
-        "ç" : "𝚌̧",
         "D" : "\u{1D673}",
         "d" : "\u{1D68D}",
         "E" : "\u{1D674}",
-        "É" : "𝙴́",
-        "È" : "𝙴̀",
-        "Ê" : "𝙴̂",
-        "Ë" : "𝙴̈",
         "e" : "\u{1D68E}",
-        "é" : "𝚎́",
-        "ê" : "𝚎̂",
-        "è" : "𝚎̀",
-        "ë" : "𝚎̈",
         "F" : "\u{1D675}",
         "f" : "\u{1D68F}",
         "G" : "\u{1D676}",
@@ -1464,11 +1406,7 @@ const texttt = (arg, initialCommand) => {
         "N" : "\u{1D67D}",
         "n" : "\u{1D697}",
         "O" : "\u{1D67E}",
-        "Ô" : "𝙾̂",
-        "Ö" : "𝙾̈",
         "o" : "\u{1D698}",
-        "ô" : "𝚘̂",
-        "ö" : "𝚘̈",
         "P" : "\u{1D67F}",
         "p" : "\u{1D699}",
         "Q" : "\u{1D680}",
@@ -1480,11 +1418,7 @@ const texttt = (arg, initialCommand) => {
         "T" : "\u{1D683}",
         "t" : "\u{1D69D}",
         "U" : "\u{1D684}",
-        "Û" : "𝚄̂",
-        "Ù" : "𝚄̀",
         "u" : "\u{1D69E}",
-        "û" : "𝚞̂",
-        "ù" : "𝚞̀",
         "V" : "\u{1D685}",
         "v" : "\u{1D69F}",
         "W" : "\u{1D686}",
@@ -1599,40 +1533,28 @@ const texttt = (arg, initialCommand) => {
         "{" : "{",
         "}" : "}",
 
-        "\u2710" : "\u2710",
-        "\u270E" : "\u270E",
-        " " : "\u2710",
+        "\u2710" : spacesChar.add,
+        "\u270E" : spacesChar.remove,
+        " " : spacesChar.add,
         "\u000A" : "\u000A",
         "" : ""
     };
-    return replaceLetters(arg, symbols, initialCommand);
+    return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const text = (arg, initialCommand) => {
     // This function doesn't change the output (i.e. "abc" -> "abc")
     const symbols = {
         "A" : "A",
-        "À" : "À",
-        "à" : "à",
         "a" : "a",
         "B" : "B",
         "b" : "b",
         "C" : "C",
-        "Ç" : "Ç",
         "c" : "c",
-        "ç" : "ç",
         "D" : "D",
         "d" : "d",
         "E" : "E",
-        "É" : "É",
-        "È" : "È",
-        "Ê" : "Ê",
-        "Ë" : "Ë",
         "e" : "e",
-        "é" : "é",
-        "è" : "è",
-        "ê" : "ê",
-        "ë" : "ë",
         "F" : "F",
         "f" : "f",
         "G" : "G",
@@ -1652,11 +1574,7 @@ const text = (arg, initialCommand) => {
         "N" : "N",
         "n" : "n",
         "O" : "O",
-        "Ô" : "Ô",
-        "Ö" : "Ö",
         "o" : "o",
-        "ô" : "ô",
-        "ö" : "ö",
         "P" : "P",
         "p" : "p",
         "Q" : "Q",
@@ -1669,10 +1587,6 @@ const text = (arg, initialCommand) => {
         "t" : "t",
         "U" : "U",
         "u" : "u",
-        "Û" : "Û",
-        "û" : "û",
-        "Ù" : "Ù",
-        "ù" : "ù",
         "V" : "V",
         "v" : "v",
         "W" : "W",
@@ -1685,9 +1599,7 @@ const text = (arg, initialCommand) => {
         "z" : "z",
 
         "𝐴" : "A",
-        "𝐴̀" : "À",
         "𝑎" : "a",
-        "𝑎̀" : "à",
         "𝐵" : "B",
         "𝑏" : "b",
         "𝐶" : "C",
@@ -1695,14 +1607,6 @@ const text = (arg, initialCommand) => {
         "𝐷" : "D",
         "𝑑" : "d",
         "𝐸" : "E",
-        "𝐸̀" : "È",
-        "𝐸̈" : "Ë",
-        "𝐸́" : "É",
-        "𝐸̂" : "Ê",
-        "𝑒̂" : "ê",
-        "𝑒́" : "é",
-        "𝑒̈" : "ë",
-        "𝑒̀" : "è",
         "𝑒" : "e",
         "𝐹" : "F",
         "𝑓" : "f",
@@ -1736,7 +1640,6 @@ const text = (arg, initialCommand) => {
         "𝑡" : "t",
         "𝑈" : "U",
         "𝑢" : "u",
-        "𝑢̀" : "ù",
         "𝑉" : "V",
         "𝑣" : "v",
         "𝑊" : "W",
@@ -1797,35 +1700,35 @@ const text = (arg, initialCommand) => {
         "{" : "{",
         "}" : "}",
 
-        "\u2710" : "\u2710",
-        "\u270E" : "\u270E",
-        " " : "\u2710",
+        "\u2710" : spacesChar.add,
+        "\u270E" : spacesChar.remove,
+        " " : spacesChar.add,
         "\u000A" : "\u000A",
         "" : ""
     };
-    return replaceLetters(arg, symbols, initialCommand);
+    return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const hspace = (arg, initialCommand) => {
     // hspace stands for horizontal space
     // Adds the number of space specified in 'arg'
     let spaces = [];
-    const num = arg.join("");
+    const num = arg[0].join("");
     if (num * 0 !== 0) {
         spaces.push(mistakes(initialCommand + "{" + num + "}", undefined, "Argument must be a number"));
     } else {
         for (let i=0; i<parseInt(num); i++) {
-            spaces.push("\u2710");
+            spaces.push(spacesChar.add);
         };
     };
-    return spaces;
+    return spaces.concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const vskip = (arg, initialCommand) => {
     // vskip stands for vertical skip
     // Adds the number of linebreaks specified in 'arg'
     let skips = [];
-    const num = arg.join("");
+    const num = arg[0].join("");
     if (num * 0 !== 0) {
         skips.push(mistakes(initialCommand + "{" + num + "}", undefined, "Argument must be a number"));
     } else {
@@ -1833,20 +1736,33 @@ const vskip = (arg, initialCommand) => {
             skips.push("\u000A");
         };
     };
-    return skips;
+    return skips.concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const phantom = (arg, initialCommand) => {
     // Outputs the same number of spaces as the length of the argument
     // e.g. \phantom{abc} -> 3 spaces and \phantom{\int} -> 1 space
     let spaces = [];
-    for (let i=0; i<arg.length; i++) {
-        spaces.push("\u2710");
+    for (let i=0; i<arg[0].length; i++) {
+        spaces.push(spacesChar.add);
     };
-    if (arg.includes(errSymbol)) {
-        mistakes(initialCommand + "{" + arg.join("") + "}", undefined, "Undefined argument");
+    if (arg[0].includes(errSymbol)) {
+        mistakes(initialCommand + "{" + arg[0].join("") + "}", undefined, "Undefined argument");
     };
-    return spaces;
+    return spaces.concat(extraArgs(arg.slice(1), initialCommand));
+};
+
+const mathord = (arg, initialCommand) => {
+    // Removes spaces around arg
+    // \mathord{arg} is equivalent to {arg} and \! arg \!
+    let output = [];
+    for (let i in arg) {
+        output.push(spacesChar.remove, arg[i].join(""), spacesChar.remove);
+        if (arg[i].includes(errSymbol)) {
+            mistakes(initialCommand + "{" + arg[i].join("") + "}", undefined, "Undefined argument");
+        };
+    };
+    return output;
 };
 
 const sqrt = (arg, initialCommand) => {
@@ -1859,7 +1775,7 @@ const sqrt = (arg, initialCommand) => {
             rootNum = undefined;
         } else {
             mistakes(initialCommand + " should take the form \\sqrt[n]{x}", undefined, "ⁿ√𝑥");
-            return addSymbol(undefined);
+            return [addSymbol(undefined)];
         };
     } else {
         rootNum = initialCommand.substring(numStart + 1, numEnd);
@@ -1878,151 +1794,82 @@ const sqrt = (arg, initialCommand) => {
             output += "\u221A";
             break;
         default:
-            output += addSymbol(mathDictionary["^"](rootNum.toString().split(""), initialCommand)) + "\u221A";
+            output += addSymbol(superscript([rootNum.split("")], initialCommand)) + "\u221A";
     };
-    if (arg.length >= 2) {
-        output += "(" + addSymbolArray(arg, initialCommand + "{" + arg.join("") + "}") + ")";
-    } else {
-        output += addSymbolArray(arg, initialCommand + "{" + arg.join("") + "}");
-    };
-    return [output];
-};
-
-
-const sqrtNoArg = (arg, initialCommand) => {
-    // Compared with sqrt, this function only takes the root as parameter, not the argument
-    // For instance the 'cube root of two' would be in sqrt, but simply the 'cube root' would be parsed here 
-    if (arg !== undefined) {
-        mistakes(initialCommand + " does not take in arguments and should take the form \\sqrt[n]*", undefined, "ⁿ√  (use \\sqrt[n]{x} to get ⁿ√𝑥)");
-        return addSymbol(undefined);
-    };
-    const numStart = parseInt(initialCommand.indexOf("["));
-    const numEnd = parseInt(initialCommand.indexOf("]"));
-    let rootNum;
-    if ((numStart === -1) || (numEnd === -1)) {
-        if ((numStart === -1) && (numEnd === -1)) {
-            rootNum = undefined;
+    if (arg.length > 0) {
+        if (arg[0].length >= 2) {
+            output += "(" + addSymbolArray(arg[0], initialCommand + "{" + arg[0].join("") + "}") + ")";
         } else {
-            mistakes(initialCommand + " should take the form \\sqrt[n]*", undefined, "ⁿ√");
-            return addSymbol(undefined);
+            output += addSymbolArray(arg[0], initialCommand + "{" + arg[0].join("") + "}");
         };
-    } else {
-        rootNum = initialCommand.substring(numStart + 1, numEnd);
-    };
-    let output = "";
-    switch (rootNum) {
-        case "3":
-            output += "\u221B";
-            break;
-        case "4":
-            output += "\u221C";
-            break;
-        case undefined:
-            output += "\u221A";
-            break;
-        default:
-            output += addSymbol(mathDictionary["^"](rootNum.toString().split(""), initialCommand)) + "\u221A";
-    };
-    return [output];
+        return [output].concat(extraArgs(arg.slice(1), initialCommand));
+    } else  {
+        return [output];
+    }
 };
 
 const frac = (arg, initialCommand) => {
     // Used to make a fraction
     // If a character doesn't exist in superscript or subscript, it outputs the fraction in the format f(x)/g(x)
-    let output = "";
-    let nume = [];
-    let deno = [];
-    let numerator = true;
-    for (let i in arg) {
-        if (numerator) {
-            if (arg[i] === "}") {
-                numerator = false;
-            } else {
-                nume.push(arg[i]);
-            };
-        } else {
-            if (arg[i] === "{") {
-                if (arg[i - 1] === "}") {
-                    output += addSymbol(mathDictionary["^"](nume, initialCommand, true)) + "\u2215";
-                } else {
-                    deno.push(arg[i]);
-                };
-            } else {
-                deno.push(arg[i]);
-            };
-        };
+    let output = [];
+    if (arg.length < 2) {
+        mistakes("\\frac{}{}", undefined, "Two arguments needed");
+        return [errSymbol];
     };
-    output += addSymbol(mathDictionary["_"](deno, initialCommand, true));
-    if (output.indexOf(errSymbol) === -1) {
-        return [output];
+    output.push(...addSymbol(superscript([arg[0]], initialCommand, true), true), "\u2215");
+    output.push(...addSymbol(subscript([arg[1]], initialCommand, true), true));
+    if ((output.indexOf(errSymbol) === -1) && (output.filter(e => accents[e] !== undefined).length === 0)) {
+        return output.concat(extraArgs(arg.slice(2), initialCommand));
     } else {
-        if (arg.join("").includes("\u2710")) {
-            const spaces = arg.filter(c => {return c.includes("\u2710")});
+        // TODO: Why???
+        if (arg.join("").includes(spacesChar.add)) {
+            const spaces = arg.filter(c => {return c.includes(spacesChar.add)});
             for (let i in spaces) {
                 mistakes(initialCommand + "{" + arg.join("") + "}", undefined, spaces[i]);
             };
         };
-        output = "";
-        numerator = true;
-        nume = [];
-        deno = [];
-        for (let i in arg) {
-            if (numerator) {
-                if (arg[i] === "}") {
-                    numerator = false;
-                } else {
-                    nume.push(arg[i]);
-                };
-            } else {
-                if (arg[i] === "{") {
-                    if (arg[i - 1] === "}") {
-                        output += "(" + addSymbolArray(nume, "\\frac{" + arg.join("") + "}") + "/";
-                    } else {
-                        deno.push(arg[i]);
-                    };
-                } else {
-                    deno.push(arg[i]);
-                };
-            };
-        };
-        output += addSymbolArray(deno, "\\frac{" + arg.join("") + "}") + ")";
-        return [output];
+        output = ["(", 
+                  addSymbolArray(arg[0], "\\frac{" + arg[0].join("") + "}" + "{" + arg[1].join("") + "}"), 
+                  "/", 
+                  addSymbolArray(arg[1], "\\frac{" + arg[0].join("") + "}" + "{" + arg[1].join("") + "}"),
+                   ")"];
+        return output.concat(extraArgs(arg.slice(2), initialCommand));
     };
 };
 
 const singleCharFrac = (arg, initialCommand) => {
     // Some fractions already exists as unicode symbols they can be accessed via this function
-    let noSpaceArg = arg.join("").replace(/ /g, "")
-                                 .replace(/\u000A/g, "");
+    let noSpaceArg = arg.slice(0,2).join("").replace(/ /g, "")
+                                            .replace(/\u000A/g, "");
     const fractions = {
-        "1}{2" : "\u00BD",
-        "1}{7" : "⅐",
-        "1}{9" : "⅑",
-        "1}{10" : "⅒",
-        "1}{3"  :"⅓",
-        "2}{3" : "⅔",
-        "1}{5" : "⅕",
-        "2}{5" : "⅖",
-        "3}{5" : "⅗",
-        "4}{5" : "⅘",
-        "1}{6" : "⅙",
-        "5}{6" : "⅚",
-        "1}{8" : "⅛",
-        "3}{8" : "⅜",
-        "5}{8" : "⅝",
-        "7}{8" : "⅞",
-        "a}{c" : "\u2100",
-        "a}{s" : "\u2101",
-        "c}{o" : "\u2105",
-        "c}{u" : "\u2106"
+        "12" : "\u00BD",
+        "17" : "⅐",
+        "19" : "⅑",
+        "110" : "⅒",
+        "13"  :"⅓",
+        "23" : "⅔",
+        "15" : "⅕",
+        "25" : "⅖",
+        "35" : "⅗",
+        "45" : "⅘",
+        "16" : "⅙",
+        "56" : "⅚",
+        "18" : "⅛",
+        "38" : "⅜",
+        "58" : "⅝",
+        "78" : "⅞",
+        "ac" : "\u2100",
+        "as" : "\u2101",
+        "co" : "\u2105",
+        "cu" : "\u2106"
     };
     let output = fractions[noSpaceArg];
-    return (output !== undefined) ? [output] : frac(arg, initialCommand);
+    return (output !== undefined) ? [output].concat(extraArgs(arg.slice(2), initialCommand)) : frac(arg, initialCommand);
 };
 
 const pmod = (arg, initialCommand) => {
     // returns ' (mod arg)'
-    return ["\u2710(mod\u2710" + arg.join("") + ")"];
+    return [spacesChar.add+"(mod"+spacesChar.add + arg[0].join("") + ")"].concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 const today = () => {
@@ -2082,22 +1929,33 @@ const dotBelow = (arg, initialCommand) => {return combineSymbols(arg, initialCom
 
 const ogonek = (arg, initialCommand) => {return combineSymbols(arg, initialCommand, "\u0328")};
 
-const above = (arg, initialCommand) => {
-    // Returns the symbol to be put above the preceding character in the input text
-    if (arg.length > 1) {
-        return mistakes(initialCommand + "{" + arg.join("") + "}", undefined, "Only one argument accepted");
+const stackSymbols = (arg, initialCommand, dict) => {
+    // Used in overset, underset and stackrel
+    // Returns the first argument above or below the symbol in the middle of the second argument
+    if (arg.length < 2) {
+        mistakes(initialCommand+"{}{}", undefined, "Two arguments needed");
+        return [errSymbol];
     };
-    mistakes(initialCommand + "{" + arg.join("") + "}", Above[arg[0]], (arg[0] !== undefined) ? arg[0] : "Argument doesn't exist");
-    return [Above[arg[0]]];
+    let rel = arg[0];
+    let mid = arg[1];
+    if (rel.length > 1) {
+        return mistakes(initialCommand+"{"+rel.join("")+"}{"+mid.join("")+"}", undefined, "Length of first argument must be one.");
+    };
+    mistakes(initialCommand+"{"+rel.join("")+"}{"+mid.join("")+"}", dict[rel[0]], (rel[0] !== undefined) ? rel[0] : "Argument doesn't exist");
+    mid[Math.floor(mid.length/2)] += (dict[rel[0]] !== undefined) ? dict[rel[0]] : "";
+    return [mid.join("")].concat(extraArgs(arg.slice(2), initialCommand));
 };
 
-const below = (arg, initialCommand) => {
-    // Returns the symbol to be put below the preceding character in the input text
-    if (arg.length > 1) {
-        return mistakes(initialCommand + "{" + arg.join("") + "}", undefined, "Only one argument accepted");
-    };
-    mistakes(initialCommand + "{" + arg.join("") + "}", Below[arg[0]], (arg[0] !== undefined) ? arg[0] : "Argument doesn't exist");
-    return [Below[arg[0]]];
+const overset = (arg, initialCommand) => {
+    return stackSymbols(arg, initialCommand, Above);
+};
+
+const stackrel = (arg, initialCommand) => {
+    return overset(arg, initialCommand);
+};
+
+const underset = (arg, initialCommand) => {
+    return stackSymbols(arg, initialCommand, Below);
 };
 
 
@@ -2105,6 +1963,10 @@ const below = (arg, initialCommand) => {
 
 
 /** Dictionaries **/
+
+// Space: internally represented with \u2710 (✐), but switched to a real space before output
+// Remove space: if there's one surrounding \! \u270E (✎) will be removed before the output
+const spacesChar = {add: "\u2710", remove: "\u270E"};
 
 // mathDictionary is the main dict for converting commands into symbols
 const mathDictionary = {
@@ -2167,8 +2029,8 @@ const mathDictionary = {
     "\\log" : "log",
     "\\ln" : "ln",
     "\\lim" : "lim",
-    "\\mod" : "\u2710\u2710mod\u2710",  // 2 spaces + 'mod' + 1 space
-    "\\bmod" : "\u2710mod\u2710",  // 1 space + 'mod' + 1 space
+    "\\mod" : spacesChar.add+spacesChar.add+"mod"+spacesChar.add,  // 2 spaces + 'mod' + 1 space
+    "\\bmod" : spacesChar.add+"mod"+spacesChar.add,  // 1 space + 'mod' + 1 space
     "\\pmod" : pmod,  // 1 space + '(mod' + 1 space + arg + ')'
     "\\cup" : "\u222A",
     "\\Cup" : "\u22D3",
@@ -2369,6 +2231,7 @@ const mathDictionary = {
     "\\Downarrow" : "\u21D3",
     "\\Updownarrow" : "\u21D5",
     "\\rightarrow" : "\u2192",
+    "\\to" : "\u2192",
     "\\longrightarrow" : "\u27F6",
     "\\leftarrow" : "\u2190",
     "\\longleftarrow" : "\u27F5",
@@ -2465,10 +2328,10 @@ const mathDictionary = {
     "\\hspace" : hspace,
     "\\vskip" : vskip,
     "\\phantom" : phantom,
+    "\\mathord" : mathord,
 
     // Square root and fractions
     "\\sqrt" : sqrt,
-    "\\sqrt*" : sqrtNoArg,
     "\\frac" : frac,
     "\\frac*" : singleCharFrac,
 
@@ -2489,8 +2352,9 @@ const mathDictionary = {
     "\\ddot" : ddot,
     "\\acute" : acute,
     "\\grave" : grave,
-    "\\above" : above,
-    "\\below" : below,
+    "\\stackrel" : stackrel,
+    "\\overset" : overset,
+    "\\underset" : underset,
     "\\check" : caron,
     "\\breve" : breve,
     "\\bar" : bar,
@@ -2543,23 +2407,15 @@ const mathDictionary = {
 
     // Non italic letters
     "\\A" : "A",
-    "\\À" : "À",
     "\\a" : "a",
-    "\\à" : "à",
     "\\B" : "B",
     "\\b" : "b",
     "\\C" : "C",
-    "\\Ç" : "Ç",
     "\\c" : "c",
-    "\\ç" : "ç",
     "\\D" : "D",
     "\\d" : "d",
     "\\E" : "E",
-    "\\É" : "É",
-    "\\È" : "È",
     "\\e" : "e",
-    "\\é" : "é",
-    "\\è" : "è",
     "\\F" : "F",
     "\\f" : "f",
     "\\G" : "G",
@@ -2592,8 +2448,6 @@ const mathDictionary = {
     "\\t" : "t",
     "\\U" : "U",
     "\\u" : "u",
-    "\\Ù" : "Ù",
-    "\\ù" : "ù",
     "\\V" : "V",
     "\\v" : "v",
     "\\W" : "W",
@@ -2609,12 +2463,21 @@ const mathDictionary = {
     "\\_" : "_",
 
     // Matrix
-    "\\id1" : "[1]",
-    "\\id2" : "\u23A1 \u2710 1 \u2710 0 \u2710 \u23A4 \u000A \u23A3 \u2710 0 \u2710 1 \u2710 \u23A6",
-    "\\id3" : "\u23A1 \u2710 1 \u2710 0 \u2710 0 \u2710 \u23A4 \u000A \u23A2 \u2710 0 \u2710 1 \u2710 0 \u2710 \u23A5 \u000A \u23A3 \u2710 0 \u2710 0 \u2710 1 \u2710 \u23A6",
-    "\\id4" : "\u23A1 \u2710 1 \u2710 0 \u2710 0 \u2710 0 \u2710 \u23A4 \u000A \u23A2 \u2710 0 \u2710 1 \u2710 0 \u2710 0 \u2710 \u23A5 \u000A \u23A2 \u2710 0 \u2710 0 \u2710 1 \u2710 0 \u2710 \u23A5 \u000A \u23A3 \u2710 0 \u2710 0 \u2710 0 \u2710 1 \u2710 \u23A6",
-    "\\idn" : "\u23A1 \u2710 1 \u2710 0 \u2710 \u22EF \u2710 0 \u2710 \u23A4 \u000A \u23A2 \u2710 0 \u2710 1 \u2710 \u22EF \u2710 0 \u2710 \u23A5 \u000A \u23A2 \u2710 \u2710 \u22EE \u2710 \u2710 \u22EE \u2710 \u2710 \u22F1 \u2710 \u2710 \u22EE \u2710 \u23A5 \u000A \u23A3 \u2710 0 \u2710 0 \u2710 \u22EF \u2710 1 \u2710 \u23A6",
-    
+    "\\matrix" : matrix,
+    "\\id1" : "["+spacesChar.add+"1"+spacesChar.add+"]",
+    "\\id2" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A3 "+
+              spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"\u23A6",
+    "\\id3" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+""+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A2"+
+              spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"\u23A5 \u000A \u23A3"+
+              spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"\u23A6",
+    "\\id4" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A2"+
+              spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"\u23A5 \u000A \u23A2"+spacesChar.add+
+              "0"+spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"\u23A5 \u000A \u23A3"+spacesChar.add+"0"+spacesChar.add+
+              "0"+spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"\u23A6",
+    "\\idn" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"\u22EF"+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A2"+spacesChar.add+
+              "0"+spacesChar.add+"1"+spacesChar.add+"\u22EF"+spacesChar.add+"0"+spacesChar.add+"\u23A5 \u000A \u23A2"+spacesChar.add+spacesChar.add+"\u22EE"+
+              spacesChar.add+spacesChar.add+"\u22EE"+spacesChar.add+spacesChar.add+"\u22F1"+spacesChar.add+spacesChar.add+"\u22EE"+spacesChar.add+
+              "\u23A5 \u000A \u23A3"+spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"\u22EF"+spacesChar.add+"1"+spacesChar.add+"\u23A6",
     // To build your own
     "\\mlceil" : "\u23A1",
     "\\mrceil" : "\u23A4",
@@ -2674,7 +2537,7 @@ const mathDictionary = {
     "\\LaTeX" : "𝐿ᴬ𝑇ᴇ𝑋",
     "\\TeX" : "𝑇ᴇ𝑋",
     "\\MatTalX" : "𝑀ᴀᴛ𝑇ᴀʟ𝑋",
-    "\\CaMuS" : "𝐶ᴬ𝑀ᴜ𝑆",  // http://camus.math.usherbrooke.ca/index.html
+    "\\CaMuS" : "𝐶ᴬ𝑀ᴜ𝑆",  // https://camus.espaceweb.usherbrooke.ca/index.html
     "\\infty" : "\u221E",
     "\\iinfin" : "\u29DC",
     "\\tieinfty" : "\u29DD",
@@ -2694,6 +2557,7 @@ const mathDictionary = {
     "\\ell" : "\u2113",
     "\\dagger" : "\u2020",
     "\\ddagger" : "\u2021",
+    "\\dddagger" : "\u2E4B",
     "\\hermitian" : "\u22B9",
     "\\qc" : "\u269C",
     "\\section" : "\u00A7",
@@ -2738,6 +2602,7 @@ const mathDictionary = {
     "\\blacksquare" : "\u25A0",
     "\\square" : "\u25A1",
     "\\lightning" : "\u21AF",
+    "\\dbend" : "\u2621",
     "\\male" : "\u2642",
     "\\female" : "\u2640",
     "\\Hermaphrodite" : "\u26A5",
@@ -2746,11 +2611,11 @@ const mathDictionary = {
     "\\femalefemale" : "\u26A2",
     "\\femalemale" : "\u26A4",
     "\\" : "\\",
-    "\\:" : "\u2710",  // Space (internally represented with \u2710 (✐), but switched to a real space before output)
-    "\\;" : "\u2710\u2710",  // Double space
-    "\\quad" : "\u2710\u2710\u2710",
-    "\\qquad" : "\u2710\u2710\u2710\u2710",
-    "\\!" : "\u270E",  // Remove space (if there's one surrounding \!) \u270E (✎) will be removed before the output
+    "\\:" : spacesChar.add,
+    "\\;" : spacesChar.add+spacesChar.add,
+    "\\quad" : spacesChar.add+spacesChar.add+spacesChar.add,
+    "\\qquad" : spacesChar.add+spacesChar.add+spacesChar.add+spacesChar.add,
+    "\\!" : spacesChar.remove,
     "\\colon" : "\u003A",
     "\\\\" : "\u000A",
     "\\linebreak" : "\u000A",
@@ -2878,14 +2743,14 @@ const noStyleGreek = {
     "\\omega" : "\u03C9"
 };
 
-// Default dict (in math mode), used in the suggestion popup
+// Default dict (in math mode), used in the completion popup
 const defaultDict = {...mathDictionary, ...stdGreek};
 
 const textCommands = {
     "\\LaTeX" : "𝐿ᴬ𝑇ᴇ𝑋",
     "\\TeX" : "𝑇ᴇ𝑋",
     "\\MatTalX" : "𝑀ᴀᴛ𝑇ᴀʟ𝑋",
-    "\\CaMuS" : "𝐶ᴬ𝑀ᴜ𝑆",  // http://camus.math.usherbrooke.ca/index.html
+    "\\CaMuS" : "𝐶ᴬ𝑀ᴜ𝑆",  // https://camus.espaceweb.usherbrooke.ca/index.html
     "\\textbullet" : "\u2022",
     "\\section" : "\u00A7",
     "\\paragraph" : "\u00B6",
@@ -2902,7 +2767,7 @@ const textCommands = {
     "\\linebreak" : "\u000A",
     "\\newline" : "\u000A",
     "\\tab" : "\u0009",
-    "\\!" : "\u270E",
+    "\\!" : spacesChar.remove,
     "\\O" : "\u00D8",
     "\\o" : "\u00F8",
     "\\i" : "\u0131",
@@ -2967,7 +2832,7 @@ const Superscript = {
     "×" : "ᕁ",
     "∫" : "ᶴ",
     "∘" : "°",
-    "∞" : "\u2710\u1AB2\u2710",  // Only works on certain website/apps
+    "∞" : spacesChar.add+"\u1AB2"+spacesChar.add,  // Only works on certain website/apps
     "∅" : "\u{1D1A9}",
     "*" : "*",
     "<" : "ᑉ",
@@ -3116,8 +2981,8 @@ const Superscript = {
     "𝜒" : "\u1D61",
     "χ" : "\u1D61",
 
-    "\u2710" : "\u2710",
-    "\u270E" : "\u270E",
+    "\u2710" : spacesChar.add,
+    "\u270E" : spacesChar.remove,
     " " : " ",
     "\u000A" : "\u000A",
     "" : ""
@@ -3142,8 +3007,8 @@ const Subscript = {
     "=" : "\u208C",
     "(" : "\u208D",
     ")" : "\u208E",
-    "," : "\u2710\u0326\u2710",
-    "." : "\u2710\u0323\u2710",
+    "," : spacesChar.add+"\u0326"+spacesChar.add,
+    "." : spacesChar.add+"\u0323"+spacesChar.add,
     "×" : "᙮",
 
     "a" : "\u2090",
@@ -3203,11 +3068,11 @@ const Subscript = {
     "𝜒" : "\u1D6A",
     "χ" : "\u1D6A",
 
-    "→" : "\u2710\u2710\u0362\u2710\u2710",
-    "∞" : "\u2710\u035A\u2710",
+    "→" : spacesChar.add+spacesChar.add+"\u0362"+spacesChar.add+spacesChar.add,
+    "∞" : spacesChar.add+"\u035A"+spacesChar.add,
 
-    "\u2710" : "\u2710",
-    "\u270E" : "\u270E",
+    "\u2710" : spacesChar.add,
+    "\u270E" : spacesChar.remove,
     " " : " ",
     "\u000A" : "\u000A",
     "" : ""
@@ -3359,9 +3224,7 @@ const lettersMath = {
     "8" : "8",
     "9" : "9",
     "A" : "\u{1D434}",
-    "À" : "\u{1D434}\u0300",
     "a" : "\u{1D44E}",
-    "à" : "\u{1D44E}\u0300",
     "B" : "\u{1D435}",
     "b" : "\u{1D44F}",
     "C" : "\u{1D436}",
@@ -3369,9 +3232,7 @@ const lettersMath = {
     "D" : "\u{1D437}",
     "d" : "\u{1D451}",
     "E" : "\u{1D438}",
-    "É" : "\u{1D438}\u0301",
     "e" : "\u{1D452}",
-    "é" : "\u{1D452}\u0301",
     "F" : "\u{1D439}",
     "f" : "\u{1D453}",
     "G" : "\u{1D43A}",
@@ -3403,9 +3264,7 @@ const lettersMath = {
     "T" : "\u{1D447}",
     "t" : "\u{1D461}",
     "U" : "\u{1D448}",
-    "Ù" : "\u{1D448}\u0300",
     "u" : "\u{1D462}",
-    "ù" : "\u{1D462}\u0300",
     "V" : "\u{1D449}",
     "v" : "\u{1D463}",
     "W" : "\u{1D44A}",
@@ -3416,7 +3275,7 @@ const lettersMath = {
     "y" : "\u{1D466}",
     "Z" : "\u{1D44D}",
     "z" : "\u{1D467}",
-    "\u2710" : " ",
+    "\u2710" : spacesChar.add,
     " " : " ",
     "\u000A" : "",
     "" : ""
@@ -3466,23 +3325,15 @@ const lettersNoFont = {
     "8" : "8",
     "9" : "9", 
     "A" : "A",
-    "À" : "À",
     "a" : "a",
-    "à" : "à",
     "B" : "B",
     "b" : "b",
     "C" : "C",
-    "Ç" : "Ç",
     "c" : "c",
-    "ç" : "ç",
     "D" : "D",
     "d" : "d",
     "E" : "E",
-    "É" : "É",
-    "È" : "È",
     "e" : "e",
-    "é" : "é",
-    "è" : "è",
     "F" : "F",
     "f" : "f",
     "G" : "G",
@@ -3515,8 +3366,6 @@ const lettersNoFont = {
     "t" : "t",
     "U" : "U",
     "u" : "u",
-    "Ù" : "Ù",
-    "ù" : "ù",
     "V" : "V",
     "v" : "v",
     "W" : "W",
@@ -3578,29 +3427,15 @@ const lettersOutMathMode = {
     "8" : "8",
     "9" : "9", 
     "A" : "A",
-    "À" : "À",
-    "Â" : "Â",
     "a" : "a",
-    "à" : "à",
-    "â" : "â",
     "B" : "B",
     "b" : "b",
     "C" : "C",
-    "Ç" : "Ç",
     "c" : "c",
-    "ç" : "ç",
     "D" : "D",
     "d" : "d",
     "E" : "E",
-    "É" : "É",
-    "È" : "È",
-    "Ê" : "Ê",
-    "Ë" : "Ë",
     "e" : "e",
-    "é" : "é",
-    "è" : "è",
-    "ê" : "ê",
-    "ë" : "ë",
     "F" : "F",
     "f" : "f",
     "G" : "G",
@@ -3608,9 +3443,7 @@ const lettersOutMathMode = {
     "H" : "H",
     "h" : "h",
     "I" : "I",
-    "Ï" : "Ï",
     "i" : "i",
-    "ï" : "ï",
     "J" : "J",
     "j" : "j",
     "K" : "K",
@@ -3622,11 +3455,7 @@ const lettersOutMathMode = {
     "N" : "N",
     "n" : "n",
     "O" : "O",
-    "Ö" : "Ö",
-    "Ô" : "Ô",
     "o" : "o",
-    "ö" : "ö",
-    "ô" : "ô",
     "P" : "P",
     "p" : "p",
     "Q" : "Q",
@@ -3639,10 +3468,6 @@ const lettersOutMathMode = {
     "t" : "t",
     "U" : "U",
     "u" : "u",
-    "Ù" : "Ù",
-    "ù" : "ù",
-    "Û" : "Û",
-    "û" : "û",
     "V" : "V",
     "v" : "v",
     "W" : "W",
@@ -3659,15 +3484,97 @@ const lettersOutMathMode = {
     "" : ""
 };
 
+const accents = {
+    "\u0300" : "\u0300",
+    "\u0301" : "\u0301",
+    "\u0302" : "\u0302",
+    "\u0303" : "\u0303",
+    "\u0304" : "\u0304",
+    "\u0305" : "\u0305",
+    "\u0306" : "\u0306",
+    "\u0307" : "\u0307",
+    "\u0308" : "\u0308",
+    "\u0309" : "\u0309",
+    "\u030A" : "\u030A",
+    "\u030B" : "\u030B",
+    "\u030C" : "\u030C",
+    "\u030D" : "\u030D",
+    "\u030E" : "\u030E",
+    "\u030F" : "\u030F",
+    "\u0310" : "\u0310",
+    "\u0311" : "\u0311",
+    "\u0312" : "\u0312",
+    "\u0313" : "\u0313",
+    "\u0314" : "\u0314",
+    "\u0315" : "\u0315",
+    "\u0316" : "\u0316",
+    "\u0317" : "\u0317",
+    "\u0318" : "\u0318",
+    "\u0319" : "\u0319",
+    "\u031A" : "\u031A",
+    "\u031B" : "\u031B",
+    "\u031C" : "\u031C",
+    "\u031D" : "\u031D",
+    "\u031E" : "\u031E",
+    "\u031F" : "\u031F",
+    "\u0320" : "\u0320",
+    "\u0321" : "\u0321",
+    "\u0322" : "\u0322",
+    "\u0323" : "\u0323",
+    "\u0324" : "\u0324",
+    "\u0325" : "\u0325",
+    "\u0326" : "\u0326",
+    "\u0327" : "\u0327",
+    "\u0328" : "\u0328",
+    "\u0329" : "\u0329",
+    "\u032A" : "\u032A",
+    "\u032B" : "\u032B",
+    "\u032C" : "\u032C",
+    "\u032D" : "\u032D",
+    "\u032E" : "\u032E",
+    "\u032F" : "\u032F",
+    "\u0330" : "\u0330",
+    "\u0331" : "\u0331",
+    "\u0332" : "\u0332",
+    "\u0333" : "\u0333",
+    "\u0334" : "\u0334",
+    "\u0335" : "\u0335",
+    "\u0336" : "\u0336",
+    "\u0337" : "\u0337",
+    "\u0338" : "\u0338",
+    "\u0339" : "\u0339",
+    "\u033A" : "\u033A",
+    "\u033B" : "\u033B",
+    "\u033C" : "\u033C",
+    "\u033D" : "\u033D",
+    "\u033E" : "\u033E",
+    "\u033F" : "\u033F",
+    "\u0340" : "\u0340",
+    "\u0341" : "\u0341",
+    "\u0342" : "\u0342",
+    "\u0343" : "\u0343",
+    "\u0344" : "\u0344",
+    "\u0345" : "\u0345",
+    "\u0346" : "\u0346",
+    "\u0347" : "\u0347",
+    "\u0348" : "\u0348",
+    "\u0349" : "\u0349",
+    "\u034A" : "\u034A",
+    "\u034B" : "\u034B",
+    "\u034C" : "\u034C",
+    "\u034D" : "\u034D",
+    "\u034E" : "\u034E"
+};
+
 
 //-----------------------------------------------------//
 
 
 /** HTMLElements **/
 
-// Submit button ('Convert' is what's seen by the users)
-const submit = document.getElementById("convert");
-submit.onclick = function() {main()};
+// Convert button
+const convertButton = document.getElementById("convert");
+convertButton.onclick = function() {main()};
 
 // Copy button
 const copyButton = document.getElementById("copy");
@@ -3677,14 +3584,14 @@ copyButton.onclick = function() {copyTextOut()};
 const resetButton = document.getElementById("reset");
 resetButton.onclick = function() {clear()};
 
-// Button to open the suggestions popup
-const suggestionsBtn = document.getElementById("suggestionsBtn");
-suggestionsBtn.onclick = function() {getSuggestion()};
-suggestionsBtn.style.display = "inline-block";
+// Button to open the completion popup
+const completionBtn = document.getElementById("completionBtn");
+completionBtn.onclick = function() {getCompletion()};
+completionBtn.style.display = "inline-block";
 
 // Originally hidden
-// Can be accessed with a keyboard shortcut (Alt+S or Alt+C on chrome or firefox respectively) or by clicking the button (android)
-const suggestionsPopup = document.getElementById("suggestions");
+// Can be accessed with a keyboard shortcut (Alt+C by default) or by clicking the button
+const completionPopup = document.getElementById("completion");
 
 // Adjust spaces button
 const spacesButton = document.getElementById("adjust");
@@ -3707,7 +3614,7 @@ const mistakesBox = document.getElementById("mistakes");
 
 /** Other **/
 
-// Used in the subsection 'Suggestion box (or completion)' to recognize on which word is the cursor
+// Used in the subsection 'Completion box' to recognize on which word is the cursor
 const wordsDelimiters = [" ", "", "\u000A", "\\", "^", "_", "(", ")", "[", "]", "{", "}", ".", ",", "/", "-", "+", "=", "<", ">", "|", "?", "!", "$"];
 const wordsDelimitersWOB = [" ", "", "\u000A", "^", "_", "(", ")", "[", "]", "{", "}", ".", ",", "/", "-", "+", "=", "<", ">", "|", "?", "!", "$"]; // Without backslash
 
@@ -3772,38 +3679,38 @@ function clear() {
     copyButton.value = "Copy text";
     mistakesBox.textContent = "";
     textOut.disabled = true;
-    suggestionsPopup.style.display = "none";
-    suggestionsPopup.textContent = "";
+    completionPopup.style.display = "none";
+    completionPopup.textContent = "";
 };
 
-document.addEventListener("click", (event) => {
+window.addEventListener("click", (event) => {
     // Closes the suggestion popup if the users clicks anywhere except on the suggestion popup itself or input box
-    if (suggestionsPopup.style.display === "inline-block") {
-        if ((event.target.id !== "text_in") && (event.target.id !== "suggestionsBtn")) {
-            closeSuggestions();
+    if (completionPopup.style.display === "inline-block") {
+        if ((event.target.id !== "text_in") && (event.target.id !== "completionBtn")) {
+            closeCompletion();
         };
     };
 });
 
 document.addEventListener("keydown", (keyPressed) => {
-    // If any key is pressed while the suggestion popup is opened, it adjusts the suggestions
+    // If any key is pressed while the completion popup is opened, it adjusts the suggestions
     // The word must be adjusted "by hand" because the eventListener is synchronous
-    if (suggestionsPopup.style.display === "inline-block") {
+    if (completionPopup.style.display === "inline-block") {
         if (keyPressed.key === "Backspace") {
-            suggestionsPopup.textContent = "";
+            completionPopup.textContent = "";
             let word = findWord(textIn.value, textIn.selectionEnd - 1, "Backspace");
-            suggestions(word);
-        } else if ((keyPressed.code === "Space") || (keyPressed.code === "Tab")) {
-            closeSuggestions();
+            completion(word);
+        } else if (keyPressed.code === "Space") {
+            closeCompletion();
         } else if (keyPressed.key.length === 1) {  // i.e. A letter
-            suggestionsPopup.textContent = "";
+            completionPopup.textContent = "";
             let word = findWord(textIn.value, textIn.selectionEnd - 1, keyPressed.key);
-            suggestions(word);
+            completion(word);
         } else if ((keyPressed.key === "ArrowUp") || (keyPressed.key === "ArrowRight") || (keyPressed.key === "ArrowLeft") || (keyPressed.key === "ArrowDown")) {
-            suggestionsPopup.textContent = "";
+            completionPopup.textContent = "";
             const arrows = {"ArrowUp": 0, "ArrowRight": 1, "ArrowLeft": -1, "ArrowDown": 0};
             let word = findWord(textIn.value, (textIn.selectionEnd - 1 + arrows[keyPressed.key]));  // Only adjusts the cursor position for right and left arrows
-            suggestions(word);
+            completion(word);
         };
     };
 });
@@ -3812,28 +3719,28 @@ document.addEventListener("keydown", (keyPressed) => {
 //-----------------------------------------------------//
 
 
-/** Suggestion box (or completion) **/
+/** Completion box **/
 
-function closeSuggestions() {
-    // Close and empties the suggestion popup
-    suggestionsPopup.style.display = "none";
-    suggestionsPopup.textContent = "";
+function closeCompletion() {
+    // Close and empties the completion popup
+    completionPopup.style.display = "none";
+    completionPopup.textContent = "";
 };
 
-function getSuggestion() {
-    // Calls suggestions() with the word touching the cursor if the popup is closed, else it closes the popup
-    if (suggestionsPopup.style.display !== "inline-block") { 
-        suggestionsPopup.textContent = "";
+function getCompletion() {
+    // Calls completion() with the word touching the cursor if the popup is closed, else it closes the popup
+    if (completionPopup.style.display !== "inline-block") { 
+        completionPopup.textContent = "";
         let word = findWord(textIn.value, textIn.selectionEnd - 1);
-        suggestionsPopup.style.display = "inline-block";
-        suggestions(word);
+        completionPopup.style.display = "inline-block";
+        completion(word);
     } else {
-        closeSuggestions();
+        closeCompletion();
     };
 };
 
 function findWord(text, cursorPosition, addedLetter="") {
-    // Used in the suggestion / completion popup
+    // Used in the completion popup
     // Finds the word that is touched by the cursor
     if (addedLetter.length === 1) {  // ie a letter
         text = text.split("");
@@ -3861,14 +3768,14 @@ function findWord(text, cursorPosition, addedLetter="") {
     return word;
 };
 
-function suggestions(command) {
+function completion(command) {
     // Outputs list of other commands that are similar to the one currently being written
-    const btnBackColor = getComputedStyle(document.body).backgroundColor;
-    const btnFontColor = (btnBackColor === "rgb(255, 255, 255)") ? "black" : "whitesmoke"; 
+    const btnBackColor = mainColors["completion"]["backgroundTrTd"][(darkMode.checked) ? 1 : 0];
+    const btnFontColor = (darkMode.checked) ? "whitesmoke" : "black";
     if (command === "") {
-        closeSuggestions();
+        closeCompletion();
     } else if (command[0] !== "\\") {
-        let row = suggestionsPopup.insertRow(-1);
+        let row = completionPopup.insertRow(-1);
         let cell = row.insertCell(0);
         cell.textContent = "The first character of the command must be a backslash (\\). Superscript starts with ^ and subscript with _";
         cell.style.color = btnFontColor;
@@ -3877,38 +3784,43 @@ function suggestions(command) {
         for (let keys in defaultDict) {
             // Puts commands in button form, so they can be clicked on to replace the command being written
             if (keys.toLowerCase().indexOf(command.toLowerCase()) !== -1) {
-                let row = suggestionsPopup.insertRow(-1);
+                let row = completionPopup.insertRow(-1);
                 let cell = row.insertCell(0);
                 let btn = document.createElement("button");
-                btn.value = showCommand(keys);
+                btn.name = showCommand(keys);
                 btn.textContent = toReplaceCommand(keys);
+                btn.value = toReplaceCommand(keys);  // Value is unchanged
 
                 // Button style
                 btn.style.width = "145px";  // Would be cleaner with something like 'fit-content', but is way to slow
                 btn.style.height = "17px";
-                btn.style.backgroundColor = btnBackColor;
+                btn.style.backgroundColor = btnBackColor
                 btn.style.border = "1px solid " + btnBackColor;
                 btn.style.color = btnFontColor;
                 btn.style.borderRadius = "3px";
                 btn.type = "button";
+                btn.tabIndex = "0";
+
+                cell.style.border = "1px solid " + btnBackColor;
+                cell.style.backgroundColor = btnBackColor;
 
                 // Complete the command if the user clicks on that command
                 btn.addEventListener("click", () => {
                     textIn.value = semiAutoCompletion(textIn.value, textIn.selectionEnd, btn.value);
-                    closeSuggestions();
+                    closeCompletion();
                     textIn.focus();
                 });
 
                 // Shows what the command ouputs on mouseover, return to normal on mouseout
                 btn.addEventListener("mouseover", () => {
                     let tmp = btn.textContent;
-                    btn.textContent = btn.value;
-                    btn.value = tmp;
+                    btn.textContent = btn.name;
+                    btn.name = tmp;
                 });
                 btn.addEventListener("mouseout", () => {
                     let tmp = btn.textContent;
-                    btn.textContent = btn.value;
-                    btn.value = tmp;
+                    btn.textContent = btn.name;
+                    btn.name = tmp;
                 });
                 cell.appendChild(btn);
             };
@@ -3934,25 +3846,25 @@ function semiAutoCompletion(textIn, cursorPosition, command) {
 };
 
 function showCommand(key) {
-    // Used in suggestions
-    // Changes what's seen when the user hovers on a command in the suggestion popup
+    // Used in completion
+    // Changes what's seen when the user hovers on a command in the completion popup
     if (typeof defaultDict[key] == "function") {
         if (key == "\\sqrt") {
             return "\\sqrt[n]{x} \u2192 ⁿ√𝑥";
-        } else if (key == "\\sqrt*") {
-            return "\\sqrt[n]* \u2192 ⁿ√";
         } else if (key == "\\frac") {
             return "\\frac{1}{2} \u2192 ¹∕₂";
         } else if (key == "\\frac*") {
             return "\\frac*{1}{2} \u2192 ½";
-        } else if ((key == "\\above") || (key == "\\below") || (key == "\\hspace") || (key == "\\vskip")) {
+        } else if ((key == "\\overset") || (key == "\\underset") || (key == "\\stackrel") || (key == "\\hspace") || (key == "\\vskip")) {
             return key + "{}";
         } else if ((key == "_") || (key == "^")) {
-            return "x" + key + "{a1} \u2192 𝑥" + spaceCommand((defaultDict[key](["a", "1"], defaultDict[key])).join(""));
+            return "x" + key + "{a1} \u2192 𝑥" + spaceCommand((defaultDict[key]([["a", "1"]], key)).join(""));
         } else if (key == "\\pmod") {
-            return key + "{n} \u2192 " + spaceCommand(defaultDict[key](["n"], defaultDict[key]));
+            return key + "{n} \u2192 " + spaceCommand(defaultDict[key]([["n"]], key).join(""));
+        } else if (key == "\\matrix") {
+            return key + "{[a,b]} \u2192 " + spaceCommand(defaultDict[key](["[a,b]".split("")], key).join(""));
         } else {
-            return key + "{abc} \u2192 " + spaceCommand((defaultDict[key](["a", "b", "c"], defaultDict[key])).join(""));
+            return key + "{abc} \u2192 " + spaceCommand((defaultDict[key]([["a", "b", "c"]], key)).join(""));
         };
     } else {
         if (key == "\\:") {
@@ -3976,13 +3888,11 @@ function showCommand(key) {
 };
 
 function toReplaceCommand(key) {
-    // Used in suggestions
-    // Changes what the user sees when the suggestion popup is opened
+    // Used in completion
+    // Changes what the user sees when the completion popup is opened
     if (typeof defaultDict[key] == "function") {
         if (key == "\\sqrt") {
             return "\\sqrt[]{}";
-        } else if (key == "\\sqrt*") {
-            return "\\sqrt[]*";
         } else if (key == "\\frac") {
             return "\\frac{}{}";
         } else if (key == "\\frac*") {
@@ -4017,14 +3927,12 @@ function tokenize(fullText, mathmode) {
     let temporaryBox = [];      // Stores characters that are in command (e.g. \int -> ['\', 'i', 'n', 't'])
     let trigger = false;        // true if a command has begun (e.g. input: '\' -> true)
     let mathmodeStarter = "";   // e.g. if mathmode is started with $$, then "$$" will be mathmodeStarter
-    let fracDepth = 0;          // Used for fraction (\frac{}{}) parsing, because of the way curly brackets are used
-    // N.B. fracDepth could be used in the future for \stackrel{}{} (if it replaces the \above command)
+    let char, i;
 
     if (startMathmode) {
         outTokens.push(specialTokens.startMathmode);
     };
-    
-    let i;
+
     for (i=0; i<fullText.length; i++) {
         if (trigger) {
             if (commandStoppers.includes(fullText[i])) {
@@ -4078,9 +3986,6 @@ function tokenize(fullText, mathmode) {
                 if (fullText[i-1] === "\\") {
                     outTokens.push(temporaryBox.join("") + fullText[i]);
                 } else {
-                    if (temporaryBox.slice(0,5).join("") === "\\frac") {
-                        fracDepth += 1;
-                    };
                     outTokens.push(temporaryBox.join(""));
                     outTokens.push(specialTokens.startArgument);
                 };
@@ -4091,16 +3996,7 @@ function tokenize(fullText, mathmode) {
                     outTokens.push(temporaryBox.join("") + fullText[i]);
                 } else {
                     outTokens.push(temporaryBox.join(""));
-                    if (fracDepth > 0) {
-                        if (fullText[i+1] === "{") {
-                            outTokens.push(fullText[i]);
-                        } else {
-                            fracDepth -= 1;
-                            outTokens.push(specialTokens.endArgument);
-                        };
-                    } else {
-                        outTokens.push(specialTokens.endArgument);
-                    };
+                    outTokens.push(specialTokens.endArgument);
                 };
                 trigger = false;
                 temporaryBox = [];
@@ -4205,24 +4101,12 @@ function tokenize(fullText, mathmode) {
                     outTokens.push(specialTokens.startMathmode);
                 };
             } else if (fullText[i] === "}") {
-                if (fracDepth > 0) {
-                    if (fullText[i+1] === "{") {
-                        outTokens.push(fullText[i]);
-                    } else {
-                        fracDepth -= 1;
-                        outTokens.push(specialTokens.endArgument);
-                    };
-                } else {
-                    outTokens.push(specialTokens.endArgument);
-                };
+                outTokens.push(specialTokens.endArgument);
             } else if (fullText[i] === "{") {
-                if (fracDepth > 0) {
-                    outTokens.push(fullText[i]);
-                } else {
-                    outTokens.push(specialTokens.startArgument);
-                };
+                outTokens.push(specialTokens.startArgument);
             } else {
-                outTokens.push(fullText[i]);
+                char = fullText[i].normalize("NFD").split("");
+                outTokens.push(...char);
             };
         };
     };
@@ -4233,7 +4117,7 @@ function tokenize(fullText, mathmode) {
     return outTokens;
 };
 
-function tokensToText(tokens, dictMM, dictOut, adjustSpacing) {
+function tokensToText(tokens, dictMM, dictOut, adjustSpacing, callSpaceCommand=true) {
     // Takes a list of tokens as input and uses the dictonary to convert them to symbols
     
     // The basic idea of the algorithm is:
@@ -4246,61 +4130,86 @@ function tokensToText(tokens, dictMM, dictOut, adjustSpacing) {
     //     Else
     //         push token to outText, mathmodeText, fctStack or the last index of argStack depending on token
 
+    // E.g. If the input is: \f0{args0\f1{args1}}
+    // Then at first, fctStack = [f0, f1] and argStack = [[args0], [args1]]
+    // and then fctStack = [f0] and argStack = [[args0\f1{args1}]].
+
     let command;                 // Used to check if a command is a function or a symbol
     let fct;
     let fctStack = [];           // Stores the functions until they are used
     let callingFct;              // Might be different from fct (e.g. \\sqrt[3] is called with \\sqrt)
-    let arg;
+    let arg = [];
     let argStack = [];           // Stores the function arguments until they are used
     let outText = "";            // The text that will be returned
     let mathmodeText = "";       // Intermediary string that holds the text inside mathmode until the spaces are ajusted
     let mathmode = false;        // true if in mathmode, false if not
     let dict;                    // dictMM (mathmode) or dictOut (out of mathmode) depending if in mathmode or not
     let mathmodeOccurence = 0;   // Counts the number of times one enters and leaves mathmode
-    let argOccurence = 0;        // Counts the number of times one gets in and out of an argument
+    let argDepth = 0;            // Add +1 if startArgument and -1 if endArgument
+    let currentArgCount = [];    // Number of arguments per function
+    let argNum;                  // Stores the number of arguments for the current function
+    let i, j;
 
-    let i;
     for (i=0; i<tokens.length; i++) {
         dict = (mathmode) ? dictMM : dictOut;
         if (Object.values(specialTokens).includes(tokens[i])) {
             if (tokens[i] === specialTokens.startArgument) {
                 argStack.push([]);
-                argOccurence += 1;
+                argDepth += 1;
+                if (tokens[i-1] !== specialTokens.endArgument) {
+                    currentArgCount.push(1);
+                };
             } else if (tokens[i] === specialTokens.endArgument) {
-                argOccurence += 1;
-                if (fctStack.length > 0) {
-                    fct = fctStack.pop();
-                    if (argStack.length > 0) {
-                        arg = argStack.pop();
-                        if (fct.substring(0,5) === "\\sqrt") {
-                            callingFct = fct.replace(/\[.*\]/g, "")
+                argDepth -= 1;
+                if (tokens[i+1] === specialTokens.startArgument) {
+                    currentArgCount[currentArgCount.length-1] += 1;
+                } else {
+                    if (fctStack.length > 0) {
+                        if (fctStack.length < currentArgCount.length) {
+                            fct = "\\mathord";
                         } else {
-                            callingFct = fct;
+                            fct = fctStack.pop();
                         };
                         if (argStack.length > 0) {
-                            argStack[argStack.length-1].push(...dict[callingFct](arg, fct));
+                            argNum = currentArgCount.pop();
+                            for (j=0; j<argNum; j++) {
+                                arg.unshift(argStack.pop());
+                            };
+                            if (fct.substring(0,5) === "\\sqrt") {
+                                callingFct = fct.replace(/\[.*\]/g, "")
+                            } else {
+                                callingFct = fct;
+                            };
+                            if (argStack.length > 0) {
+                                argStack[argStack.length-1].push(...dict[callingFct](arg, fct));
+                            } else {
+                                if (mathmode) {
+                                    mathmodeText += str(dict[callingFct](arg, fct).join(""));
+                                } else {
+                                    outText += str(dict[callingFct](arg, fct).join(""));
+                                };
+                                mistakes(fct, dict[callingFct]);
+                            };
                         } else {
                             if (mathmode) {
-                                mathmodeText += str(dict[callingFct](arg, fct).join(""));
+                                mathmodeText += mistakes(fct+"{}", undefined, "Can't find an argument");
                             } else {
-                                outText += str(dict[callingFct](arg, fct).join(""));
+                                outText += mistakes("Out of math mode", undefined, "Can't find an argument for " + fct + "{}");
                             };
                         };
+                        arg = [];
                     } else {
-                        if (mathmode) {
-                            mathmodeText += mistakes(fct+"{}", undefined, "Can't find an argument");
-                        } else {
-                            outText += mistakes("Out of math mode", undefined, "Can't find an argument for " + fct + "{}");
+                        currentArgCount = [];
+                        while (argStack.length > 0) {
+                            arg.unshift(argStack.pop());
                         };
-                    };
-                } else {
-                    if (argStack.length > 0) {
-                        arg = argStack.pop();
                         if (mathmode) {
-                            mathmodeText += mistakes("Can't find a function for {" + arg.join("") + "}", undefined, "'\\{' and '\\}' to output a curly bracket");
+                            mathmodeText += str(mathord(arg, "").join(""));
+                            mistakes("{"+arg.join("")+"}", mathord(arg, "").join(""), arg.join(""));
                         } else {
                             outText += mistakes("Out of math mode", undefined, "Can't find a function for {" + arg.join("") + "}" + ". Use '\\{' or '\\}' to output a curly bracket");
                         };
+                        arg = [];
                     };
                 };
             } else if (tokens[i] === specialTokens.startMathmode) {
@@ -4323,20 +4232,35 @@ function tokensToText(tokens, dictMM, dictOut, adjustSpacing) {
                     fctStack.push(tokens[i]);
                 } else if (tokens.slice(i+1).filter(x => x !== " ")[0] === specialTokens.startArgument) {
                     if (mathmode) {
-                        mathmodeText += mistakes(tokens[i]+" {}", undefined, "Remove extra space");
+                        mathmodeText += mistakes(tokens[i]+" {}", undefined, "Remove extra spaces");
                     } else {
-                        outText += mistakes("Out of math mode: "+tokens[i]+" {}", undefined, "Remove extra space");
+                        outText += mistakes("Out of math mode: "+tokens[i]+" {}", undefined, "Remove extra spaces");
                     };
                 } else {
                     if (mathmode) {
-                        mathmodeText += mistakes(tokens[i]+"{}", undefined, "Can't find an argument");
+                        if (command === sqrt) {
+                            if (argStack.length > 0) {
+                                argStack[argStack.length-1].push(...sqrt([], tokens[i]));
+                            } else {
+                                if (mathmode) {
+                                    mathmodeText += str(sqrt([], tokens[i]).join(""));
+                                    mistakes(tokens[i], sqrt([], tokens[i]).join(""));
+                                } else {
+                                    outText += str(sqrt([], tokens[i]).join(""));
+                                    mistakes("Out of math mode", sqrt([], tokens[i]), tokens[i]);
+                                };
+                            };
+                        } else {
+                            mathmodeText += mistakes(tokens[i]+"{}", undefined, "Can't find an argument");
+                        };
                     } else {
                         outText += mistakes("Out of math mode", undefined, "Can't find an argument for "+tokens[i]+"{}");
                     };
                 };
             } else {
                 if (argStack.length > 0) {
-                    argStack[argStack.length-1].push(dict[tokens[i]]);
+                    argStack[argStack.length-1].push(str(dict[tokens[i]]));
+                    mistakes(tokens[i], dict[tokens[i]]);
                 } else {
                     if (mathmode) {
                         mathmodeText += str(dict[tokens[i]]);
@@ -4352,10 +4276,12 @@ function tokensToText(tokens, dictMM, dictOut, adjustSpacing) {
     if (mathmodeOccurence % 2 !== 0) {
         mistakes("Math mode was not closed", undefined);
     };
-    if (argOccurence % 2 !== 0) {
-        mistakes("Unbalanced curly brackets ('{', '}')", undefined);
+    if (argDepth > 0) {
+        mistakes("Unbalanced curly brackets ('{', '}')", undefined, "Too many '{'");
+    } else if (argDepth < 0) {
+        mistakes("Unbalanced curly brackets ('{', '}')", undefined, "Too many '}'");
     };
-    return spaceCommand(outText);
+    return (callSpaceCommand) ? spaceCommand(outText) : outText;
 };
 
 
@@ -4363,6 +4289,7 @@ function tokensToText(tokens, dictMM, dictOut, adjustSpacing) {
 
 function replaceLetters(letters, dict, initialCommand, checkMistakes=true) {
     // Used by a lot of functions to convert every letter in a string of characters
+    dict = {...dict, ...accents};
     let newtext = [];
     for (let c in letters) {
         newtext.push(addSymbol(dict[letters[c]]));
@@ -4376,16 +4303,17 @@ function replaceLetters(letters, dict, initialCommand, checkMistakes=true) {
 function combineSymbols(arg, initialCommand, symbol, forTwo=undefined) {
     // Appends a 'combining symbol' to a regular symbol to create a new one (e.g. 'e' + '´' -> é)
     let textComb = [];
-    if ((arg.length === 2) && (forTwo !== undefined)) {
-        textComb.push(str(arg[0]) + forTwo + str(arg[1]));
-        mistakes(initialCommand + "{" + errSymbol + str(arg[1]) + "}", arg[0], "Argument doesn't exist");
-        mistakes(initialCommand + "{" + str(arg[0]) + errSymbol + "}", arg[1], "Argument doesn't exist");
+    let combArg = arg[0];
+    if ((combArg.length === 2) && (forTwo !== undefined)) {
+        textComb.push(str(combArg[0]) + forTwo + str(combArg[1]));
+        mistakes(initialCommand + "{" + errSymbol + str(combArg[1]) + "}", combArg[0], "Argument doesn't exist");
+        mistakes(initialCommand + "{" + str(combArg[0]) + errSymbol + "}", combArg[1], "Argument doesn't exist");
     } else {
         let err = [];
-        for (let c in arg) {
-            if (arg[c] !== undefined) {
-                textComb.push(arg[c] + symbol);
-                err.push(arg[c]);
+        for (let c in combArg) {
+            if (combArg[c] !== undefined) {
+                textComb.push(combArg[c] + symbol);
+                err.push(combArg[c]);
             } else {
                 textComb.push(errSymbol);
                 err.push(errSymbol);
@@ -4395,7 +4323,7 @@ function combineSymbols(arg, initialCommand, symbol, forTwo=undefined) {
             mistakes(initialCommand + "{" + err.join("") + "}", undefined, "Argument doesn't exist");
         };
     };
-    return textComb;
+    return textComb.concat(extraArgs(arg.slice(1), initialCommand));
 };
 
 function addSymbol(command, keepArray=false) {
@@ -4409,19 +4337,25 @@ function addSymbol(command, keepArray=false) {
 
 function addSymbolArray(args, command, checkMistakes=true) {
     // Differs from the function above as it takes in an array instead of a string
-    let output = "";
+    let output = [];
     for (let i in args) {
-        output += (args[i] !== undefined) ? args[i] : errSymbol;
+        output.push((args[i] !== undefined) ? args[i] : errSymbol);
         if (checkMistakes) {
             mistakes(command, ((args[i] === errSymbol) || (args[i] === undefined)) ? undefined : args[i], "A symbol does not exist or can't be shown");
         };
     };
-    return output;
+    return output.join("");
 };
 
 function str(command) {
     // Make sure the command is a string
     return (typeof command === "string") ? command : errSymbol;
+};
+
+function extraArgs(args, initialCommand) {
+    // If the user enters to many arguments in a function, the extras will be sent to this function
+    // e.g. \mathbf{A}{B} will result in \mathbf{A}\mathord{B}
+    return mathord(args, initialCommand);
 };
 
 
@@ -4436,7 +4370,7 @@ function mistakes(textInput, textOutput, letter="") {
     if (textOutput === undefined) {
         if (letter !== "") {
             if (letter !== errSymbol) {  // Only add to errorsList once
-                if (letter.includes("\u2710")) {  // i.e. Spaces
+                if (letter.includes(spacesChar.add)) {
                     if (textInput.substring(0,5) === "\\text") {
                         errorsList += spaceCommand(textInput + " \u2192 Spaces are kept inside '" + textInput.replace(/{.*}/g, "") + "{}', no need for a spacing command") + "\r\n";
                     } else if ((textInput[0] === "^") || (textInput[0] === "_") || (textInput.substring(0,5) == "\\frac")) {
@@ -4472,18 +4406,18 @@ function mistakes(textInput, textOutput, letter="") {
     if (errorsList.length > 0) {
         mistakesBox.textContent = text + errorsList;
     };
-    return errSymbol;
+    return [errSymbol];
 };
 
 
 //-----------------------------------------------------//
 
-/** Matrix document class **/
+/** Matrix function **/
 
-function matrix(text) {
-    // If the keyword !matrix is used as the first word of the input text, this function is called
-    // Converts arrays into a matrix (i.e. !matrix [a,b,c][1,2,3] will be converted to a matrix 2x3)
-    text = text.replace(/ /g, "");
+function matrix(text, initialCommand) {
+    // Converts arrays into a matrix (i.e. \matrix{[a,b,c][1,2,3]} will be converted to the corresponding 2x3 matrix)
+    text = text[0].join("")
+                  .replace(/ /g, "");
     let matrixText = "";
     let i, x;
     let cpt = 0;
@@ -4499,26 +4433,27 @@ function matrix(text) {
     };
     if (cpt == 2) {
         // vector (ie single line matrix)
-        matrixText = text.replace(/ /g, "");
-        matrixText = matrixText.replace(/\[/g, "[ ");
-        matrixText = matrixText.replace(/\]/g, " ]");
-        matrixText = matrixText.replace(/,/g, "\u2710");
-        return spaceCommand(matrixText);
+        matrixText = text;
+        matrixText = matrixText.replace(/\[/g, "["+spacesChar.add);
+        matrixText = matrixText.replace(/\]/g, spacesChar.add+"]");
+        matrixText = matrixText.replace(/,/g, spacesChar.add);
+        return [matrixText];
     } else {
+        matrixText += "\u000A";
         for (i in text) {
             if (text[i] == "[" && rceil == 0) {
-                matrixText += "\u23A1 ";
+                matrixText += "\u23A1"+spacesChar.add;
                 rceil += 1;
             } else if (text[i] == "]" && lceil == 0) {
-                matrixText += " \u23A4\u000A";
+                matrixText += spacesChar.add+"\u23A4\u000A";
                 lceil += 1;
             } else if (text[i] == "]") {
-                matrixText += " \u23A5\u000A";
+                matrixText += spacesChar.add+"\u23A5\u000A";
             } else if (text[i] == "[") {
-                matrixText += "\u23A2 ";
+                matrixText += "\u23A2"+spacesChar.add;
             } else {
                 matrixText += text[i];
-            }
+            };
         };
         for (let n = matrixText.length; n > 0; n--) {
             if (matrixText[n] == "\u23A5" && n > rfloor) {
@@ -4536,16 +4471,19 @@ function matrix(text) {
         };
     };
     matrixText = matrixCols(matrixText);  // Adjusts columns width
-    matrixText = matrixText.replace(/,/g, " ");  // Add spaces between characters
+    matrixText = matrixText.replace(/,/g, spacesChar.add);  // Add spaces between characters
+    matrixText += "\u000A";
     if ((cpt % 2 != 0) || (cpt == 0)) {
-        matrixText = "";
-        mistakes('Wrong arguments given" \r\n \r\nExample: "!matrix [a,b,c] [d,e,f] [1,2,3]', undefined);
+        matrixText = errSymbol;
+        mistakes('Wrong arguments given" \r\n  Example: "\\matrix{[a,b,c][d,e,f][1,2,3]}', undefined);
+    } else if (changeFontButton.checked) {
+        mistakes(initialCommand+"{}", undefined, "Works better with 'Mathematical font' unchecked");
     };
-    return spaceCommand(matrixText);
+    return [matrixText];
 };
 
 function matrixCols(matrix) {
-    // Adjusts columns length for !matrix package
+    // Adjusts columns length for \matrix command
     // So, if the input is [100,10,1][0,0,0], the output should still be a 2x3 matrix with the elements aligned
     let positionLength = 0;
     let posLengths = [];
@@ -4578,7 +4516,7 @@ function matrixCols(matrix) {
             if (matrixPositions[i] == matrixPositions[n]) {
                 matrix = matrix.split("");
                 while (posLengths[i] < posLengths[n]) {
-                    matrix.splice(realPositions[i] + spacesAdded, 0, " ");
+                    matrix.splice(realPositions[i] + spacesAdded, 0, spacesChar.add);
                     posLengths[i] += 1;
                     spacesAdded += 1;
                 };
@@ -4598,19 +4536,23 @@ function spaceCommand(text) {
     // Add spaces ("\:" command)
     // Internally, spaces that are kept even if 'Adjust spaces' is on are represented as \u2710
     // this function changes them back to spaces
-    text = text.replace(/\u2710/g, " ")
+    let sp = new RegExp(spacesChar.add, "g");
+    let sr = new RegExp(spacesChar.remove, "g");
+    let srr = new RegExp(spacesChar.remove+" ", "g");
+    let srl = new RegExp(" "+spacesChar.remove, "g");
+    text = text.replace(sp, " ")
 
     // Also, it removes a space around the command \! (and the command itself)
-            .replace(/\u270E /g, "")
-            .replace(/ \u270E/g, "")
-            .replace(/\u270E/g, "");
+            .replace(srr, "")
+            .replace(srl, "")
+            .replace(sr, "");
     return text;
 };
 
 function adjustSpacesCommon(input, symbolSpaced, conditionalSpaces) {
     // Removes spaces and add some depending on surrounding symbols
     // Used if 'Adjust space' is on
-
+    // TODO: Linebreaks should be like in LaTeX, i.e. a single "enter" does nothing but two adds a linebreak.
     /* 
         TODO: Spacing around symbols like '+' should depend of context
         For instance f(y+2) should return f(y+2), but 3x²+4y should return 3x² + 4y 
@@ -4619,7 +4561,7 @@ function adjustSpacesCommon(input, symbolSpaced, conditionalSpaces) {
     */
 
     if ((spacesButton.checked == true) && (input.length > 2)) {
-        const noSpaceSymbols = Object.values(Subscript).concat(Object.values(Above), Object.values(Below)).filter(x => {return x !== "\u2710";});
+        const noSpaceSymbols = Object.values(Subscript).concat(Object.values(Above), Object.values(Below)).filter(x => {return x !== spacesChar.add;});
         // noSpaceSymbols is a list of all the symbols (subscript and combined symbol, without spaces) that delay a space to be added.
         // For instance, the spaces in 'x \equiv_{2} 0 \def x \equiv 0 (mod 2)' should be kept the same and therefore 'delay' the space
         // to be added from \equiv because of the subscript.
@@ -4678,6 +4620,7 @@ function adjustSpacesCommon(input, symbolSpaced, conditionalSpaces) {
 
 function adjustSpaces(input) {
     // Calls adjustSpacesCommon with specific symbols where spaces around them should be added
+    // TODO: Maybe they should all be conditionalSpaces?
     const symbolSpaced = ["\u003D", "\u003C", "\u003E", "\u21D2", "\u21D0", "\u21CD", "\u21CF", "\u21CE", "\u2192", "\u27F6", "\u2190", "\u27F5", 
                           "\u2194", "\u21AE", "\u219A", "\u219B", "\u27F8", "\u27F9", "\u27F9", "\u21D4", "\u27FA", "\u27FC", "\u21CC", "\u21CB", 
                           "\u21C0", "\u21C1", "\u21BC", "\u21BD", "\u219E", "\u21A0", "\u21C7", "\u21C9", "\u21F6", "\u21C6", "\u21C4", "\u21DA", 
@@ -4693,7 +4636,7 @@ function adjustSpaces(input) {
     return adjustSpacesCommon(input, symbolSpaced, conditionalSpaces);
 };
 
-function adjustSpaceChem(input) {
+function adjustSpaceChem(input) {  // Deprecated
     // Calls adjustSpacesCommon with specific symbols where spaces around them should be added
     const symbolSpaced = ["\u21D2", "\u21D0", "\u21CD", "\u21CF", "\u21CE", "\u2192", "\u27F6", "\u2190", "\u27F5", "\u003C", "\u003E",
                           "\u2194", "\u21AE", "\u219A", "\u219B", "\u27F8", "\u27F9", "\u27F9", "\u21D4", "\u27FA", "\u27FC", "\u21CC", "\u21CB", 
@@ -4717,23 +4660,14 @@ function adjustSpaceChem(input) {
 
 function convert(fullText) {
     // Takes text and convert it based on the documentclass (or package)
-    const dictOutMathmode = {...lettersOutMathMode, ...textCommands};
+    const dictOutMathmode = {...lettersOutMathMode, ...accents, ...textCommands};
     const firstWord = fullText.split(" ")[0];
     let fullDict;
-    if (firstWord === "!chem") {
+    if (firstWord === "!chem") {  // TODO: Should remove this option
         // Chemistry package, differs in the automatic conversion of letters and spacing adjustments
         fullDict = makeDict(firstWord);
         fullText = fullText.replace("!chem", "");
         fullText = tokensToText(tokenize(fullText, changeModeButton.checked), fullDict, dictOutMathmode, adjustSpaceChem);
-    } else if (firstWord === "!matrix") {
-        // Matrix package, the input should be of the form [a,b,c][d,e,f]
-        fullDict = makeDict(firstWord);
-        fullText = fullText.replace("!matrix", "");
-        fullText = tokensToText(tokenize(fullText, true), fullDict, dictOutMathmode, adjustSpaces);
-        fullText = matrix(fullText);
-        if (changeFontButton.checked) {
-            mistakes("!matrix", undefined, "Works better with 'Mathematical font' unchecked");
-        };
     } else {
         // Default package
         fullDict = makeDict("default");
@@ -4748,12 +4682,10 @@ function makeDict(documentClass) {
     let letters;  // lettersMath or lettersNoFont
     if (documentClass === "!chem") {
         letters = lettersNoFont;  // Works better to "draw" molecules with lewis notation
-    } else if (documentClass === "!matrix") {
-        letters = (changeFontButton.checked) ? lettersMath : lettersNoFont;
     } else {  // documentClass === "default"
         letters = (changeFontButton.checked) ? lettersMath : lettersNoFont;
     };
-    return {...mathDictionary, ...greek, ...letters};
+    return {...mathDictionary, ...greek, ...letters, ...accents};
 };
 
 function main() {
