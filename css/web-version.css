@@ -118,6 +118,17 @@ tr, td {
     border-collapse: collapse;
     width: 100%;
 }
+#completion button {
+    /* Not 'fit-content', which is way too slow with hundreds of suggestions */
+    width: 145px;
+    height: 17px;
+    border: none;
+    border-radius: 3px;
+    background-color: inherit;
+    color: inherit;
+    font-family: inherit;
+    cursor: pointer;
+}
 .box {
     width: 30%;
     margin: 2% 10%;
@@ -231,6 +242,9 @@ tr, td {
         border: 1px solid rgb(238, 238, 238);
         background-color: white;
     }
+    #completion td {
+        color: black;
+    }
     .grey {
         background-color: lightgrey;
     }
@@ -325,6 +339,9 @@ tr, td {
     tr, td {
         border: 1px solid rgb(31, 31, 31);
         background-color: rgb(39, 39, 39);
+    }
+    #completion td {
+        color: whitesmoke;
     }
     .grey {
         background-color: grey;
