@@ -3,41 +3,1172 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/docs_privacy.css">
+        <meta name="description" content="Every MatTalX command and the Unicode character it gives: 860 of them, with the delimiters, the shortcuts, and how it differs from LaTeX.">
+        <link rel="stylesheet" href="../css/docs.css">
         <link rel="icon" type="image/png" sizes="32x32" href="../images/mattalx_favicon32.png">
         <link rel="icon" type="image/png" sizes="48x48" href="../images/mattalx_favicon48.png">
         <link rel="icon" type="image/png" sizes="96x96" href="../images/mattalx_favicon96.png">
         <link rel="icon" type="image/png" sizes="128x128" href="../images/mattalx_favicon128-nobg.png">
         <link rel="canonical" href="https://mattalx.org/docs/">
-        <meta name="description" content="How to write LaTeX commands and get Unicode maths with MatTalX: the commands, the delimiters, and what cannot be built.">
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://mattalx.org/docs/">
         <meta property="og:site_name" content="MatTalX">
         <meta property="og:title" content="MatTalX Documentation">
-        <meta property="og:description" content="How to write LaTeX commands and get Unicode maths with MatTalX: the commands, the delimiters, and what cannot be built.">
+        <meta property="og:description" content="Every MatTalX command and the Unicode character it gives: 860 of them, searchable.">
         <meta property="og:image" content="https://mattalx.org/images/og-card.png">
         <meta name="twitter:card" content="summary_large_image">
         <title>MatTalX Documentation</title>
     </head>
     <body>
-        <header><a href="../"><img alt="MatTalX logo" id="logo" src="../images/mattalx_logo_nobg_dark.png"></a></header>
-        <br>
-        <h1>Documentation</h1>
-        <br>
-        <h3>Get MatTalX</h3>
-        <p><a target="_blank" href="https://chrome.google.com/webstore/detail/mattalx/jllceliamggkpffccbefpefgmcigaglb"><button type="button" id="getmattalxce">Chrome extension</button></a>
-        <a target="_blank" href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/"><button type="button" id="getmattalxff">Firefox Add-ons</button></a><br><br>
-        N.B. You can also use the <a href="../web-version/">web version</a> of MatTalX if you do not have Google Chrome or Firefox, or if you are on a cellphone.<br><br><br>
-        <br>Documentation is available via PDF <a target="_blank" href="../pdf/MatTalX documentation v 2.7.4.pdf">here</a> or on GitHub <a target="_blank" href="https://github.com/samueleblanc/MatTalX/tree/master/docs">here</a>, with the latest few versions.<br><br><br>
-        MatTalX uses, most of the time, the same command as LaTeX. An important difference from LaTex is that you can't “build” a symbol in MatTalX (see “Combining symbols" in the table of contents for nuance). 
-        As an example, ≝ is simply \def in MatTalX, but \stackrel{\rm def}{=} in LaTeX.
-        <br><br>
-        Since MaTalX converts commands into UTF characters. Some expressions are impossible to build. As an example, x^{x^{x^{x}}} couldn't work since everything has to fit in a line. The same goes for 
-        \frac{\frac{\frac{a}{b}}{c}}{d}, which can't work. If you need an expression like that, you can write x^(x^(x^(x))) and ((a/b)/c)/d, respectively. 
-        Full PDF <a target="_blank" href="../pdf/MatTalX documentation v 2.7.4.pdf">here</a>.<br><br><br>
-        If you find a bug or have any suggestions, please tell us via <a target="_blank" href="https://github.com/samueleblanc/MatTalX/issues">GitHub</a>.<br><br><br>
-        MatTalX privacy policy <a href="../privacy/">here</a>.<br><br><br><br><br>
-        <iframe id="promoVideo" src="https://www.youtube.com/embed/SJmrctsyEZY" title="MatTalX promo video"></iframe><br>
-        <i>N.B. The video is from MatTalX v 1.5.0</i></p><br><br>
+        <!--
+            This page is generated from the conversion engine by tools/build-docs.mjs.
+            Do not edit it by hand: run 'npm run docs' after js/core.js changes.
+        -->
+        <header>
+            <a href="../"><img alt="MatTalX" id="logo" src="../images/mattalx_logo_nobg_dark.png"></a>
+            <span id="version">v 3.0.0</span>
+        </header>
+
+        <div id="layout">
+            <nav id="toc" aria-label="Contents">
+                <p class="navhead">Reading</p>
+                <a href="#start">Getting started</a>
+                <a href="#math-mode">Where the maths goes</a>
+                <a href="#shortcuts">Shortcuts</a>
+                <a href="#differences">How it differs from LaTeX</a>
+                <a href="#your-own">Building your own commands</a>
+                <a href="#chemistry">Chemistry</a>
+                <p class="navhead">Commands</p>
+                <a href="#operators">Operators <span class="count">124</span></a>
+                <a href="#relations">Relations <span class="count">132</span></a>
+                <a href="#arrows">Arrows <span class="count">82</span></a>
+                <a href="#greek-letters">Greek letters <span class="count">56</span></a>
+                <a href="#hebrew-letters">Hebrew letters <span class="count">4</span></a>
+                <a href="#fonts">Fonts <span class="count">14</span></a>
+                <a href="#spaces">Spaces <span class="count">4</span></a>
+                <a href="#roots-and-fractions">Roots and fractions <span class="count">3</span></a>
+                <a href="#combining-symbols">Combining symbols <span class="count">22</span></a>
+                <a href="#lewis-notation">Lewis notation <span class="count">2</span></a>
+                <a href="#chess">Chess <span class="count">12</span></a>
+                <a href="#card-games">Card games <span class="count">8</span></a>
+                <a href="#money">Money <span class="count">16</span></a>
+                <a href="#upright-letters">Upright letters <span class="count">54</span></a>
+                <a href="#matrix">Matrix <span class="count">6</span></a>
+                <a href="#building-your-own">Building your own <span class="count">6</span></a>
+                <a href="#music">Music <span class="count">10</span></a>
+                <a href="#box-drawing">Box drawing <span class="count">33</span></a>
+                <a href="#other-symbols">Other symbols <span class="count">87</span></a>
+                <a href="#superscript">Superscript <span class="count">71</span></a>
+                <a href="#subscript">Subscript <span class="count">60</span></a>
+                <a href="#outside-math-mode">Outside math mode <span class="count">54</span></a>
+            </nav>
+
+            <main>
+                <h1>Documentation</h1>
+                <p id="lede">Every command MatTalX knows and the character it gives &mdash;
+                    860 of them &mdash; with the delimiters, the shortcuts, and what it
+                    cannot do. Click any symbol to copy it.</p>
+
+                <div id="searchbar">
+                    <input type="search" id="search" placeholder="Search a command or a symbol, e.g. arrow, int, \le" autocomplete="off" spellcheck="false">
+                    <span id="searchcount"></span>
+                </div>
+
+                <div id="getit" class="prose">
+                    <a class="button" target="_blank" href="https://chrome.google.com/webstore/detail/mattalx-write-math-symbol/jllceliamggkpffccbefpefgmcigaglb">Chrome extension</a>
+                    <a class="button" target="_blank" href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/">Firefox add-on</a>
+                    <a class="button" href="../web-version/">Try it in the browser</a>
+                </div>
+
+        <section id="start" class="prose">
+            <h2>Getting started</h2>
+            <p>MatTalX turns a LaTeX command into the Unicode character it stands for.
+            <code>\alpha</code> becomes 𝛼, <code>\implies</code> becomes ⟹, <code>x^2</code> becomes 𝑥².
+            The result is ordinary text, so it can be sent through anything that carries text: a
+            message, an email, a commit message, a post.</p>
+            <p>There are three ways to use it. In the popup, write in the first box and press
+            <b>Convert</b>. In the page, write where you already are and press a shortcut. Or use the
+            <a href="../web-version/">web version</a>, which needs nothing installed.</p>
+            <p class="aside">Every program draws Unicode a little differently. A symbol that looks
+            wrong in one place is usually right in another, and is almost always the font rather than
+            the character.</p>
+        </section>
+        <section id="math-mode" class="prose">
+            <h2>Where the maths goes</h2>
+            <p>MatTalX does not convert everything you write, because most of what you write is not
+            mathematics. It converts what sits between delimiters, and leaves the rest alone.</p>
+            <table class="cmds wide">
+                <tr><td class="cmd"><code>$ ... $</code></td><td>The usual one. <code>Let $x \in \mathbb R$.</code> gives <span class="sym">Let 𝑥 ∈ ℝ.</span></td></tr>
+                <tr><td class="cmd"><code>\( ... \)</code></td><td>The same thing, written the way LaTeX writes inline maths.</td></tr>
+                <tr><td class="cmd"><code>\[ ... \]</code></td><td>The same again. LaTeX uses it for a displayed equation; here it reads as inline, because everything is one line.</td></tr>
+            </table>
+            <p>If you would rather have everything converted and never write a delimiter, tick
+            <b>Math mode</b> under the question mark. An ordinary sentence will then be converted too,
+            which is what you want when you are only writing mathematics and not otherwise.</p>
+        </section>
+        <section id="shortcuts" class="prose">
+            <h2>Shortcuts</h2>
+            <p>MatTalX works where you are already writing, without the popup.</p>
+            <table class="cmds wide">
+                <tr><td class="cmd"><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>W</kbd></td><td>Convert what you have written, in place.</td></tr>
+                <tr><td class="cmd"><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd></td><td>Suggest a command as you write it. <code>\arrow</code> finds <code>\rightarrow</code>.</td></tr>
+                <tr><td class="cmd"><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd></td><td>Open and close MatTalX.</td></tr>
+            </table>
+            <p class="aside">A browser hands out these shortcuts when an extension is installed and
+            leaves them alone afterwards, so a shortcut added in an update can start unbound. If one
+            does nothing, open <b>Settings</b>: it lists what each is bound to, and has a button to
+            the page where the browser lets you change them.</p>
+            <p>Some editors keep their own copy of what you type and refuse to be written into —
+            Google Docs, Notion, Slack and anything else built on a rich-text framework. In those,
+            MatTalX converts and puts the result on your clipboard instead, and tells you it has.</p>
+        </section>
+        <section id="differences" class="prose">
+            <h2>How it differs from LaTeX</h2>
+            <p>The commands are LaTeX's, but the output is a line of characters rather than a
+            typeset box, and that changes what is possible.</p>
+            <p><b>A symbol is looked up, not built.</b> ≝ is <code>\def</code> here, where LaTeX
+            writes <code>\stackrel{\rm def}{=}</code>. The exception is
+            <a href="#combining-symbols">combining symbols</a>, which really do stack.</p>
+            <p><b>Everything stays on one line.</b> <code>x^{x^{x^{x}}}</code> has no answer, because
+            a superscript cannot itself carry a superscript. Nor can
+            <code>\frac{\frac{\frac{a}{b}}{c}}{d}</code>. Write <code>x^(x^(x^(x)))</code> and
+            <code>((a/b)/c)/d</code> instead.</p>
+            <p><b>When a command has no answer, MatTalX says so</b> under the second box, naming the
+            command rather than silently leaving it as it was.</p>
+        </section>
+        <section id="your-own" class="prose">
+            <h2>Building your own commands</h2>
+            <p>Under <b>Settings → Commands &amp; operators</b>, <b>Build</b> adds a row. Four kinds
+            can be written:</p>
+            <table class="cmds wide">
+                <tr><td class="cmd"><code>\newcommand</code></td><td>A name of your own for something MatTalX already knows: <code>{\reals}{\mathbb R}</code>.</td></tr>
+                <tr><td class="cmd"><code>\renewcommand</code></td><td>The same, for a name MatTalX already uses, which yours then replaces.</td></tr>
+                <tr><td class="cmd"><code>\DeclareMathOperator</code></td><td>An operator, which takes an argument: <code>{\Aut}{Aut}</code> then gives Aut(𝐺) for <code>\Aut{G}</code>.</td></tr>
+                <tr><td class="cmd"><code>\DeclareUnicodeCharacter</code></td><td>A character by its code point, for anything MatTalX has no name for.</td></tr>
+            </table>
+            <p>Your own commands are suggested before the built-in ones, and they are remembered.</p>
+        </section>
+        <section id="chemistry" class="prose">
+            <h2>Chemistry</h2>
+            <p><code>\ce{...}</code> writes a formula the way <i>mhchem</i> does:
+            <code>\ce{H2O}</code> gives H₂O, and <code>\ce{SO4^2-}</code> gives SO₄²⁻.</p>
+            <p>For Lewis structures, start the text with <code>!chem</code>. That switches to a
+            document class where letters are not italicised, which is what you want for an element
+            symbol, and makes the <a href="#lewis-notation">dot and bond marks</a> available.</p>
+        </section>
+
+        <section id="operators" class="commands">
+            <h2>Operators <span class="count">124</span></h2>
+            <ul class="cmds">
+                <li><code>\times</code><span class="sym" tabindex="0" role="button" title="Copy">×</span></li>
+                <li><code>\rtimes</code><span class="sym" tabindex="0" role="button" title="Copy">⋊</span></li>
+                <li><code>\ltimes</code><span class="sym" tabindex="0" role="button" title="Copy">⋉</span></li>
+                <li><code>\div</code><span class="sym" tabindex="0" role="button" title="Copy">÷</span></li>
+                <li><code>\longdiv</code><span class="sym" tabindex="0" role="button" title="Copy">⟌</span></li>
+                <li><code>\int</code><span class="sym" tabindex="0" role="button" title="Copy">∫</span></li>
+                <li><code>\iint</code><span class="sym" tabindex="0" role="button" title="Copy">∬</span></li>
+                <li><code>\iiint</code><span class="sym" tabindex="0" role="button" title="Copy">∭</span></li>
+                <li><code>\iiiint</code><span class="sym" tabindex="0" role="button" title="Copy">⨌</span></li>
+                <li><code>\oint</code><span class="sym" tabindex="0" role="button" title="Copy">∮</span></li>
+                <li><code>\oiint</code><span class="sym" tabindex="0" role="button" title="Copy">∯</span></li>
+                <li><code>\oiiint</code><span class="sym" tabindex="0" role="button" title="Copy">∰</span></li>
+                <li><code>\intclockwise</code><span class="sym" tabindex="0" role="button" title="Copy">∱</span></li>
+                <li><code>\ointclockwise</code><span class="sym" tabindex="0" role="button" title="Copy">∲</span></li>
+                <li><code>\ointctrclockwise</code><span class="sym" tabindex="0" role="button" title="Copy">∳</span></li>
+                <li><code>\sqint</code><span class="sym" tabindex="0" role="button" title="Copy">⨖</span></li>
+                <li><code>\fint</code><span class="sym" tabindex="0" role="button" title="Copy">⨏</span></li>
+                <li><code>\cupint</code><span class="sym" tabindex="0" role="button" title="Copy">⨚</span></li>
+                <li><code>\capint</code><span class="sym" tabindex="0" role="button" title="Copy">⨙</span></li>
+                <li><code>\overbarint</code><span class="sym" tabindex="0" role="button" title="Copy">⨛</span></li>
+                <li><code>\underbarint</code><span class="sym" tabindex="0" role="button" title="Copy">⨜</span></li>
+                <li><code>\cupplus</code><span class="sym" tabindex="0" role="button" title="Copy">⊎</span></li>
+                <li><code>\timesint</code><span class="sym" tabindex="0" role="button" title="Copy">⨘</span></li>
+                <li><code>\ast</code><span class="sym" tabindex="0" role="button" title="Copy">∗</span></li>
+                <li><code>\star</code><span class="sym" tabindex="0" role="button" title="Copy">⋆</span></li>
+                <li><code>\partial</code><span class="sym" tabindex="0" role="button" title="Copy">∂</span></li>
+                <li><code>\nabla</code><span class="sym" tabindex="0" role="button" title="Copy">∇</span></li>
+                <li><code>\sqrt2</code><span class="sym" tabindex="0" role="button" title="Copy">√</span></li>
+                <li><code>\sqrt3</code><span class="sym" tabindex="0" role="button" title="Copy">∛</span></li>
+                <li><code>\sqrt4</code><span class="sym" tabindex="0" role="button" title="Copy">∜</span></li>
+                <li><code>\circ</code><span class="sym" tabindex="0" role="button" title="Copy">∘</span></li>
+                <li><code>\sum</code><span class="sym" tabindex="0" role="button" title="Copy">∑</span></li>
+                <li><code>\osum</code><span class="sym" tabindex="0" role="button" title="Copy">⨊</span></li>
+                <li><code>\sumint</code><span class="sym" tabindex="0" role="button" title="Copy">⨋</span></li>
+                <li><code>\prod</code><span class="sym" tabindex="0" role="button" title="Copy">∏</span></li>
+                <li><code>\cdot</code><span class="sym" tabindex="0" role="button" title="Copy">·</span></li>
+                <li><code>\cdotp</code><span class="sym" tabindex="0" role="button" title="Copy">⋅</span></li>
+                <li><code>\pm</code><span class="sym" tabindex="0" role="button" title="Copy">±</span></li>
+                <li><code>\mp</code><span class="sym" tabindex="0" role="button" title="Copy">∓</span></li>
+                <li><code>\emptyset</code><span class="sym" tabindex="0" role="button" title="Copy">∅</span></li>
+                <li><code>\sin</code><span class="sym" tabindex="0" role="button" title="Copy">sin</span></li>
+                <li><code>\cos</code><span class="sym" tabindex="0" role="button" title="Copy">cos</span></li>
+                <li><code>\tan</code><span class="sym" tabindex="0" role="button" title="Copy">tan</span></li>
+                <li><code>\arcsin</code><span class="sym" tabindex="0" role="button" title="Copy">arcsin</span></li>
+                <li><code>\arccos</code><span class="sym" tabindex="0" role="button" title="Copy">arccos</span></li>
+                <li><code>\arctan</code><span class="sym" tabindex="0" role="button" title="Copy">arctan</span></li>
+                <li><code>\cot</code><span class="sym" tabindex="0" role="button" title="Copy">cot</span></li>
+                <li><code>\csc</code><span class="sym" tabindex="0" role="button" title="Copy">csc</span></li>
+                <li><code>\sec</code><span class="sym" tabindex="0" role="button" title="Copy">sec</span></li>
+                <li><code>\arccot</code><span class="sym" tabindex="0" role="button" title="Copy">arccot</span></li>
+                <li><code>\arccsc</code><span class="sym" tabindex="0" role="button" title="Copy">arccsc</span></li>
+                <li><code>\arcsec</code><span class="sym" tabindex="0" role="button" title="Copy">arcsec</span></li>
+                <li><code>\*</code><span class="sym" tabindex="0" role="button" title="Copy">*</span></li>
+                <li><code>\det</code><span class="sym" tabindex="0" role="button" title="Copy">det</span></li>
+                <li><code>\rank</code><span class="sym" tabindex="0" role="button" title="Copy">rank</span></li>
+                <li><code>\log</code><span class="sym" tabindex="0" role="button" title="Copy">log</span></li>
+                <li><code>\ln</code><span class="sym" tabindex="0" role="button" title="Copy">ln</span></li>
+                <li><code>\lim</code><span class="sym" tabindex="0" role="button" title="Copy">lim</span></li>
+                <li><code>\mod</code><span class="sym" tabindex="0" role="button" title="Copy">  mod </span></li>
+                <li><code>\bmod</code><span class="sym" tabindex="0" role="button" title="Copy"> mod </span></li>
+                <li><code>\pmod{}</code><span class="sym" tabindex="0" role="button" title="Copy">A →  (mod 𝐴)</span></li>
+                <li><code>\cup</code><span class="sym" tabindex="0" role="button" title="Copy">∪</span></li>
+                <li><code>\Cup</code><span class="sym" tabindex="0" role="button" title="Copy">⋓</span></li>
+                <li><code>\sqcup</code><span class="sym" tabindex="0" role="button" title="Copy">⊔</span></li>
+                <li><code>\sqCup</code><span class="sym" tabindex="0" role="button" title="Copy">⩏</span></li>
+                <li><code>\cap</code><span class="sym" tabindex="0" role="button" title="Copy">∩</span></li>
+                <li><code>\Cap</code><span class="sym" tabindex="0" role="button" title="Copy">⋒</span></li>
+                <li><code>\sqcap</code><span class="sym" tabindex="0" role="button" title="Copy">⊓</span></li>
+                <li><code>\sqCap</code><span class="sym" tabindex="0" role="button" title="Copy">⩎</span></li>
+                <li><code>\uplus</code><span class="sym" tabindex="0" role="button" title="Copy">⊎</span></li>
+                <li><code>\def</code><span class="sym" tabindex="0" role="button" title="Copy">≝</span></li>
+                <li><code>\coloneqq</code><span class="sym" tabindex="0" role="button" title="Copy">≔</span></li>
+                <li><code>\eqqcolon</code><span class="sym" tabindex="0" role="button" title="Copy">≕</span></li>
+                <li><code>\vee</code><span class="sym" tabindex="0" role="button" title="Copy">∨</span></li>
+                <li><code>\veebar</code><span class="sym" tabindex="0" role="button" title="Copy">⊻</span></li>
+                <li><code>\barvee</code><span class="sym" tabindex="0" role="button" title="Copy">⊽</span></li>
+                <li><code>\doublevee</code><span class="sym" tabindex="0" role="button" title="Copy">⩖</span></li>
+                <li><code>\wedge</code><span class="sym" tabindex="0" role="button" title="Copy">∧</span></li>
+                <li><code>\barwedge</code><span class="sym" tabindex="0" role="button" title="Copy">⊼</span></li>
+                <li><code>\doublewedge</code><span class="sym" tabindex="0" role="button" title="Copy">⩕</span></li>
+                <li><code>\curlyvee</code><span class="sym" tabindex="0" role="button" title="Copy">⋎</span></li>
+                <li><code>\curlywedge</code><span class="sym" tabindex="0" role="button" title="Copy">⋏</span></li>
+                <li><code>\diamond</code><span class="sym" tabindex="0" role="button" title="Copy">⋄</span></li>
+                <li><code>\wr</code><span class="sym" tabindex="0" role="button" title="Copy">≀</span></li>
+                <li><code>\oplus</code><span class="sym" tabindex="0" role="button" title="Copy">⊕</span></li>
+                <li><code>\bigoplus</code><span class="sym" tabindex="0" role="button" title="Copy">⨁</span></li>
+                <li><code>\ominus</code><span class="sym" tabindex="0" role="button" title="Copy">⊖</span></li>
+                <li><code>\otimes</code><span class="sym" tabindex="0" role="button" title="Copy">⊗</span></li>
+                <li><code>\bigotimes</code><span class="sym" tabindex="0" role="button" title="Copy">⨂</span></li>
+                <li><code>\oslash</code><span class="sym" tabindex="0" role="button" title="Copy">⊘</span></li>
+                <li><code>\odot</code><span class="sym" tabindex="0" role="button" title="Copy">⊙</span></li>
+                <li><code>\bigodot</code><span class="sym" tabindex="0" role="button" title="Copy">⨀</span></li>
+                <li><code>\obullet</code><span class="sym" tabindex="0" role="button" title="Copy">⦿</span></li>
+                <li><code>\ocirc</code><span class="sym" tabindex="0" role="button" title="Copy">⦾</span></li>
+                <li><code>\operp</code><span class="sym" tabindex="0" role="button" title="Copy">⦹</span></li>
+                <li><code>\oparallel</code><span class="sym" tabindex="0" role="button" title="Copy">⦷</span></li>
+                <li><code>\oast</code><span class="sym" tabindex="0" role="button" title="Copy">⊛</span></li>
+                <li><code>\oeq</code><span class="sym" tabindex="0" role="button" title="Copy">⊜</span></li>
+                <li><code>\opluslhrim</code><span class="sym" tabindex="0" role="button" title="Copy">⨭</span></li>
+                <li><code>\oplusrhrim</code><span class="sym" tabindex="0" role="button" title="Copy">⨮</span></li>
+                <li><code>\otimeslhrim</code><span class="sym" tabindex="0" role="button" title="Copy">⨴</span></li>
+                <li><code>\otimesrhrim</code><span class="sym" tabindex="0" role="button" title="Copy">⨵</span></li>
+                <li><code>\boxplus</code><span class="sym" tabindex="0" role="button" title="Copy">⊞</span></li>
+                <li><code>\boxminus</code><span class="sym" tabindex="0" role="button" title="Copy">⊟</span></li>
+                <li><code>\boxtimes</code><span class="sym" tabindex="0" role="button" title="Copy">⊠</span></li>
+                <li><code>\boxdot</code><span class="sym" tabindex="0" role="button" title="Copy">⊡</span></li>
+                <li><code>\amalg</code><span class="sym" tabindex="0" role="button" title="Copy">∐</span></li>
+                <li><code>\tprime</code><span class="sym" tabindex="0" role="button" title="Copy">‴</span></li>
+                <li><code>\lthree</code><span class="sym" tabindex="0" role="button" title="Copy">⋋</span></li>
+                <li><code>\rthree</code><span class="sym" tabindex="0" role="button" title="Copy">⋌</span></li>
+                <li><code>\pitchfork</code><span class="sym" tabindex="0" role="button" title="Copy">⋔</span></li>
+                <li><code>\topfork</code><span class="sym" tabindex="0" role="button" title="Copy">⫚</span></li>
+                <li><code>\invamp</code><span class="sym" tabindex="0" role="button" title="Copy">⅋</span></li>
+                <li><code>\originalof</code><span class="sym" tabindex="0" role="button" title="Copy">⊶</span></li>
+                <li><code>\imageof</code><span class="sym" tabindex="0" role="button" title="Copy">⊷</span></li>
+                <li><code>\multimap</code><span class="sym" tabindex="0" role="button" title="Copy">⊸</span></li>
+                <li><code>\leftmultimap</code><span class="sym" tabindex="0" role="button" title="Copy">⟜</span></li>
+                <li><code>\uptack</code><span class="sym" tabindex="0" role="button" title="Copy">⟟</span></li>
+                <li><code>\xor</code><span class="sym" tabindex="0" role="button" title="Copy">⊻</span></li>
+                <li><code>\nand</code><span class="sym" tabindex="0" role="button" title="Copy">⊼</span></li>
+                <li><code>\nor</code><span class="sym" tabindex="0" role="button" title="Copy">⊽</span></li>
+                <li><code>\divideontimes</code><span class="sym" tabindex="0" role="button" title="Copy">⋇</span></li>
+                <li><code>\smashtimes</code><span class="sym" tabindex="0" role="button" title="Copy">⨳</span></li>
+                <li><code>\fracline</code><span class="sym" tabindex="0" role="button" title="Copy">∕</span></li>
+            </ul>
+        </section>
+        <section id="relations" class="commands">
+            <h2>Relations <span class="count">132</span></h2>
+            <ul class="cmds">
+                <li><code>\forall</code><span class="sym" tabindex="0" role="button" title="Copy">∀</span></li>
+                <li><code>\exists</code><span class="sym" tabindex="0" role="button" title="Copy">∃</span></li>
+                <li><code>\nexists</code><span class="sym" tabindex="0" role="button" title="Copy">∄</span></li>
+                <li><code>\land</code><span class="sym" tabindex="0" role="button" title="Copy">∧</span></li>
+                <li><code>\lor</code><span class="sym" tabindex="0" role="button" title="Copy">∨</span></li>
+                <li><code>\sqland</code><span class="sym" tabindex="0" role="button" title="Copy">⟎</span></li>
+                <li><code>\sqlor</code><span class="sym" tabindex="0" role="button" title="Copy">⟏</span></li>
+                <li><code>\in</code><span class="sym" tabindex="0" role="button" title="Copy">∈</span></li>
+                <li><code>\notin</code><span class="sym" tabindex="0" role="button" title="Copy">∉</span></li>
+                <li><code>\ni</code><span class="sym" tabindex="0" role="button" title="Copy">∋</span></li>
+                <li><code>\subset</code><span class="sym" tabindex="0" role="button" title="Copy">⊂</span></li>
+                <li><code>\nsubset</code><span class="sym" tabindex="0" role="button" title="Copy">⊄</span></li>
+                <li><code>\subseteq</code><span class="sym" tabindex="0" role="button" title="Copy">⊆</span></li>
+                <li><code>\nsubseteq</code><span class="sym" tabindex="0" role="button" title="Copy">⊈</span></li>
+                <li><code>\supset</code><span class="sym" tabindex="0" role="button" title="Copy">⊃</span></li>
+                <li><code>\nsupset</code><span class="sym" tabindex="0" role="button" title="Copy">⊅</span></li>
+                <li><code>\supseteq</code><span class="sym" tabindex="0" role="button" title="Copy">⊇</span></li>
+                <li><code>\nsupseteq</code><span class="sym" tabindex="0" role="button" title="Copy">⊉</span></li>
+                <li><code>\sqsubset</code><span class="sym" tabindex="0" role="button" title="Copy">⊏</span></li>
+                <li><code>\sqsupset</code><span class="sym" tabindex="0" role="button" title="Copy">⊐</span></li>
+                <li><code>\sqsubseteq</code><span class="sym" tabindex="0" role="button" title="Copy">⊑</span></li>
+                <li><code>\sqsupseteq</code><span class="sym" tabindex="0" role="button" title="Copy">⊒</span></li>
+                <li><code>\Subset</code><span class="sym" tabindex="0" role="button" title="Copy">⋐</span></li>
+                <li><code>\Supset</code><span class="sym" tabindex="0" role="button" title="Copy">⋑</span></li>
+                <li><code>\subsetplus</code><span class="sym" tabindex="0" role="button" title="Copy">⪿</span></li>
+                <li><code>\supsetplus</code><span class="sym" tabindex="0" role="button" title="Copy">⫀</span></li>
+                <li><code>\osubset</code><span class="sym" tabindex="0" role="button" title="Copy">⟃</span></li>
+                <li><code>\osupset</code><span class="sym" tabindex="0" role="button" title="Copy">⟄</span></li>
+                <li><code>\setminus</code><span class="sym" tabindex="0" role="button" title="Copy">∖</span></li>
+                <li><code>\cong</code><span class="sym" tabindex="0" role="button" title="Copy">≅</span></li>
+                <li><code>\backcong</code><span class="sym" tabindex="0" role="button" title="Copy">≌</span></li>
+                <li><code>\ncong</code><span class="sym" tabindex="0" role="button" title="Copy">≇</span></li>
+                <li><code>\propto</code><span class="sym" tabindex="0" role="button" title="Copy">∝</span></li>
+                <li><code>\equiv</code><span class="sym" tabindex="0" role="button" title="Copy">≡</span></li>
+                <li><code>\dotequiv</code><span class="sym" tabindex="0" role="button" title="Copy">⩧</span></li>
+                <li><code>\superequiv</code><span class="sym" tabindex="0" role="button" title="Copy">≣</span></li>
+                <li><code>\tbond</code><span class="sym" tabindex="0" role="button" title="Copy">≡</span></li>
+                <li><code>\qbond</code><span class="sym" tabindex="0" role="button" title="Copy">≣</span></li>
+                <li><code>\doteq</code><span class="sym" tabindex="0" role="button" title="Copy">≐</span></li>
+                <li><code>\eqdot</code><span class="sym" tabindex="0" role="button" title="Copy">⩦</span></li>
+                <li><code>\neq</code><span class="sym" tabindex="0" role="button" title="Copy">≠</span></li>
+                <li><code>\approx</code><span class="sym" tabindex="0" role="button" title="Copy">≈</span></li>
+                <li><code>\sim</code><span class="sym" tabindex="0" role="button" title="Copy">∼</span></li>
+                <li><code>\backsim</code><span class="sym" tabindex="0" role="button" title="Copy">∽</span></li>
+                <li><code>\simeq</code><span class="sym" tabindex="0" role="button" title="Copy">≃</span></li>
+                <li><code>\nsimeq</code><span class="sym" tabindex="0" role="button" title="Copy">≄</span></li>
+                <li><code>\nsim</code><span class="sym" tabindex="0" role="button" title="Copy">≁</span></li>
+                <li><code>\nless</code><span class="sym" tabindex="0" role="button" title="Copy">≮</span></li>
+                <li><code>\ngtr</code><span class="sym" tabindex="0" role="button" title="Copy">≯</span></li>
+                <li><code>\leq</code><span class="sym" tabindex="0" role="button" title="Copy">≤</span></li>
+                <li><code>\leqslant</code><span class="sym" tabindex="0" role="button" title="Copy">⩽</span></li>
+                <li><code>\geq</code><span class="sym" tabindex="0" role="button" title="Copy">≥</span></li>
+                <li><code>\geqslant</code><span class="sym" tabindex="0" role="button" title="Copy">⩾</span></li>
+                <li><code>\nleq</code><span class="sym" tabindex="0" role="button" title="Copy">≰</span></li>
+                <li><code>\ngeq</code><span class="sym" tabindex="0" role="button" title="Copy">≱</span></li>
+                <li><code>\lneq</code><span class="sym" tabindex="0" role="button" title="Copy">⪇</span></li>
+                <li><code>\lneqq</code><span class="sym" tabindex="0" role="button" title="Copy">≨</span></li>
+                <li><code>\gneq</code><span class="sym" tabindex="0" role="button" title="Copy">⪈</span></li>
+                <li><code>\gneqq</code><span class="sym" tabindex="0" role="button" title="Copy">≩</span></li>
+                <li><code>\lnapprox</code><span class="sym" tabindex="0" role="button" title="Copy">⪉</span></li>
+                <li><code>\gnapprox</code><span class="sym" tabindex="0" role="button" title="Copy">⪊</span></li>
+                <li><code>\lnsim</code><span class="sym" tabindex="0" role="button" title="Copy">⋦</span></li>
+                <li><code>\gnsim</code><span class="sym" tabindex="0" role="button" title="Copy">⋧</span></li>
+                <li><code>\ll</code><span class="sym" tabindex="0" role="button" title="Copy">≪</span></li>
+                <li><code>\lll</code><span class="sym" tabindex="0" role="button" title="Copy">⋘</span></li>
+                <li><code>\gg</code><span class="sym" tabindex="0" role="button" title="Copy">≫</span></li>
+                <li><code>\ggg</code><span class="sym" tabindex="0" role="button" title="Copy">⋙</span></li>
+                <li><code>\prec</code><span class="sym" tabindex="0" role="button" title="Copy">≺</span></li>
+                <li><code>\succ</code><span class="sym" tabindex="0" role="button" title="Copy">≻</span></li>
+                <li><code>\nprec</code><span class="sym" tabindex="0" role="button" title="Copy">⊀</span></li>
+                <li><code>\nsucc</code><span class="sym" tabindex="0" role="button" title="Copy">⊁</span></li>
+                <li><code>\preceq</code><span class="sym" tabindex="0" role="button" title="Copy">≼</span></li>
+                <li><code>\succeq</code><span class="sym" tabindex="0" role="button" title="Copy">≽</span></li>
+                <li><code>\precneqq</code><span class="sym" tabindex="0" role="button" title="Copy">⪵</span></li>
+                <li><code>\succneqq</code><span class="sym" tabindex="0" role="button" title="Copy">⪶</span></li>
+                <li><code>\precnapprox</code><span class="sym" tabindex="0" role="button" title="Copy">⪹</span></li>
+                <li><code>\succnapprox</code><span class="sym" tabindex="0" role="button" title="Copy">⪺</span></li>
+                <li><code>\precnsim</code><span class="sym" tabindex="0" role="button" title="Copy">⋨</span></li>
+                <li><code>\succnsim</code><span class="sym" tabindex="0" role="button" title="Copy">⋩</span></li>
+                <li><code>\perp</code><span class="sym" tabindex="0" role="button" title="Copy">⟂</span></li>
+                <li><code>\Perp</code><span class="sym" tabindex="0" role="button" title="Copy">⫫</span></li>
+                <li><code>\parallel</code><span class="sym" tabindex="0" role="button" title="Copy">∥</span></li>
+                <li><code>\nparallel</code><span class="sym" tabindex="0" role="button" title="Copy">∦</span></li>
+                <li><code>\vvvert</code><span class="sym" tabindex="0" role="button" title="Copy">⫴</span></li>
+                <li><code>\nvvvert</code><span class="sym" tabindex="0" role="button" title="Copy">⫵</span></li>
+                <li><code>\mid</code><span class="sym" tabindex="0" role="button" title="Copy">|</span></li>
+                <li><code>\nmid</code><span class="sym" tabindex="0" role="button" title="Copy">∤</span></li>
+                <li><code>\asymp</code><span class="sym" tabindex="0" role="button" title="Copy">≍</span></li>
+                <li><code>\neg</code><span class="sym" tabindex="0" role="button" title="Copy">¬</span></li>
+                <li><code>\bowtie</code><span class="sym" tabindex="0" role="button" title="Copy">⨝</span></li>
+                <li><code>\vdash</code><span class="sym" tabindex="0" role="button" title="Copy">⊢</span></li>
+                <li><code>\nvdash</code><span class="sym" tabindex="0" role="button" title="Copy">⊬</span></li>
+                <li><code>\dashv</code><span class="sym" tabindex="0" role="button" title="Copy">⊣</span></li>
+                <li><code>\vDash</code><span class="sym" tabindex="0" role="button" title="Copy">⊨</span></li>
+                <li><code>\Dashv</code><span class="sym" tabindex="0" role="button" title="Copy">⫤</span></li>
+                <li><code>\nvDash</code><span class="sym" tabindex="0" role="button" title="Copy">⊭</span></li>
+                <li><code>\Vdash</code><span class="sym" tabindex="0" role="button" title="Copy">⊩</span></li>
+                <li><code>\dashV</code><span class="sym" tabindex="0" role="button" title="Copy">⫣</span></li>
+                <li><code>\nVdash</code><span class="sym" tabindex="0" role="button" title="Copy">⊮</span></li>
+                <li><code>\VDash</code><span class="sym" tabindex="0" role="button" title="Copy">⊫</span></li>
+                <li><code>\DashV</code><span class="sym" tabindex="0" role="button" title="Copy">⫥</span></li>
+                <li><code>\nVDash</code><span class="sym" tabindex="0" role="button" title="Copy">⊯</span></li>
+                <li><code>\triangleleft</code><span class="sym" tabindex="0" role="button" title="Copy">⊲</span></li>
+                <li><code>\ntriangleleft</code><span class="sym" tabindex="0" role="button" title="Copy">⋪</span></li>
+                <li><code>\triangleright</code><span class="sym" tabindex="0" role="button" title="Copy">⊳</span></li>
+                <li><code>\ntriangleright</code><span class="sym" tabindex="0" role="button" title="Copy">⋫</span></li>
+                <li><code>\ntrianglelefteq</code><span class="sym" tabindex="0" role="button" title="Copy">⋬</span></li>
+                <li><code>\ntrianglerighteq</code><span class="sym" tabindex="0" role="button" title="Copy">⋭</span></li>
+                <li><code>\trianglelefteq</code><span class="sym" tabindex="0" role="button" title="Copy">⊴</span></li>
+                <li><code>\trianglerighteq</code><span class="sym" tabindex="0" role="button" title="Copy">⊵</span></li>
+                <li><code>\triangleq</code><span class="sym" tabindex="0" role="button" title="Copy">≜</span></li>
+                <li><code>\equest</code><span class="sym" tabindex="0" role="button" title="Copy">≟</span></li>
+                <li><code>\lquest</code><span class="sym" tabindex="0" role="button" title="Copy">⩻</span></li>
+                <li><code>\rquest</code><span class="sym" tabindex="0" role="button" title="Copy">⩼</span></li>
+                <li><code>\mquest</code><span class="sym" tabindex="0" role="button" title="Copy">≞</span></li>
+                <li><code>\vdots</code><span class="sym" tabindex="0" role="button" title="Copy">⋮</span></li>
+                <li><code>\cdots</code><span class="sym" tabindex="0" role="button" title="Copy">⋯</span></li>
+                <li><code>\udots</code><span class="sym" tabindex="0" role="button" title="Copy">⋰</span></li>
+                <li><code>\ddots</code><span class="sym" tabindex="0" role="button" title="Copy">⋱</span></li>
+                <li><code>\ldots</code><span class="sym" tabindex="0" role="button" title="Copy">…</span></li>
+                <li><code>\top</code><span class="sym" tabindex="0" role="button" title="Copy">⊤</span></li>
+                <li><code>\bot</code><span class="sym" tabindex="0" role="button" title="Copy">⊥</span></li>
+                <li><code>\between</code><span class="sym" tabindex="0" role="button" title="Copy">≬</span></li>
+                <li><code>\therefore</code><span class="sym" tabindex="0" role="button" title="Copy">∴</span></li>
+                <li><code>\because</code><span class="sym" tabindex="0" role="button" title="Copy">∵</span></li>
+                <li><code>\squaredots</code><span class="sym" tabindex="0" role="button" title="Copy">∷</span></li>
+                <li><code>\dotminus</code><span class="sym" tabindex="0" role="button" title="Copy">∸</span></li>
+                <li><code>\max</code><span class="sym" tabindex="0" role="button" title="Copy">max</span></li>
+                <li><code>\min</code><span class="sym" tabindex="0" role="button" title="Copy">min</span></li>
+                <li><code>\grad</code><span class="sym" tabindex="0" role="button" title="Copy">grad</span></li>
+                <li><code>\curl</code><span class="sym" tabindex="0" role="button" title="Copy">curl</span></li>
+                <li><code>\ratio</code><span class="sym" tabindex="0" role="button" title="Copy">∶</span></li>
+            </ul>
+        </section>
+        <section id="arrows" class="commands">
+            <h2>Arrows <span class="count">82</span></h2>
+            <ul class="cmds">
+                <li><code>\Rightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇒</span></li>
+                <li><code>\Leftarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇐</span></li>
+                <li><code>\nLeftarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇍</span></li>
+                <li><code>\nRightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇏</span></li>
+                <li><code>\nLeftrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇎</span></li>
+                <li><code>\Uparrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇑</span></li>
+                <li><code>\Downarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇓</span></li>
+                <li><code>\Updownarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇕</span></li>
+                <li><code>\rightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">→</span></li>
+                <li><code>\to</code><span class="sym" tabindex="0" role="button" title="Copy">→</span></li>
+                <li><code>\longrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⟶</span></li>
+                <li><code>\leftarrow</code><span class="sym" tabindex="0" role="button" title="Copy">←</span></li>
+                <li><code>\longleftarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⟵</span></li>
+                <li><code>\leftrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↔</span></li>
+                <li><code>\nleftrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↮</span></li>
+                <li><code>\uparrow</code><span class="sym" tabindex="0" role="button" title="Copy">↑</span></li>
+                <li><code>\downarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↓</span></li>
+                <li><code>\updownarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↕</span></li>
+                <li><code>\nleftarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↚</span></li>
+                <li><code>\nrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↛</span></li>
+                <li><code>\Longleftarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⟸</span></li>
+                <li><code>\implies</code><span class="sym" tabindex="0" role="button" title="Copy">⟹</span></li>
+                <li><code>\Longrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⟹</span></li>
+                <li><code>\Leftrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇔</span></li>
+                <li><code>\iff</code><span class="sym" tabindex="0" role="button" title="Copy">⟺</span></li>
+                <li><code>\mapsto</code><span class="sym" tabindex="0" role="button" title="Copy">⟼</span></li>
+                <li><code>\rightleftharpoons</code><span class="sym" tabindex="0" role="button" title="Copy">⇌</span></li>
+                <li><code>\leftrightharpoons</code><span class="sym" tabindex="0" role="button" title="Copy">⇋</span></li>
+                <li><code>\rightharpoonup</code><span class="sym" tabindex="0" role="button" title="Copy">⇀</span></li>
+                <li><code>\rightharpoondown</code><span class="sym" tabindex="0" role="button" title="Copy">⇁</span></li>
+                <li><code>\leftharpoonup</code><span class="sym" tabindex="0" role="button" title="Copy">↼</span></li>
+                <li><code>\leftharpoondown</code><span class="sym" tabindex="0" role="button" title="Copy">↽</span></li>
+                <li><code>\upharpoonleft</code><span class="sym" tabindex="0" role="button" title="Copy">↿</span></li>
+                <li><code>\upharpoonright</code><span class="sym" tabindex="0" role="button" title="Copy">↾</span></li>
+                <li><code>\downharpoonleft</code><span class="sym" tabindex="0" role="button" title="Copy">⇃</span></li>
+                <li><code>\downharpoonright</code><span class="sym" tabindex="0" role="button" title="Copy">⇂</span></li>
+                <li><code>\hookleftarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↩</span></li>
+                <li><code>\hookrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↪</span></li>
+                <li><code>\nearrow</code><span class="sym" tabindex="0" role="button" title="Copy">↗</span></li>
+                <li><code>\searrow</code><span class="sym" tabindex="0" role="button" title="Copy">↘</span></li>
+                <li><code>\swarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↙</span></li>
+                <li><code>\nwarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↖</span></li>
+                <li><code>\Nearrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇗</span></li>
+                <li><code>\Searrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇘</span></li>
+                <li><code>\Swarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇙</span></li>
+                <li><code>\Nwarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇖</span></li>
+                <li><code>\twoheadleftarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↞</span></li>
+                <li><code>\twoheadrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↠</span></li>
+                <li><code>\twoheaduparrow</code><span class="sym" tabindex="0" role="button" title="Copy">↟</span></li>
+                <li><code>\twoheaddownarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↡</span></li>
+                <li><code>\Lsh</code><span class="sym" tabindex="0" role="button" title="Copy">↰</span></li>
+                <li><code>\Rsh</code><span class="sym" tabindex="0" role="button" title="Copy">↱</span></li>
+                <li><code>\leftleftarrows</code><span class="sym" tabindex="0" role="button" title="Copy">⇇</span></li>
+                <li><code>\rightrightarrows</code><span class="sym" tabindex="0" role="button" title="Copy">⇉</span></li>
+                <li><code>\rightrightrightarrows</code><span class="sym" tabindex="0" role="button" title="Copy">⇶</span></li>
+                <li><code>\upuparrows</code><span class="sym" tabindex="0" role="button" title="Copy">⇈</span></li>
+                <li><code>\downdownarrows</code><span class="sym" tabindex="0" role="button" title="Copy">⇊</span></li>
+                <li><code>\leftrightarrows</code><span class="sym" tabindex="0" role="button" title="Copy">⇆</span></li>
+                <li><code>\rightleftarrows</code><span class="sym" tabindex="0" role="button" title="Copy">⇄</span></li>
+                <li><code>\Lleftarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇚</span></li>
+                <li><code>\Rrightarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇛</span></li>
+                <li><code>\Uuparrow</code><span class="sym" tabindex="0" role="button" title="Copy">⤊</span></li>
+                <li><code>\Ddownarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⤋</span></li>
+                <li><code>\leftarrowtail</code><span class="sym" tabindex="0" role="button" title="Copy">↢</span></li>
+                <li><code>\rightarrowtail</code><span class="sym" tabindex="0" role="button" title="Copy">↣</span></li>
+                <li><code>\leftsquigarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇜</span></li>
+                <li><code>\rightsquigarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇝</span></li>
+                <li><code>\leftrightsquigarrow</code><span class="sym" tabindex="0" role="button" title="Copy">↭</span></li>
+                <li><code>\longrightsquigarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⟿</span></li>
+                <li><code>\looparrowleft</code><span class="sym" tabindex="0" role="button" title="Copy">↫</span></li>
+                <li><code>\looparrowright</code><span class="sym" tabindex="0" role="button" title="Copy">↬</span></li>
+                <li><code>\circlearrowleft</code><span class="sym" tabindex="0" role="button" title="Copy">↺</span></li>
+                <li><code>\circlearrowright</code><span class="sym" tabindex="0" role="button" title="Copy">↻</span></li>
+                <li><code>\curvearrowleft</code><span class="sym" tabindex="0" role="button" title="Copy">↶</span></li>
+                <li><code>\curvearrowright</code><span class="sym" tabindex="0" role="button" title="Copy">↷</span></li>
+                <li><code>\leftdasharrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇠</span></li>
+                <li><code>\rightdasharrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇢</span></li>
+                <li><code>\updasharrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇡</span></li>
+                <li><code>\downdasharrow</code><span class="sym" tabindex="0" role="button" title="Copy">⇣</span></li>
+                <li><code>\tildeabovearrow</code><span class="sym" tabindex="0" role="button" title="Copy">⥲</span></li>
+                <li><code>\tildebelowarrow</code><span class="sym" tabindex="0" role="button" title="Copy">⥴</span></li>
+                <li><code>\equalabovearrow</code><span class="sym" tabindex="0" role="button" title="Copy">⥱</span></li>
+            </ul>
+        </section>
+        <section id="greek-letters" class="commands">
+            <h2>Greek letters <span class="count">56</span></h2>
+            <p class="note">Two forms are listed: the mathematical italic MatTalX uses by default, and the upright one you get with <b>Mathematical font</b> unticked.</p>
+            <ul class="cmds">
+                <li><code>\Alpha</code><span class="sym" tabindex="0" role="button" title="Copy">𝛢 Α</span></li>
+                <li><code>\alpha</code><span class="sym" tabindex="0" role="button" title="Copy">𝛼 α</span></li>
+                <li><code>\Beta</code><span class="sym" tabindex="0" role="button" title="Copy">𝛣 Β</span></li>
+                <li><code>\beta</code><span class="sym" tabindex="0" role="button" title="Copy">𝛽 β</span></li>
+                <li><code>\Gamma</code><span class="sym" tabindex="0" role="button" title="Copy">𝛤 Γ</span></li>
+                <li><code>\gamma</code><span class="sym" tabindex="0" role="button" title="Copy">𝛾 γ</span></li>
+                <li><code>\Delta</code><span class="sym" tabindex="0" role="button" title="Copy">Δ Δ</span></li>
+                <li><code>\varDelta</code><span class="sym" tabindex="0" role="button" title="Copy">𝛥 𝛥</span></li>
+                <li><code>\delta</code><span class="sym" tabindex="0" role="button" title="Copy">𝛿 δ</span></li>
+                <li><code>\Epsilon</code><span class="sym" tabindex="0" role="button" title="Copy">𝛦 Ε</span></li>
+                <li><code>\epsilon</code><span class="sym" tabindex="0" role="button" title="Copy">ϵ ϵ</span></li>
+                <li><code>\varepsilon</code><span class="sym" tabindex="0" role="button" title="Copy">ε ε</span></li>
+                <li><code>\Zeta</code><span class="sym" tabindex="0" role="button" title="Copy">𝛧 Ζ</span></li>
+                <li><code>\zeta</code><span class="sym" tabindex="0" role="button" title="Copy">𝜁 ζ</span></li>
+                <li><code>\Eta</code><span class="sym" tabindex="0" role="button" title="Copy">𝛨 Η</span></li>
+                <li><code>\eta</code><span class="sym" tabindex="0" role="button" title="Copy">𝜂 η</span></li>
+                <li><code>\Theta</code><span class="sym" tabindex="0" role="button" title="Copy">Θ Θ</span></li>
+                <li><code>\theta</code><span class="sym" tabindex="0" role="button" title="Copy">𝜃 θ</span></li>
+                <li><code>\vartheta</code><span class="sym" tabindex="0" role="button" title="Copy">𝜗 ϑ</span></li>
+                <li><code>\Iota</code><span class="sym" tabindex="0" role="button" title="Copy">𝛪 Ι</span></li>
+                <li><code>\iota</code><span class="sym" tabindex="0" role="button" title="Copy">𝜄 ι</span></li>
+                <li><code>\Kappa</code><span class="sym" tabindex="0" role="button" title="Copy">𝛫 Κ</span></li>
+                <li><code>\kappa</code><span class="sym" tabindex="0" role="button" title="Copy">𝜅 κ</span></li>
+                <li><code>\varkappa</code><span class="sym" tabindex="0" role="button" title="Copy">𝜘 ϰ</span></li>
+                <li><code>\Lambda</code><span class="sym" tabindex="0" role="button" title="Copy">𝛬 Λ</span></li>
+                <li><code>\lambda</code><span class="sym" tabindex="0" role="button" title="Copy">𝜆 λ</span></li>
+                <li><code>\Mu</code><span class="sym" tabindex="0" role="button" title="Copy">𝛭 Μ</span></li>
+                <li><code>\mu</code><span class="sym" tabindex="0" role="button" title="Copy">𝜇 μ</span></li>
+                <li><code>\Nu</code><span class="sym" tabindex="0" role="button" title="Copy">𝛮 Ν</span></li>
+                <li><code>\nu</code><span class="sym" tabindex="0" role="button" title="Copy">𝜈 ν</span></li>
+                <li><code>\Xi</code><span class="sym" tabindex="0" role="button" title="Copy">Ξ Ξ</span></li>
+                <li><code>\xi</code><span class="sym" tabindex="0" role="button" title="Copy">𝜉 ξ</span></li>
+                <li><code>\Omicron</code><span class="sym" tabindex="0" role="button" title="Copy">𝛰 Ο</span></li>
+                <li><code>\omicron</code><span class="sym" tabindex="0" role="button" title="Copy">𝜊 ο</span></li>
+                <li><code>\Pi</code><span class="sym" tabindex="0" role="button" title="Copy">𝛱 Π</span></li>
+                <li><code>\pi</code><span class="sym" tabindex="0" role="button" title="Copy">𝜋 π</span></li>
+                <li><code>\varpi</code><span class="sym" tabindex="0" role="button" title="Copy">𝜛 ϖ</span></li>
+                <li><code>\Rho</code><span class="sym" tabindex="0" role="button" title="Copy">𝛲 Ρ</span></li>
+                <li><code>\rho</code><span class="sym" tabindex="0" role="button" title="Copy">𝜌 ρ</span></li>
+                <li><code>\varrho</code><span class="sym" tabindex="0" role="button" title="Copy">𝜚 ϱ</span></li>
+                <li><code>\Sigma</code><span class="sym" tabindex="0" role="button" title="Copy">𝛴 Σ</span></li>
+                <li><code>\sigma</code><span class="sym" tabindex="0" role="button" title="Copy">𝜎 σ</span></li>
+                <li><code>\varsigma</code><span class="sym" tabindex="0" role="button" title="Copy">𝜍 ς</span></li>
+                <li><code>\Tau</code><span class="sym" tabindex="0" role="button" title="Copy">𝛵 Τ</span></li>
+                <li><code>\tau</code><span class="sym" tabindex="0" role="button" title="Copy">𝜏 τ</span></li>
+                <li><code>\Upsilon</code><span class="sym" tabindex="0" role="button" title="Copy">𝛶 Υ</span></li>
+                <li><code>\upsilon</code><span class="sym" tabindex="0" role="button" title="Copy">𝜐 υ</span></li>
+                <li><code>\Phi</code><span class="sym" tabindex="0" role="button" title="Copy">Φ Φ</span></li>
+                <li><code>\phi</code><span class="sym" tabindex="0" role="button" title="Copy">𝜙 ϕ</span></li>
+                <li><code>\varphi</code><span class="sym" tabindex="0" role="button" title="Copy">𝜑 φ</span></li>
+                <li><code>\Chi</code><span class="sym" tabindex="0" role="button" title="Copy">𝛸 Χ</span></li>
+                <li><code>\chi</code><span class="sym" tabindex="0" role="button" title="Copy">𝜒 χ</span></li>
+                <li><code>\Psi</code><span class="sym" tabindex="0" role="button" title="Copy">𝛹 Ψ</span></li>
+                <li><code>\psi</code><span class="sym" tabindex="0" role="button" title="Copy">𝜓 ψ</span></li>
+                <li><code>\Omega</code><span class="sym" tabindex="0" role="button" title="Copy">Ω Ω</span></li>
+                <li><code>\omega</code><span class="sym" tabindex="0" role="button" title="Copy">𝜔 ω</span></li>
+            </ul>
+        </section>
+        <section id="hebrew-letters" class="commands">
+            <h2>Hebrew letters <span class="count">4</span></h2>
+            <ul class="cmds">
+                <li><code>\aleph</code><span class="sym" tabindex="0" role="button" title="Copy">ℵ</span></li>
+                <li><code>\beth</code><span class="sym" tabindex="0" role="button" title="Copy">ℶ</span></li>
+                <li><code>\gimel</code><span class="sym" tabindex="0" role="button" title="Copy">ℷ</span></li>
+                <li><code>\dalet</code><span class="sym" tabindex="0" role="button" title="Copy">ℸ</span></li>
+            </ul>
+        </section>
+        <section id="fonts" class="commands">
+            <h2>Fonts <span class="count">14</span></h2>
+            <p class="note">Each takes what follows it, with or without curly brackets: <code>\mathbb R</code> and <code>\mathbb{R}</code> both give ℝ.</p>
+            <ul class="cmds">
+                <li><code>\mathbb{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝔸</span></li>
+                <li><code>\mathbf{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝑨</span></li>
+                <li><code>\mathcal{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝒜</span></li>
+                <li><code>\mathscr{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝒜</span></li>
+                <li><code>\mathfrak{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝔄</span></li>
+                <li><code>^{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → ᴬ</span></li>
+                <li><code>_{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → ᴀ</span></li>
+                <li><code>\mathrm{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A</span></li>
+                <li><code>\text{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A</span></li>
+                <li><code>\textbf{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝗔</span></li>
+                <li><code>\textit{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝘈</span></li>
+                <li><code>\emph{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝘈 and 𝘈 → A</span></li>
+                <li><code>\texttt{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝙰</span></li>
+                <li><code>\textsc{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A</span></li>
+            </ul>
+        </section>
+        <section id="spaces" class="commands">
+            <h2>Spaces <span class="count">4</span></h2>
+            <ul class="cmds">
+                <li><code>\hspace{}</code><span class="sym" tabindex="0" role="button" title="Copy">3 → 3 spaces</span></li>
+                <li><code>\vskip{}</code><span class="sym" tabindex="0" role="button" title="Copy">3 → 3 empty lines</span></li>
+                <li><code>\phantom{}</code><span class="sym" tabindex="0" role="button" title="Copy">A →  </span></li>
+                <li><code>\mathord{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴</span></li>
+            </ul>
+        </section>
+        <section id="roots-and-fractions" class="commands">
+            <h2>Roots and fractions <span class="count">3</span></h2>
+            <ul class="cmds">
+                <li><code>\sqrt[]{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → √𝐴</span></li>
+                <li><code>\frac{}{}</code><span class="sym" tabindex="0" role="button" title="Copy">A,B → ᴬ∕ʙ</span></li>
+                <li><code>\frac*{}{}</code><span class="sym" tabindex="0" role="button" title="Copy">A,B → ᴬ∕ʙ</span></li>
+            </ul>
+        </section>
+        <section id="combining-symbols" class="commands">
+            <h2>Combining symbols <span class="count">22</span></h2>
+            <p class="note">These sit on top of the character that follows, so they are the one place MatTalX does build a symbol rather than look one up.</p>
+            <ul class="cmds">
+                <li><code>\overline{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̅</span></li>
+                <li><code>\underline{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̲</span></li>
+                <li><code>\underarrow{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴͢</span></li>
+                <li><code>\underharpoon{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴⃬</span></li>
+                <li><code>\overfrown{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴͡</span></li>
+                <li><code>\oversmile{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴͝</span></li>
+                <li><code>\undersmile{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴͜</span></li>
+                <li><code>\hat{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̂</span></li>
+                <li><code>\not{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̸</span></li>
+                <li><code>\tilde{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̃</span></li>
+                <li><code>\vec{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴⃗</span></li>
+                <li><code>\hvec{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴⃑</span></li>
+                <li><code>\dot{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̇</span></li>
+                <li><code>\ddot{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̈</span></li>
+                <li><code>\acute{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴́</span></li>
+                <li><code>\grave{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̀</span></li>
+                <li><code>\stackrel{}</code><span class="sym" tabindex="0" role="button" title="Copy">A,B → 𝐵</span></li>
+                <li><code>\overset{}</code><span class="sym" tabindex="0" role="button" title="Copy">A,B → 𝐵</span></li>
+                <li><code>\underset{}</code><span class="sym" tabindex="0" role="button" title="Copy">A,B → 𝐵</span></li>
+                <li><code>\check{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̌</span></li>
+                <li><code>\breve{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̆</span></li>
+                <li><code>\bar{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̄</span></li>
+            </ul>
+        </section>
+        <section id="lewis-notation" class="commands">
+            <h2>Lewis notation <span class="count">2</span></h2>
+            <p class="note">For drawing molecules. Use the <code>!chem</code> document class, which stops letters being italicised.</p>
+            <ul class="cmds">
+                <li><code>\mdot</code><span class="sym" tabindex="0" role="button" title="Copy">⸱</span></li>
+                <li><code>\mddot</code><span class="sym" tabindex="0" role="button" title="Copy">:</span></li>
+            </ul>
+        </section>
+        <section id="chess" class="commands">
+            <h2>Chess <span class="count">12</span></h2>
+            <ul class="cmds">
+                <li><code>\wking</code><span class="sym" tabindex="0" role="button" title="Copy">♔</span></li>
+                <li><code>\wqueen</code><span class="sym" tabindex="0" role="button" title="Copy">♕</span></li>
+                <li><code>\wrook</code><span class="sym" tabindex="0" role="button" title="Copy">♖</span></li>
+                <li><code>\wbishop</code><span class="sym" tabindex="0" role="button" title="Copy">♗</span></li>
+                <li><code>\wknight</code><span class="sym" tabindex="0" role="button" title="Copy">♘</span></li>
+                <li><code>\wpawn</code><span class="sym" tabindex="0" role="button" title="Copy">♙</span></li>
+                <li><code>\bking</code><span class="sym" tabindex="0" role="button" title="Copy">♚</span></li>
+                <li><code>\bqueen</code><span class="sym" tabindex="0" role="button" title="Copy">♛</span></li>
+                <li><code>\brook</code><span class="sym" tabindex="0" role="button" title="Copy">♜</span></li>
+                <li><code>\bbishop</code><span class="sym" tabindex="0" role="button" title="Copy">♝</span></li>
+                <li><code>\bknight</code><span class="sym" tabindex="0" role="button" title="Copy">♞</span></li>
+                <li><code>\bpawn</code><span class="sym" tabindex="0" role="button" title="Copy">♟</span></li>
+            </ul>
+        </section>
+        <section id="card-games" class="commands">
+            <h2>Card games <span class="count">8</span></h2>
+            <ul class="cmds">
+                <li><code>\bspade</code><span class="sym" tabindex="0" role="button" title="Copy">♠</span></li>
+                <li><code>\wheart</code><span class="sym" tabindex="0" role="button" title="Copy">♡</span></li>
+                <li><code>\wdiamond</code><span class="sym" tabindex="0" role="button" title="Copy">♢</span></li>
+                <li><code>\bclub</code><span class="sym" tabindex="0" role="button" title="Copy">♣</span></li>
+                <li><code>\wspade</code><span class="sym" tabindex="0" role="button" title="Copy">♤</span></li>
+                <li><code>\bheart</code><span class="sym" tabindex="0" role="button" title="Copy">♥</span></li>
+                <li><code>\bdiamond</code><span class="sym" tabindex="0" role="button" title="Copy">♦</span></li>
+                <li><code>\wclub</code><span class="sym" tabindex="0" role="button" title="Copy">♧</span></li>
+            </ul>
+        </section>
+        <section id="money" class="commands">
+            <h2>Money <span class="count">16</span></h2>
+            <ul class="cmds">
+                <li><code>\dollar</code><span class="sym" tabindex="0" role="button" title="Copy">$</span></li>
+                <li><code>\cent</code><span class="sym" tabindex="0" role="button" title="Copy">¢</span></li>
+                <li><code>\pound</code><span class="sym" tabindex="0" role="button" title="Copy">£</span></li>
+                <li><code>\yen</code><span class="sym" tabindex="0" role="button" title="Copy">¥</span></li>
+                <li><code>\franc</code><span class="sym" tabindex="0" role="button" title="Copy">₣</span></li>
+                <li><code>\euro</code><span class="sym" tabindex="0" role="button" title="Copy">€</span></li>
+                <li><code>\peso</code><span class="sym" tabindex="0" role="button" title="Copy">₱</span></li>
+                <li><code>\bitcoin</code><span class="sym" tabindex="0" role="button" title="Copy">₿</span></li>
+                <li><code>\austral</code><span class="sym" tabindex="0" role="button" title="Copy">₳</span></li>
+                <li><code>\ruble</code><span class="sym" tabindex="0" role="button" title="Copy">₽</span></li>
+                <li><code>\hryvnia</code><span class="sym" tabindex="0" role="button" title="Copy">₴</span></li>
+                <li><code>\rupee</code><span class="sym" tabindex="0" role="button" title="Copy">₹</span></li>
+                <li><code>\lira</code><span class="sym" tabindex="0" role="button" title="Copy">₪</span></li>
+                <li><code>\tlira</code><span class="sym" tabindex="0" role="button" title="Copy">₩</span></li>
+                <li><code>\won</code><span class="sym" tabindex="0" role="button" title="Copy">₩</span></li>
+                <li><code>\baht</code><span class="sym" tabindex="0" role="button" title="Copy">฿</span></li>
+            </ul>
+        </section>
+        <section id="upright-letters" class="commands">
+            <h2>Upright letters <span class="count">54</span></h2>
+            <p class="note">The letters you get with <b>Mathematical font</b> unticked.</p>
+            <ul class="cmds">
+                <li><code>\A</code><span class="sym" tabindex="0" role="button" title="Copy">A</span></li>
+                <li><code>\a</code><span class="sym" tabindex="0" role="button" title="Copy">a</span></li>
+                <li><code>\B</code><span class="sym" tabindex="0" role="button" title="Copy">B</span></li>
+                <li><code>\b</code><span class="sym" tabindex="0" role="button" title="Copy">b</span></li>
+                <li><code>\C</code><span class="sym" tabindex="0" role="button" title="Copy">C</span></li>
+                <li><code>\c</code><span class="sym" tabindex="0" role="button" title="Copy">c</span></li>
+                <li><code>\D</code><span class="sym" tabindex="0" role="button" title="Copy">D</span></li>
+                <li><code>\d</code><span class="sym" tabindex="0" role="button" title="Copy">d</span></li>
+                <li><code>\E</code><span class="sym" tabindex="0" role="button" title="Copy">E</span></li>
+                <li><code>\e</code><span class="sym" tabindex="0" role="button" title="Copy">e</span></li>
+                <li><code>\F</code><span class="sym" tabindex="0" role="button" title="Copy">F</span></li>
+                <li><code>\f</code><span class="sym" tabindex="0" role="button" title="Copy">f</span></li>
+                <li><code>\G</code><span class="sym" tabindex="0" role="button" title="Copy">G</span></li>
+                <li><code>\g</code><span class="sym" tabindex="0" role="button" title="Copy">g</span></li>
+                <li><code>\H</code><span class="sym" tabindex="0" role="button" title="Copy">H</span></li>
+                <li><code>\h</code><span class="sym" tabindex="0" role="button" title="Copy">h</span></li>
+                <li><code>\I</code><span class="sym" tabindex="0" role="button" title="Copy">I</span></li>
+                <li><code>\i</code><span class="sym" tabindex="0" role="button" title="Copy">i</span></li>
+                <li><code>\J</code><span class="sym" tabindex="0" role="button" title="Copy">J</span></li>
+                <li><code>\j</code><span class="sym" tabindex="0" role="button" title="Copy">j</span></li>
+                <li><code>\K</code><span class="sym" tabindex="0" role="button" title="Copy">K</span></li>
+                <li><code>\k</code><span class="sym" tabindex="0" role="button" title="Copy">k</span></li>
+                <li><code>\L</code><span class="sym" tabindex="0" role="button" title="Copy">L</span></li>
+                <li><code>\l</code><span class="sym" tabindex="0" role="button" title="Copy">l</span></li>
+                <li><code>\M</code><span class="sym" tabindex="0" role="button" title="Copy">M</span></li>
+                <li><code>\m</code><span class="sym" tabindex="0" role="button" title="Copy">m</span></li>
+                <li><code>\N</code><span class="sym" tabindex="0" role="button" title="Copy">N</span></li>
+                <li><code>\n</code><span class="sym" tabindex="0" role="button" title="Copy">n</span></li>
+                <li><code>\O</code><span class="sym" tabindex="0" role="button" title="Copy">O</span></li>
+                <li><code>\o</code><span class="sym" tabindex="0" role="button" title="Copy">o</span></li>
+                <li><code>\P</code><span class="sym" tabindex="0" role="button" title="Copy">P</span></li>
+                <li><code>\p</code><span class="sym" tabindex="0" role="button" title="Copy">p</span></li>
+                <li><code>\Q</code><span class="sym" tabindex="0" role="button" title="Copy">Q</span></li>
+                <li><code>\q</code><span class="sym" tabindex="0" role="button" title="Copy">q</span></li>
+                <li><code>\R</code><span class="sym" tabindex="0" role="button" title="Copy">R</span></li>
+                <li><code>\r</code><span class="sym" tabindex="0" role="button" title="Copy">r</span></li>
+                <li><code>\S</code><span class="sym" tabindex="0" role="button" title="Copy">S</span></li>
+                <li><code>\s</code><span class="sym" tabindex="0" role="button" title="Copy">s</span></li>
+                <li><code>\T</code><span class="sym" tabindex="0" role="button" title="Copy">T</span></li>
+                <li><code>\t</code><span class="sym" tabindex="0" role="button" title="Copy">t</span></li>
+                <li><code>\U</code><span class="sym" tabindex="0" role="button" title="Copy">U</span></li>
+                <li><code>\u</code><span class="sym" tabindex="0" role="button" title="Copy">u</span></li>
+                <li><code>\V</code><span class="sym" tabindex="0" role="button" title="Copy">V</span></li>
+                <li><code>\v</code><span class="sym" tabindex="0" role="button" title="Copy">v</span></li>
+                <li><code>\W</code><span class="sym" tabindex="0" role="button" title="Copy">W</span></li>
+                <li><code>\w</code><span class="sym" tabindex="0" role="button" title="Copy">w</span></li>
+                <li><code>\X</code><span class="sym" tabindex="0" role="button" title="Copy">X</span></li>
+                <li><code>\x</code><span class="sym" tabindex="0" role="button" title="Copy">x</span></li>
+                <li><code>\Y</code><span class="sym" tabindex="0" role="button" title="Copy">Y</span></li>
+                <li><code>\y</code><span class="sym" tabindex="0" role="button" title="Copy">y</span></li>
+                <li><code>\Z</code><span class="sym" tabindex="0" role="button" title="Copy">Z</span></li>
+                <li><code>\z</code><span class="sym" tabindex="0" role="button" title="Copy">z</span></li>
+                <li><code>\^</code><span class="sym" tabindex="0" role="button" title="Copy">^</span></li>
+                <li><code>\_</code><span class="sym" tabindex="0" role="button" title="Copy">_</span></li>
+            </ul>
+        </section>
+        <section id="matrix" class="commands">
+            <h2>Matrix <span class="count">6</span></h2>
+            <p class="note">A matrix is written as rows in square brackets: <code>\matrix{[a,b][c,d]}</code>.</p>
+            <ul class="cmds">
+                <li><code>\matrix{}</code><span class="sym" tabindex="0" role="button" title="Copy">[a,b] → [ a b ]</span></li>
+                <li><code>\id1</code><span class="sym" tabindex="0" role="button" title="Copy">[ 1 ]</span></li>
+                <li><code>\id2</code><span class="sym" tabindex="0" role="button" title="Copy">the 2x2 identity matrix</span></li>
+                <li><code>\id3</code><span class="sym" tabindex="0" role="button" title="Copy">the 3x3 identity matrix</span></li>
+                <li><code>\id4</code><span class="sym" tabindex="0" role="button" title="Copy">the 4x4 identity matrix</span></li>
+                <li><code>\idn</code><span class="sym" tabindex="0" role="button" title="Copy">the n by n identity matrix</span></li>
+            </ul>
+        </section>
+        <section id="building-your-own" class="commands">
+            <h2>Building your own <span class="count">6</span></h2>
+            <p class="note">Written in Settings, under <b>Commands &amp; operators</b>, not in the box.</p>
+            <ul class="cmds">
+                <li><code>\mlceil</code><span class="sym" tabindex="0" role="button" title="Copy">⎡</span></li>
+                <li><code>\mrceil</code><span class="sym" tabindex="0" role="button" title="Copy">⎤</span></li>
+                <li><code>\mlmid</code><span class="sym" tabindex="0" role="button" title="Copy">⎢</span></li>
+                <li><code>\mrmid</code><span class="sym" tabindex="0" role="button" title="Copy">⎥</span></li>
+                <li><code>\mlfloor</code><span class="sym" tabindex="0" role="button" title="Copy">⎣</span></li>
+                <li><code>\mrfloor</code><span class="sym" tabindex="0" role="button" title="Copy">⎦</span></li>
+            </ul>
+        </section>
+        <section id="music" class="commands">
+            <h2>Music <span class="count">10</span></h2>
+            <ul class="cmds">
+                <li><code>\flat</code><span class="sym" tabindex="0" role="button" title="Copy">𝄬</span></li>
+                <li><code>\natural</code><span class="sym" tabindex="0" role="button" title="Copy">𝄮</span></li>
+                <li><code>\sharp</code><span class="sym" tabindex="0" role="button" title="Copy">𝄰</span></li>
+                <li><code>\eightnote</code><span class="sym" tabindex="0" role="button" title="Copy">𝅘𝅥𝅮</span></li>
+                <li><code>\sixteenthnote</code><span class="sym" tabindex="0" role="button" title="Copy">𝅘𝅥𝅯</span></li>
+                <li><code>\halfnote</code><span class="sym" tabindex="0" role="button" title="Copy">𝅗𝅥</span></li>
+                <li><code>\quarternote</code><span class="sym" tabindex="0" role="button" title="Copy">𝅘𝅥</span></li>
+                <li><code>\fullnote</code><span class="sym" tabindex="0" role="button" title="Copy">𝅝</span></li>
+                <li><code>\doublenote</code><span class="sym" tabindex="0" role="button" title="Copy">♫</span></li>
+                <li><code>\trebleclef</code><span class="sym" tabindex="0" role="button" title="Copy">𝄞</span></li>
+            </ul>
+        </section>
+        <section id="box-drawing" class="commands">
+            <h2>Box drawing <span class="count">33</span></h2>
+            <ul class="cmds">
+                <li><code>\boxh</code><span class="sym" tabindex="0" role="button" title="Copy">─</span></li>
+                <li><code>\boxbfh</code><span class="sym" tabindex="0" role="button" title="Copy">━</span></li>
+                <li><code>\boxH</code><span class="sym" tabindex="0" role="button" title="Copy">═</span></li>
+                <li><code>\boxv</code><span class="sym" tabindex="0" role="button" title="Copy">│</span></li>
+                <li><code>\boxbfv</code><span class="sym" tabindex="0" role="button" title="Copy">┃</span></li>
+                <li><code>\boxV</code><span class="sym" tabindex="0" role="button" title="Copy">║</span></li>
+                <li><code>\boxdr</code><span class="sym" tabindex="0" role="button" title="Copy">┌</span></li>
+                <li><code>\boxbfdr</code><span class="sym" tabindex="0" role="button" title="Copy">┏</span></li>
+                <li><code>\boxDR</code><span class="sym" tabindex="0" role="button" title="Copy">╔</span></li>
+                <li><code>\boxdl</code><span class="sym" tabindex="0" role="button" title="Copy">┐</span></li>
+                <li><code>\boxbfdl</code><span class="sym" tabindex="0" role="button" title="Copy">┓</span></li>
+                <li><code>\boxDL</code><span class="sym" tabindex="0" role="button" title="Copy">╗</span></li>
+                <li><code>\boxur</code><span class="sym" tabindex="0" role="button" title="Copy">└</span></li>
+                <li><code>\boxbfur</code><span class="sym" tabindex="0" role="button" title="Copy">┗</span></li>
+                <li><code>\boxUR</code><span class="sym" tabindex="0" role="button" title="Copy">╚</span></li>
+                <li><code>\boxul</code><span class="sym" tabindex="0" role="button" title="Copy">┘</span></li>
+                <li><code>\boxbful</code><span class="sym" tabindex="0" role="button" title="Copy">┛</span></li>
+                <li><code>\boxUL</code><span class="sym" tabindex="0" role="button" title="Copy">╝</span></li>
+                <li><code>\boxvr</code><span class="sym" tabindex="0" role="button" title="Copy">├</span></li>
+                <li><code>\boxbfvr</code><span class="sym" tabindex="0" role="button" title="Copy">┣</span></li>
+                <li><code>\boxVR</code><span class="sym" tabindex="0" role="button" title="Copy">╠</span></li>
+                <li><code>\boxvl</code><span class="sym" tabindex="0" role="button" title="Copy">┤</span></li>
+                <li><code>\boxbfvl</code><span class="sym" tabindex="0" role="button" title="Copy">┫</span></li>
+                <li><code>\boxVL</code><span class="sym" tabindex="0" role="button" title="Copy">╣</span></li>
+                <li><code>\boxdh</code><span class="sym" tabindex="0" role="button" title="Copy">┬</span></li>
+                <li><code>\boxbfdh</code><span class="sym" tabindex="0" role="button" title="Copy">┳</span></li>
+                <li><code>\boxDH</code><span class="sym" tabindex="0" role="button" title="Copy">╦</span></li>
+                <li><code>\boxuh</code><span class="sym" tabindex="0" role="button" title="Copy">┴</span></li>
+                <li><code>\boxbfuh</code><span class="sym" tabindex="0" role="button" title="Copy">┻</span></li>
+                <li><code>\boxUH</code><span class="sym" tabindex="0" role="button" title="Copy">╩</span></li>
+                <li><code>\boxvh</code><span class="sym" tabindex="0" role="button" title="Copy">┼</span></li>
+                <li><code>\boxbfvh</code><span class="sym" tabindex="0" role="button" title="Copy">╋</span></li>
+                <li><code>\boxVH</code><span class="sym" tabindex="0" role="button" title="Copy">╬</span></li>
+            </ul>
+        </section>
+        <section id="other-symbols" class="commands">
+            <h2>Other symbols <span class="count">87</span></h2>
+            <ul class="cmds">
+                <li><code>\LaTeX</code><span class="sym" tabindex="0" role="button" title="Copy">𝐿ᴬ𝑇ᴇ𝑋</span></li>
+                <li><code>\TeX</code><span class="sym" tabindex="0" role="button" title="Copy">𝑇ᴇ𝑋</span></li>
+                <li><code>\MatTalX</code><span class="sym" tabindex="0" role="button" title="Copy">𝑀ᴀᴛ𝑇ᴀʟ𝑋</span></li>
+                <li><code>\CaMuS</code><span class="sym" tabindex="0" role="button" title="Copy">𝐶ᴬ𝑀ᴜ𝑆</span></li>
+                <li><code>\infty</code><span class="sym" tabindex="0" role="button" title="Copy">∞</span></li>
+                <li><code>\iinfin</code><span class="sym" tabindex="0" role="button" title="Copy">⧜</span></li>
+                <li><code>\tieinfty</code><span class="sym" tabindex="0" role="button" title="Copy">⧝</span></li>
+                <li><code>\nvinfty</code><span class="sym" tabindex="0" role="button" title="Copy">⧞</span></li>
+                <li><code>\acidfree</code><span class="sym" tabindex="0" role="button" title="Copy">♾</span></li>
+                <li><code>\radioactive</code><span class="sym" tabindex="0" role="button" title="Copy">☢</span></li>
+                <li><code>\biohazard</code><span class="sym" tabindex="0" role="button" title="Copy">☣</span></li>
+                <li><code>\atom</code><span class="sym" tabindex="0" role="button" title="Copy">⚛</span></li>
+                <li><code>\permil</code><span class="sym" tabindex="0" role="button" title="Copy">‰</span></li>
+                <li><code>\textperthousand</code><span class="sym" tabindex="0" role="button" title="Copy">‰</span></li>
+                <li><code>\perthousand</code><span class="sym" tabindex="0" role="button" title="Copy">‱</span></li>
+                <li><code>\angle</code><span class="sym" tabindex="0" role="button" title="Copy">∠</span></li>
+                <li><code>\measuredangle</code><span class="sym" tabindex="0" role="button" title="Copy">∡</span></li>
+                <li><code>\sphericalangle</code><span class="sym" tabindex="0" role="button" title="Copy">∢</span></li>
+                <li><code>\rightangle</code><span class="sym" tabindex="0" role="button" title="Copy">⦜</span></li>
+                <li><code>\hbar</code><span class="sym" tabindex="0" role="button" title="Copy">ℏ</span></li>
+                <li><code>\ell</code><span class="sym" tabindex="0" role="button" title="Copy">ℓ</span></li>
+                <li><code>\dagger</code><span class="sym" tabindex="0" role="button" title="Copy">†</span></li>
+                <li><code>\ddagger</code><span class="sym" tabindex="0" role="button" title="Copy">‡</span></li>
+                <li><code>\dddagger</code><span class="sym" tabindex="0" role="button" title="Copy">⹋</span></li>
+                <li><code>\hermitian</code><span class="sym" tabindex="0" role="button" title="Copy">⊹</span></li>
+                <li><code>\qc</code><span class="sym" tabindex="0" role="button" title="Copy">⚜</span></li>
+                <li><code>\section</code><span class="sym" tabindex="0" role="button" title="Copy">§</span></li>
+                <li><code>\paragraph</code><span class="sym" tabindex="0" role="button" title="Copy">¶</span></li>
+                <li><code>\copyright</code><span class="sym" tabindex="0" role="button" title="Copy">©</span></li>
+                <li><code>\registered</code><span class="sym" tabindex="0" role="button" title="Copy">®</span></li>
+                <li><code>\wp</code><span class="sym" tabindex="0" role="button" title="Copy">℘</span></li>
+                <li><code>\laplace</code><span class="sym" tabindex="0" role="button" title="Copy">ℒ</span></li>
+                <li><code>\bloch</code><span class="sym" tabindex="0" role="button" title="Copy">ℬ</span></li>
+                <li><code>\im</code><span class="sym" tabindex="0" role="button" title="Copy">ℑ</span></li>
+                <li><code>\fourier</code><span class="sym" tabindex="0" role="button" title="Copy">ℱ</span></li>
+                <li><code>\angstrom</code><span class="sym" tabindex="0" role="button" title="Copy">Å</span></li>
+                <li><code>\mho</code><span class="sym" tabindex="0" role="button" title="Copy">℧</span></li>
+                <li><code>\endash</code><span class="sym" tabindex="0" role="button" title="Copy">–</span></li>
+                <li><code>\emdash</code><span class="sym" tabindex="0" role="button" title="Copy">—</span></li>
+                <li><code>\bullet</code><span class="sym" tabindex="0" role="button" title="Copy">∙</span></li>
+                <li><code>\textbullet</code><span class="sym" tabindex="0" role="button" title="Copy">•</span></li>
+                <li><code>\bigbullet</code><span class="sym" tabindex="0" role="button" title="Copy">●</span></li>
+                <li><code>\langle</code><span class="sym" tabindex="0" role="button" title="Copy">⟨</span></li>
+                <li><code>\rangle</code><span class="sym" tabindex="0" role="button" title="Copy">⟩</span></li>
+                <li><code>\llangle</code><span class="sym" tabindex="0" role="button" title="Copy">⟪</span></li>
+                <li><code>\rrangle</code><span class="sym" tabindex="0" role="button" title="Copy">⟫</span></li>
+                <li><code>\lceil</code><span class="sym" tabindex="0" role="button" title="Copy">⌈</span></li>
+                <li><code>\rceil</code><span class="sym" tabindex="0" role="button" title="Copy">⌉</span></li>
+                <li><code>\lfloor</code><span class="sym" tabindex="0" role="button" title="Copy">⌊</span></li>
+                <li><code>\rfloor</code><span class="sym" tabindex="0" role="button" title="Copy">⌋</span></li>
+                <li><code>\lBrace</code><span class="sym" tabindex="0" role="button" title="Copy">⦃</span></li>
+                <li><code>\rBrace</code><span class="sym" tabindex="0" role="button" title="Copy">⦄</span></li>
+                <li><code>\%</code><span class="sym" tabindex="0" role="button" title="Copy">%</span></li>
+                <li><code>\{</code><span class="sym" tabindex="0" role="button" title="Copy">{</span></li>
+                <li><code>\}</code><span class="sym" tabindex="0" role="button" title="Copy">}</span></li>
+                <li><code>\$</code><span class="sym" tabindex="0" role="button" title="Copy">$</span></li>
+                <li><code>\#</code><span class="sym" tabindex="0" role="button" title="Copy">#</span></li>
+                <li><code>\backslash</code><span class="sym" tabindex="0" role="button" title="Copy">\</span></li>
+                <li><code>\llbracket</code><span class="sym" tabindex="0" role="button" title="Copy">⟦</span></li>
+                <li><code>\rrbracket</code><span class="sym" tabindex="0" role="button" title="Copy">⟧</span></li>
+                <li><code>\llparenthesis</code><span class="sym" tabindex="0" role="button" title="Copy">⦅</span></li>
+                <li><code>\rrparenthesis</code><span class="sym" tabindex="0" role="button" title="Copy">⦆</span></li>
+                <li><code>\frown</code><span class="sym" tabindex="0" role="button" title="Copy">⌢</span></li>
+                <li><code>\smile</code><span class="sym" tabindex="0" role="button" title="Copy">⌣</span></li>
+                <li><code>\qed</code><span class="sym" tabindex="0" role="button" title="Copy">∎</span></li>
+                <li><code>\blacksquare</code><span class="sym" tabindex="0" role="button" title="Copy">■</span></li>
+                <li><code>\square</code><span class="sym" tabindex="0" role="button" title="Copy">□</span></li>
+                <li><code>\lightning</code><span class="sym" tabindex="0" role="button" title="Copy">↯</span></li>
+                <li><code>\dbend</code><span class="sym" tabindex="0" role="button" title="Copy">☡</span></li>
+                <li><code>\male</code><span class="sym" tabindex="0" role="button" title="Copy">♂</span></li>
+                <li><code>\female</code><span class="sym" tabindex="0" role="button" title="Copy">♀</span></li>
+                <li><code>\Hermaphrodite</code><span class="sym" tabindex="0" role="button" title="Copy">⚥</span></li>
+                <li><code>\neuter</code><span class="sym" tabindex="0" role="button" title="Copy">⚲</span></li>
+                <li><code>\malemale</code><span class="sym" tabindex="0" role="button" title="Copy">⚣</span></li>
+                <li><code>\femalefemale</code><span class="sym" tabindex="0" role="button" title="Copy">⚢</span></li>
+                <li><code>\femalemale</code><span class="sym" tabindex="0" role="button" title="Copy">⚤</span></li>
+                <li><code>\</code><span class="sym" tabindex="0" role="button" title="Copy">\</span></li>
+                <li><code>\:</code><span class="sym" tabindex="0" role="button" title="Copy">1 space</span></li>
+                <li><code>\;</code><span class="sym" tabindex="0" role="button" title="Copy">2 spaces</span></li>
+                <li><code>\quad</code><span class="sym" tabindex="0" role="button" title="Copy">3 spaces</span></li>
+                <li><code>\qquad</code><span class="sym" tabindex="0" role="button" title="Copy">4 spaces</span></li>
+                <li><code>\!</code><span class="sym" tabindex="0" role="button" title="Copy">removes a space</span></li>
+                <li><code>\colon</code><span class="sym" tabindex="0" role="button" title="Copy">:</span></li>
+                <li><code>\\</code><span class="sym" tabindex="0" role="button" title="Copy">
+</span></li>
+                <li><code>\linebreak</code><span class="sym" tabindex="0" role="button" title="Copy">
+</span></li>
+                <li><code>\newline</code><span class="sym" tabindex="0" role="button" title="Copy">
+</span></li>
+                <li><code>\tab</code><span class="sym" tabindex="0" role="button" title="Copy">	</span></li>
+            </ul>
+        </section>
+        <section id="superscript" class="commands">
+            <h2>Superscript <span class="count">71</span></h2>
+            <p class="note">Anything below can be raised. Write <code>^</code> and the character, or <code>^{...}</code> for more than one. Everything has to stay on one line, so a superscript inside a superscript has no answer.</p>
+            <ul class="cmds">
+                <li><code>^{0}</code><span class="sym" tabindex="0" role="button" title="Copy">⁰</span></li>
+                <li><code>^{1}</code><span class="sym" tabindex="0" role="button" title="Copy">¹</span></li>
+                <li><code>^{2}</code><span class="sym" tabindex="0" role="button" title="Copy">²</span></li>
+                <li><code>^{3}</code><span class="sym" tabindex="0" role="button" title="Copy">³</span></li>
+                <li><code>^{4}</code><span class="sym" tabindex="0" role="button" title="Copy">⁴</span></li>
+                <li><code>^{5}</code><span class="sym" tabindex="0" role="button" title="Copy">⁵</span></li>
+                <li><code>^{6}</code><span class="sym" tabindex="0" role="button" title="Copy">⁶</span></li>
+                <li><code>^{7}</code><span class="sym" tabindex="0" role="button" title="Copy">⁷</span></li>
+                <li><code>^{8}</code><span class="sym" tabindex="0" role="button" title="Copy">⁸</span></li>
+                <li><code>^{9}</code><span class="sym" tabindex="0" role="button" title="Copy">⁹</span></li>
+                <li><code>^{+}</code><span class="sym" tabindex="0" role="button" title="Copy">⁺</span></li>
+                <li><code>^{-}</code><span class="sym" tabindex="0" role="button" title="Copy">⁻</span></li>
+                <li><code>^{=}</code><span class="sym" tabindex="0" role="button" title="Copy">⁼</span></li>
+                <li><code>^{(}</code><span class="sym" tabindex="0" role="button" title="Copy">⁽</span></li>
+                <li><code>^{)}</code><span class="sym" tabindex="0" role="button" title="Copy">⁾</span></li>
+                <li><code>^{\}</code><span class="sym" tabindex="0" role="button" title="Copy">ᐠ</span></li>
+                <li><code>^{/}</code><span class="sym" tabindex="0" role="button" title="Copy">ᐟ</span></li>
+                <li><code>^{.}</code><span class="sym" tabindex="0" role="button" title="Copy">ᐧ</span></li>
+                <li><code>^{,}</code><span class="sym" tabindex="0" role="button" title="Copy">˒</span></li>
+                <li><code>^{!}</code><span class="sym" tabindex="0" role="button" title="Copy">ꜝ</span></li>
+                <li><code>^{$}</code><span class="sym" tabindex="0" role="button" title="Copy">ᙚ</span></li>
+                <li><code>^{*}</code><span class="sym" tabindex="0" role="button" title="Copy">*</span></li>
+                <li><code>^{&lt;}</code><span class="sym" tabindex="0" role="button" title="Copy">ᑉ</span></li>
+                <li><code>^{A}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴬ</span></li>
+                <li><code>^{a}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵃ</span></li>
+                <li><code>^{B}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴮ</span></li>
+                <li><code>^{b}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵇ</span></li>
+                <li><code>^{C}</code><span class="sym" tabindex="0" role="button" title="Copy">ᶜ</span></li>
+                <li><code>^{c}</code><span class="sym" tabindex="0" role="button" title="Copy">ᶜ</span></li>
+                <li><code>^{D}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴰ</span></li>
+                <li><code>^{d}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵈ</span></li>
+                <li><code>^{E}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴱ</span></li>
+                <li><code>^{e}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵉ</span></li>
+                <li><code>^{f}</code><span class="sym" tabindex="0" role="button" title="Copy">ᶠ</span></li>
+                <li><code>^{G}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴳ</span></li>
+                <li><code>^{g}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵍ</span></li>
+                <li><code>^{H}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴴ</span></li>
+                <li><code>^{h}</code><span class="sym" tabindex="0" role="button" title="Copy">ʰ</span></li>
+                <li><code>^{I}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴵ</span></li>
+                <li><code>^{i}</code><span class="sym" tabindex="0" role="button" title="Copy">ⁱ</span></li>
+                <li><code>^{J}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴶ</span></li>
+                <li><code>^{j}</code><span class="sym" tabindex="0" role="button" title="Copy">ʲ</span></li>
+                <li><code>^{K}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴷ</span></li>
+                <li><code>^{k}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵏ</span></li>
+                <li><code>^{L}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴸ</span></li>
+                <li><code>^{l}</code><span class="sym" tabindex="0" role="button" title="Copy">ˡ</span></li>
+                <li><code>^{M}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴹ</span></li>
+                <li><code>^{m}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵐ</span></li>
+                <li><code>^{N}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴺ</span></li>
+                <li><code>^{n}</code><span class="sym" tabindex="0" role="button" title="Copy">ⁿ</span></li>
+                <li><code>^{O}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴼ</span></li>
+                <li><code>^{o}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵒ</span></li>
+                <li><code>^{P}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴾ</span></li>
+                <li><code>^{p}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵖ</span></li>
+                <li><code>^{R}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴿ</span></li>
+                <li><code>^{r}</code><span class="sym" tabindex="0" role="button" title="Copy">ʳ</span></li>
+                <li><code>^{S}</code><span class="sym" tabindex="0" role="button" title="Copy">ˢ</span></li>
+                <li><code>^{s}</code><span class="sym" tabindex="0" role="button" title="Copy">ˢ</span></li>
+                <li><code>^{T}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵀ</span></li>
+                <li><code>^{t}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵗ</span></li>
+                <li><code>^{U}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵁ</span></li>
+                <li><code>^{u}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵘ</span></li>
+                <li><code>^{V}</code><span class="sym" tabindex="0" role="button" title="Copy">ⱽ</span></li>
+                <li><code>^{v}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵛ</span></li>
+                <li><code>^{W}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵂ</span></li>
+                <li><code>^{w}</code><span class="sym" tabindex="0" role="button" title="Copy">ʷ</span></li>
+                <li><code>^{X}</code><span class="sym" tabindex="0" role="button" title="Copy">ˣ</span></li>
+                <li><code>^{x}</code><span class="sym" tabindex="0" role="button" title="Copy">ˣ</span></li>
+                <li><code>^{y}</code><span class="sym" tabindex="0" role="button" title="Copy">ʸ</span></li>
+                <li><code>^{Z}</code><span class="sym" tabindex="0" role="button" title="Copy">ᙆ</span></li>
+                <li><code>^{z}</code><span class="sym" tabindex="0" role="button" title="Copy">ᶻ</span></li>
+            </ul>
+        </section>
+        <section id="subscript" class="commands">
+            <h2>Subscript <span class="count">60</span></h2>
+            <p class="note">The same, lowered, with <code>_</code>.</p>
+            <ul class="cmds">
+                <li><code>_{0}</code><span class="sym" tabindex="0" role="button" title="Copy">₀</span></li>
+                <li><code>_{1}</code><span class="sym" tabindex="0" role="button" title="Copy">₁</span></li>
+                <li><code>_{2}</code><span class="sym" tabindex="0" role="button" title="Copy">₂</span></li>
+                <li><code>_{3}</code><span class="sym" tabindex="0" role="button" title="Copy">₃</span></li>
+                <li><code>_{4}</code><span class="sym" tabindex="0" role="button" title="Copy">₄</span></li>
+                <li><code>_{5}</code><span class="sym" tabindex="0" role="button" title="Copy">₅</span></li>
+                <li><code>_{6}</code><span class="sym" tabindex="0" role="button" title="Copy">₆</span></li>
+                <li><code>_{7}</code><span class="sym" tabindex="0" role="button" title="Copy">₇</span></li>
+                <li><code>_{8}</code><span class="sym" tabindex="0" role="button" title="Copy">₈</span></li>
+                <li><code>_{9}</code><span class="sym" tabindex="0" role="button" title="Copy">₉</span></li>
+                <li><code>_{+}</code><span class="sym" tabindex="0" role="button" title="Copy">₊</span></li>
+                <li><code>_{-}</code><span class="sym" tabindex="0" role="button" title="Copy">₋</span></li>
+                <li><code>_{=}</code><span class="sym" tabindex="0" role="button" title="Copy">₌</span></li>
+                <li><code>_{(}</code><span class="sym" tabindex="0" role="button" title="Copy">₍</span></li>
+                <li><code>_{)}</code><span class="sym" tabindex="0" role="button" title="Copy">₎</span></li>
+                <li><code>_{,}</code><span class="sym" tabindex="0" role="button" title="Copy">✐̦✐</span></li>
+                <li><code>_{.}</code><span class="sym" tabindex="0" role="button" title="Copy">✐̣✐</span></li>
+                <li><code>_{a}</code><span class="sym" tabindex="0" role="button" title="Copy">ₐ</span></li>
+                <li><code>_{e}</code><span class="sym" tabindex="0" role="button" title="Copy">ₑ</span></li>
+                <li><code>_{h}</code><span class="sym" tabindex="0" role="button" title="Copy">ₕ</span></li>
+                <li><code>_{i}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵢ</span></li>
+                <li><code>_{j}</code><span class="sym" tabindex="0" role="button" title="Copy">ⱼ</span></li>
+                <li><code>_{k}</code><span class="sym" tabindex="0" role="button" title="Copy">ₖ</span></li>
+                <li><code>_{l}</code><span class="sym" tabindex="0" role="button" title="Copy">ₗ</span></li>
+                <li><code>_{m}</code><span class="sym" tabindex="0" role="button" title="Copy">ₘ</span></li>
+                <li><code>_{n}</code><span class="sym" tabindex="0" role="button" title="Copy">ₙ</span></li>
+                <li><code>_{o}</code><span class="sym" tabindex="0" role="button" title="Copy">ₒ</span></li>
+                <li><code>_{p}</code><span class="sym" tabindex="0" role="button" title="Copy">ₚ</span></li>
+                <li><code>_{r}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵣ</span></li>
+                <li><code>_{s}</code><span class="sym" tabindex="0" role="button" title="Copy">ₛ</span></li>
+                <li><code>_{t}</code><span class="sym" tabindex="0" role="button" title="Copy">ₜ</span></li>
+                <li><code>_{u}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵤ</span></li>
+                <li><code>_{v}</code><span class="sym" tabindex="0" role="button" title="Copy">ᵥ</span></li>
+                <li><code>_{X}</code><span class="sym" tabindex="0" role="button" title="Copy">ₓ</span></li>
+                <li><code>_{x}</code><span class="sym" tabindex="0" role="button" title="Copy">ₓ</span></li>
+                <li><code>_{A}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴀ</span></li>
+                <li><code>_{B}</code><span class="sym" tabindex="0" role="button" title="Copy">ʙ</span></li>
+                <li><code>_{C}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴄ</span></li>
+                <li><code>_{D}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴅ</span></li>
+                <li><code>_{E}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴇ</span></li>
+                <li><code>_{F}</code><span class="sym" tabindex="0" role="button" title="Copy">ꜰ</span></li>
+                <li><code>_{G}</code><span class="sym" tabindex="0" role="button" title="Copy">ɢ</span></li>
+                <li><code>_{H}</code><span class="sym" tabindex="0" role="button" title="Copy">ʜ</span></li>
+                <li><code>_{I}</code><span class="sym" tabindex="0" role="button" title="Copy">ɪ</span></li>
+                <li><code>_{J}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴊ</span></li>
+                <li><code>_{K}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴋ</span></li>
+                <li><code>_{L}</code><span class="sym" tabindex="0" role="button" title="Copy">ʟ</span></li>
+                <li><code>_{M}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴍ</span></li>
+                <li><code>_{N}</code><span class="sym" tabindex="0" role="button" title="Copy">ɴ</span></li>
+                <li><code>_{O}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴏ</span></li>
+                <li><code>_{P}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴘ</span></li>
+                <li><code>_{Q}</code><span class="sym" tabindex="0" role="button" title="Copy">ꞯ</span></li>
+                <li><code>_{R}</code><span class="sym" tabindex="0" role="button" title="Copy">ʀ</span></li>
+                <li><code>_{S}</code><span class="sym" tabindex="0" role="button" title="Copy">ѕ</span></li>
+                <li><code>_{T}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴛ</span></li>
+                <li><code>_{U}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴜ</span></li>
+                <li><code>_{V}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴠ</span></li>
+                <li><code>_{W}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴡ</span></li>
+                <li><code>_{Y}</code><span class="sym" tabindex="0" role="button" title="Copy">ʏ</span></li>
+                <li><code>_{Z}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴢ</span></li>
+            </ul>
+        </section>
+        <section id="outside-math-mode" class="commands">
+            <h2>Outside math mode <span class="count">54</span></h2>
+            <p class="note">These work in ordinary text, outside the <code>$ ... $</code>.</p>
+            <ul class="cmds">
+                <li><code>\LaTeX</code><span class="sym" tabindex="0" role="button" title="Copy">𝐿ᴬ𝑇ᴇ𝑋</span></li>
+                <li><code>\TeX</code><span class="sym" tabindex="0" role="button" title="Copy">𝑇ᴇ𝑋</span></li>
+                <li><code>\MatTalX</code><span class="sym" tabindex="0" role="button" title="Copy">𝑀ᴀᴛ𝑇ᴀʟ𝑋</span></li>
+                <li><code>\CaMuS</code><span class="sym" tabindex="0" role="button" title="Copy">𝐶ᴬ𝑀ᴜ𝑆</span></li>
+                <li><code>\textbullet</code><span class="sym" tabindex="0" role="button" title="Copy">•</span></li>
+                <li><code>\section</code><span class="sym" tabindex="0" role="button" title="Copy">§</span></li>
+                <li><code>\paragraph</code><span class="sym" tabindex="0" role="button" title="Copy">¶</span></li>
+                <li><code>\copyright</code><span class="sym" tabindex="0" role="button" title="Copy">©</span></li>
+                <li><code>\registered</code><span class="sym" tabindex="0" role="button" title="Copy">®</span></li>
+                <li><code>\%</code><span class="sym" tabindex="0" role="button" title="Copy">%</span></li>
+                <li><code>\#</code><span class="sym" tabindex="0" role="button" title="Copy">#</span></li>
+                <li><code>\{</code><span class="sym" tabindex="0" role="button" title="Copy">{</span></li>
+                <li><code>\}</code><span class="sym" tabindex="0" role="button" title="Copy">}</span></li>
+                <li><code>\$</code><span class="sym" tabindex="0" role="button" title="Copy">$</span></li>
+                <li><code>\backslash</code><span class="sym" tabindex="0" role="button" title="Copy">\</span></li>
+                <li><code>\textbackslash</code><span class="sym" tabindex="0" role="button" title="Copy">\</span></li>
+                <li><code>\\</code><span class="sym" tabindex="0" role="button" title="Copy">
+</span></li>
+                <li><code>\linebreak</code><span class="sym" tabindex="0" role="button" title="Copy">
+</span></li>
+                <li><code>\newline</code><span class="sym" tabindex="0" role="button" title="Copy">
+</span></li>
+                <li><code>\tab</code><span class="sym" tabindex="0" role="button" title="Copy">	</span></li>
+                <li><code>\!</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
+                <li><code>\O</code><span class="sym" tabindex="0" role="button" title="Copy">Ø</span></li>
+                <li><code>\o</code><span class="sym" tabindex="0" role="button" title="Copy">ø</span></li>
+                <li><code>\i</code><span class="sym" tabindex="0" role="button" title="Copy">ı</span></li>
+                <li><code>\j</code><span class="sym" tabindex="0" role="button" title="Copy">ȷ</span></li>
+                <li><code>\L</code><span class="sym" tabindex="0" role="button" title="Copy">Ł</span></li>
+                <li><code>\l</code><span class="sym" tabindex="0" role="button" title="Copy">ł</span></li>
+                <li><code>\OE</code><span class="sym" tabindex="0" role="button" title="Copy">Œ</span></li>
+                <li><code>\oe</code><span class="sym" tabindex="0" role="button" title="Copy">œ</span></li>
+                <li><code>\AE</code><span class="sym" tabindex="0" role="button" title="Copy">Æ</span></li>
+                <li><code>\ae</code><span class="sym" tabindex="0" role="button" title="Copy">æ</span></li>
+                <li><code>\textbf</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝗔</span></li>
+                <li><code>\textit</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝘈</span></li>
+                <li><code>\emph</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝘈 and 𝘈 → A</span></li>
+                <li><code>\texttt</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝙰</span></li>
+                <li><code>\textsc</code><span class="sym" tabindex="0" role="button" title="Copy">A → A</span></li>
+                <li><code>\hspace</code><span class="sym" tabindex="0" role="button" title="Copy">3 → 3 spaces</span></li>
+                <li><code>\vskip</code><span class="sym" tabindex="0" role="button" title="Copy">3 → 3 empty lines</span></li>
+                <li><code>\`</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
+                <li><code>\'</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
+                <li><code>\^</code><span class="sym" tabindex="0" role="button" title="Copy">^</span></li>
+                <li><code>\&quot;</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
+                <li><code>\H</code><span class="sym" tabindex="0" role="button" title="Copy">H</span></li>
+                <li><code>\~</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
+                <li><code>\c</code><span class="sym" tabindex="0" role="button" title="Copy">c</span></li>
+                <li><code>\k</code><span class="sym" tabindex="0" role="button" title="Copy">k</span></li>
+                <li><code>\=</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
+                <li><code>\b</code><span class="sym" tabindex="0" role="button" title="Copy">b</span></li>
+                <li><code>\.</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
+                <li><code>\d</code><span class="sym" tabindex="0" role="button" title="Copy">d</span></li>
+                <li><code>\r</code><span class="sym" tabindex="0" role="button" title="Copy">r</span></li>
+                <li><code>\u</code><span class="sym" tabindex="0" role="button" title="Copy">u</span></li>
+                <li><code>\v</code><span class="sym" tabindex="0" role="button" title="Copy">v</span></li>
+                <li><code>\today</code><span class="sym" tabindex="0" role="button" title="Copy">September 6, 2026</span></li>
+            </ul>
+        </section>
+
+                <section id="video" class="prose">
+                    <h2>Watching it work</h2>
+                    <p>A command written into an ordinary text box, and what happens to it.</p>
+                    <video id="demo" muted loop playsinline autoplay controls preload="metadata"
+                           width="968" height="423" aria-label="MatTalX converting a command in a text box">
+                        <source src="../images/demo.webm" type="video/webm">
+                        Your browser cannot play this recording.
+                    </video>
+                    <p class="aside">Recorded against a plain text box, which is where MatTalX
+                        writes the result back in place. In an editor that keeps its own copy of
+                        what you type, it uses the clipboard instead.</p>
+                </section>
+
+                <section id="more" class="prose">
+                    <h2>Anything else</h2>
+                    <p>Found a bug, or a symbol MatTalX should know?
+                        <a target="_blank" href="https://github.com/samueleblanc/MatTalX/issues">Open an issue</a>.
+                        The code is <a target="_blank" href="https://github.com/samueleblanc/MatTalX">on GitHub</a>,
+                        and so are the <a target="_blank" href="https://github.com/samueleblanc/MatTalX/tree/master/docs">older PDF versions</a>
+                        of this document.</p>
+                    <p>MatTalX privacy policy is <a href="../privacy/">here</a>.</p>
+                </section>
+            </main>
+        </div>
+
+        <script src="../js/docs.js"></script>
     </body>
 </html>

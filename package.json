@@ -1,0 +1,9 @@
+{
+    "name": "mattalx-website",
+    "private": true,
+    "type": "module",
+    "description": "js/core.js and js/completion.js are ES modules; this says so, so tools/ can import them.",
+    "scripts": {
+        "docs": "node tools/build-docs.mjs"
+    }
+}
