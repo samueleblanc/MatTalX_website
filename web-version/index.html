@@ -17,26 +17,88 @@
         <div class="infoDiv">
             <button class="infoButton_light"><img class="info_light" alt="Info" src="../images/question_mark_nobg_light.png"></button>
             <button class="infoButton_dark"><img class="info_dark" alt="Info" src="../images/question_mark_nobg_dark.png"></button><br>
+        <!-- The same menu the extension carries, in the same order, with the two store
+             links after it: on a page they are the way to the version that works
+             wherever you write, rather than only in this box -->
         <div class="dropdownInfo">
+            <span id="adjustSpaces"><label for="adjust">Adjust spaces</label><input type="checkbox" name="adjust" id="adjust" checked>
+            <span class="settingHint">on: \alpha+\beta → 𝛼 + 𝛽</span></span>
+            <span id="changeFont"><label for="mathFont">Mathematical font</label><input type="checkbox" name="mathFont" id="mathFont" checked>
+            <span class="settingHint">on: f(x) → 𝑓(𝑥)</span></span>
+            <span id="changeMode"><label for="mathMode">Math mode</label><input type="checkbox" name="mathMode" id="mathMode">
+            <span class="settingHint">on: everything is converted, no $ ... $ needed</span></span>
+            <input type="button" value="Settings" id="settingsBtn">
             <a target="_blank" href="../docs/"><input type="button" value="Documentation" id="docs"></a>
             <a target="_blank" href="https://github.com/samueleblanc/MatTalX"><input type="button" value="GitHub" id="git"></a>
             <a target="_blank" href="https://chrome.google.com/webstore/detail/mattalx-write-math-symbol/jllceliamggkpffccbefpefgmcigaglb"><input type="button" value="Chrome extension" id="chromeext"></a>
             <a target="_blank" href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/"><input type="button" value="Firefox add-on" id="firefoxadd"></a>
-            <span id="adjustSpaces"><label for="adjust">Adjust spaces</label><input type="checkbox" name="adjust" id="adjust" checked></span>
-            <span id="changeFont"><label for="mathFont">Mathematical font</label><input type="checkbox" name="mathFont" id="mathFont" checked></span>
-            <span id="changeMode"><label for="mathMode">Math mode</label><input type="checkbox" name="mathMode" id="mathMode"></span>
         </div>
         </div>
-        <a href="../"><img id="title_light" alt="MatTalX" src="../images/mattalx_logo_nobg_light.png"></a>
-        <a href="../"><img id="title_dark" alt="MatTalX" src="../images/mattalx_logo_nobg_dark.png"></a>
+        <div id="title_container">
+            <a href="../"><img id="title_light" alt="MatTalX" src="../images/mattalx_logo_nobg_light.png"></a>
+            <a href="../"><img id="title_dark" alt="MatTalX" src="../images/mattalx_logo_nobg_dark.png"></a>
+            <span id="subtitle">Write math anywhere.</span>
+        </div>
     </header>
+    <!-- The extension's Settings box, without the three shortcuts a browser owns and
+         cannot be asked for from a page. The completion button is therefore always
+         shown, and has no setting of its own -->
+    <div id="settingsBox">
+        <div id="settingsContent">
+            <h2>SETTINGS</h2>
+            <h4>STYLE</h4>
+            <span><label for="darkMode">Dark mode</label><input type="checkbox" name="darkMode" id="darkMode"></span>
+            <span><label for="fontSize">Font size: </label><input type="number" name="fontSize" id="fontSize" value="14" min="1" max="99" step="1"></span>
+            <span><label for="fontFamily">Font family: </label>
+            <select name="fontFamily" id="fontFamily">
+                <option value="Arial">Arial</option>
+                <option value="Calibri">Calibri</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Gill Sans">Gill Sans</option>
+                <option value="Lucida Grande">Lucida Grande</option>
+                <option value="monospace">Monospace</option>
+                <option value="Segoe UI">Segoe UI</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select></span>
+            <h4>SHORTCUTS</h4>
+            <span><label for="shortCopyInput">Copy input (first box): </label>
+            <select name="shortOpen" id="shortCopyInputK">
+                <option value="Alt">Alt</option>
+                <option value="Ctrl">Ctrl</option>
+                <option value="Ctrl+Shift">Ctrl+Shift</option>
+                <option value="Alt+Shift">Alt+Shift</option>
+            </select> + 
+            <input type="text" name="shortCopyInput" id="shortCopyInputL" value="I" maxlength="1" size="1"></span>
+            <span><label for="shortCopyOutput">Copy output (second box): </label>
+            <select name="shortOpen" id="shortCopyOutputK">
+                <option value="Alt">Alt</option>
+                <option value="Ctrl">Ctrl</option>
+                <option value="Ctrl+Shift">Ctrl+Shift</option>
+                <option value="Alt+Shift">Alt+Shift</option>
+            </select> + 
+            <input type="text" name="shortCopyOutput" id="shortCopyOutputL" value="O" maxlength="1" size="1"></span>
+            <span><label for="showMainSymbols">Show main symbols</label><input type="checkbox" id="showMainSymbols"></span>
+            <br>
+            <input type="button" value="Reset" id="resetSettingsBtn">
+            <h4>COMMANDS &amp; OPERATORS</h4>
+            <input type="button" value="Build" id="buildNewCommand">
+            <br><br>
+            <table id="commandsBuilt"></table>
+        </div>
+    </div>
     <div id="body">
     <form name="text_input">
         <textarea type="text" name="text_in" id="text_in" spellcheck="false"></textarea>
         <div class="suggestion"><table id="completion"></table></div><br>
         <input type="button" value="Convert" id="convert">
         <input type="button" value="Completion" id="completionBtn">
-        <input type="reset" value="Clear" id="reset"><br><br>
+        <input type="reset" value="Clear" id="reset">
+        <span id="symbolRow">
+            <input type="button" value="$" id="dollarSign" class="symbolBtn">
+            <input type="button" value="\" id="backslash" class="symbolBtn">
+            <input type="button" value="{" id="openCurly" class="symbolBtn">
+            <input type="button" value="}" id="closeCurly" class="symbolBtn">
+        </span><br><br>
         <textarea type="text" name="text_out" id="text_out" spellcheck="false" disabled></textarea><br><br>
         <input type="button" value="Copy text" id="copy"><br>
         <p id="mistakes"></p><br>

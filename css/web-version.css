@@ -1,3 +1,14 @@
+/*
+    The web version of MatTalX.
+
+    Colours are declared once, as custom properties, in three places: :root for light,
+    a prefers-color-scheme block for a system that asks for dark, and body.darkChosen /
+    body.lightChosen for when the Dark mode switch in Settings has been used. The switch
+    has to be able to beat the system setting in both directions, which is what the two
+    classes are for. The extension does the same job by writing a few hundred inline
+    styles from popup.js; a page can just cascade.
+*/
+
 /* Position and size */
 #body {
     margin: auto;
@@ -19,11 +30,6 @@ a {
     text-align: left;
     display: block;
     padding: 8px;
-}
-.shortcutTitle {
-    padding-top: 6px;
-    padding-bottom: 0px;
-    cursor: default;
 }
 .suggestion {
     display: inline-block;
@@ -48,12 +54,6 @@ body {
     font-size: 15px;
     text-decoration: none;
 }
-.shortcuts {
-    font-size: 15px;
-    font-family: 'Times New Roman', Times, serif;
-    text-decoration: none;
-    cursor: default;
-}
 .dropdownInfo {
     display: none;
     position: absolute;
@@ -63,13 +63,14 @@ body {
     right: 0;
     border-radius: 7px;
 }
-#docs, 
-#git, 
+#docs,
+#git,
+#chromeext,
+#firefoxadd,
+#settingsBtn,
 #adjustSpaces,
 #changeFont,
-#changeMode,
-#chromeext,
-#firefoxadd {
+#changeMode {
     display: block;
     width: 100%;
     font-size: 15px;
@@ -87,6 +88,7 @@ body {
 
 /* The rows that carry a picture. An <input> can't hold an <img>, so the picture is a
    background: 16px at the left, with the text pushed clear of it */
+#settingsBtn,
 #docs,
 #git,
 #chromeext,
@@ -96,32 +98,54 @@ body {
     background-position: 8px center;
     background-size: auto 16px;
 }
-#docs       { background-image: url("../images/documentation.png"); }
-#git        { background-image: url("../images/github.png"); }
-#chromeext  { background-image: url("../images/chromelogo.png"); }
-#firefoxadd { background-image: url("../images/firefoxlogo.png"); }
+#settingsBtn { background-image: url("../images/setting.png"); }
+#docs        { background-image: url("../images/documentation.png"); }
+#git         { background-image: url("../images/github.png"); }
+#chromeext   { background-image: url("../images/chromelogo.png"); }
+#firefoxadd  { background-image: url("../images/firefoxlogo.png"); }
+
+.settingHint {
+    /* Says what the checkbox above does. Takes its colour from the row it sits in,
+       so it works the same in light and in dark mode */
+    display: block;
+    font-size: 15px;
+    font-style: italic;
+    opacity: 0.85;
+    padding: 0px 6px 3px 0px;
+    cursor: default;
+}
 #convert,
-#reset {
-    font-size: 14px;
-    font-family: Helvetica, Arial, sans-serif;
-    border: none;
-    padding: 8px;
-}
-#completionBtn {
-    display: inline-block;
-    font-size: 14px;
-    font-family: Helvetica, Arial, sans-serif;
-    border: none;
-    padding: 8px;
-}
+#reset,
+#completionBtn,
 #copy {
     font-size: 14px;
     font-family: Helvetica, Arial, sans-serif;
     border: none;
     padding: 8px;
+    border-radius: 5px;
+}
+#copy {
     min-width: 70px;
     width: fit-content;
     height: auto;
+}
+#symbolRow {
+    /* Shown only when the setting asks, which it does on its own on a touch screen */
+    display: none;
+}
+#symbolRow.shown {
+    display: inline;
+}
+/* Written as input[type=button].symbolBtn rather than .symbolBtn: the rule above for
+   every button is (0,1,1), so a lone class would lose the font and the padding to it */
+input[type=button].symbolBtn {
+    /* Wide enough to be tapped, and monospace so '\', '{' and '}' are unmistakable */
+    min-width: 40px;
+    font-family: monospace;
+    font-size: 16px;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
 }
 #mistakes {
     white-space: pre-wrap;
@@ -159,6 +183,95 @@ tr, td {
     font-family: inherit;
     cursor: pointer;
 }
+
+/* Settings */
+#settingsBox {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow: auto;
+}
+#settingsContent {
+    position: absolute;
+    display: block;
+    padding: 12px;
+    border-radius: 5px;
+    width: 70%;
+    max-width: 640px;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    text-decoration: none;
+    overflow-y: auto;
+}
+#settingsContent h2,
+#settingsContent h4 {
+    text-align: center;
+}
+#settingsContent span {
+    display: block;
+    padding: 1px;
+}
+#settingsContent input[type=number],
+#settingsContent input[type=text],
+#settingsContent select {
+    border: none;
+    border-radius: 5px;
+    padding: 4px;
+}
+#settingsContent input[type=button],
+#settingsContent input[type=reset] {
+    font-size: 14px;
+    font-family: Helvetica, Arial, sans-serif;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+}
+#commandsBuilt {
+    display: none;
+    width: 95%;
+    text-align: center;
+    border-radius: 5px;
+}
+#commandsBuilt tr,
+#commandsBuilt td {
+    border: none;
+    border-collapse: collapse;
+    background: none;
+    width: auto;
+}
+#commandsBuilt span {
+    /* The curly brackets around each field. Every span inside the Settings box is a
+       block, which stacked them above and below the input instead of beside it. The
+       extension undoes this with an inline style per bracket, from popup.js */
+    display: inline;
+}
+
+/* Title */
+#title_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#title_light,
+#title_dark {
+    /* Sized by height, so the header stays put whatever width the window is.
+       Width follows from the file's own 800x240 */
+    height: 90px;
+    width: auto;
+    margin-right: 14px;
+}
+#subtitle {
+    font-size: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
 .box {
     width: 30%;
     margin: 2% 10%;
@@ -181,11 +294,36 @@ tr, td {
     opacity: 100%;
 }
 
+
 /* Colors and style */
 
-/* MatTalX's own green, the same three lines the popup carries: the tick in a checkbox,
-   selected text, and the scrollbar. Without them the browser picks its default blue */
+/* The light palette. Every colour on the page comes from one of these, so the three
+   ways of choosing a theme below only have to redeclare the values */
 :root {
+    --ground: white;
+    --ink: black;
+    --field-ink: black;
+    --field-ground: whitesmoke;
+    --field-border: rgb(231, 231, 231);
+    --menu-ground: whitesmoke;
+    --menu-hover: lightgrey;
+    --button-ground: rgb(230, 229, 229);
+    --button-hover: lightgrey;
+    --suggestion-ground: white;
+    --suggestion-border: rgb(238, 238, 238);
+    --suggestion-chosen: lightgrey;
+    --veil: rgba(245, 245, 245, 0.7);
+    --panel-ground: whitesmoke;
+    --input-ground: white;
+    --grey-box: lightgrey;
+    --accent: #0f8867;
+
+    /* Which of the two logos and which question mark are shown. A custom property can
+       carry a 'display' as easily as a colour, and that keeps the swap with the theme
+       rather than in a second set of rules */
+    --light-art: inline-block;
+    --dark-art: none;
+
     accent-color: #0f8867;
 }
 ::selection {
@@ -195,205 +333,180 @@ html {
     scrollbar-color: #0f8867 transparent;
 }
 
-@media (prefers-color-scheme: light) {
-    body {
-        background-color: white;
-    }
-    #title_light {
-        width: 25%;
-        height: 25%;
-        display: block;
-        margin: auto;
-    }
-    #title_dark {
-        display: none;
-    }
-    #text_in, 
-    #text_out {
-        color: black;
-        border: 2px solid rgb(231, 231, 231);
-        background-color: whitesmoke;
-    }
-    .infoButton_dark {
-        display: none;
-    }
-    .infoButton_light {
-        background-color: white;
-        border: none;
-        float: right;
-    }
-    .info_dark {
-        display: none;
-    }
-    .info_light {
-        width: 15px;
-        height: 15px;
-        cursor: default;
-        float: right;
-    }
-    .shortcuts {
-        color: black;
-    }
-    .dropdownInfo {
-        background-color: whitesmoke;
-    }
-    #docs, 
-    #git, 
-    #adjustSpaces,
-    #changeFont,
-    #changeMode,
-    #chromeext,
-    #firefoxadd {
-        color: black;
-        background-color: whitesmoke;
-    }
-    #docs:hover,
-    #git:hover,
-    #adjustSpaces:hover,
-    #changeFont:hover,
-    #changeMode:hover,
-    #chromeext:hover,
-    #firefoxadd:hover {
-        background-color: lightgrey;
-    }
-    #convert,
-    #reset,
-    #completionBtn {
-        color: black;
-        background-color: rgb(230, 229, 229);
-    }
-    #convert:hover,
-    #reset:hover,
-    #completionBtn:hover {
-        background-color: lightgrey;
-    }
-    #copy {
-        color: black;
-        background-color: rgb(230, 229, 229);
-    }
-    #copy:hover {
-        background-color: lightgrey;
-    }
-    #mistakes {
-        color: black;
-    }
-    #completion {
-        border: 1px solid rgb(238, 238, 238);
-        background-color: rgb(238, 238, 238);
-    }
-    tr, td {
-        border: 1px solid rgb(238, 238, 238);
-        background-color: white;
-    }
-    #completion td {
-        color: black;
-    }
-    .grey {
-        background-color: lightgrey;
-    }
-}
+/* A system asking for dark, unless the switch in Settings has asked for light */
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: rgb(39, 39, 39);
-    }
-    #title_light {
-        display: none;
-    }
-    #title_dark {
-        width: 25%;
-        height: 25%;
-        display: block;
-        margin: auto;
-        opacity: 85%;
-    }
-    #text_in, 
-    #text_out {
-        color: whitesmoke;
-        border: 2px solid rgb(83, 83, 83);
-        background-color: rgb(83, 83, 83);
-    }
-    .infoButton_light {
-        display: none;
-    }
-    .infoButton_dark {
-        background-color: rgb(39, 39, 39);
-        border: none;
-        float: right;
-    }
-    .info_light {
-        display: none;
-    }
-    .info_dark {
-        width: 15px;
-        height: 15px;
-        cursor: default;
-        float: right;
-    }
-    .shortcuts {
-        color: whitesmoke;
-    }
-    .dropdownInfo {
-        background-color: rgb(31, 31, 31);
-    }
-    #docs, 
-    #git, 
-    #adjustSpaces,
-    #changeFont,
-    #changeMode,
-    #chromeext,
-    #firefoxadd {
-        color: whitesmoke;
-        background-color: rgb(31, 31, 31);
-    }
-    #docs:hover,
-    #git:hover,
-    #adjustSpaces:hover,
-    #changeFont:hover,
-    #changeMode:hover,
-    #chromeext:hover,
-    #firefoxadd:hover  {
-        background-color: rgb(41, 41, 41);
-    }
-    /* The Chrome and Firefox logos are already coloured; only the two black
-       drawings need a version that shows up on a dark menu */
-    #docs { background-image: url("../images/documentation_dark.png"); }
-    #git  { background-image: url("../images/github_dark.png"); }
-    #convert,
-    #reset,
-    #completionBtn {
-        color: whitesmoke;
-        background-color: rgb(53, 53, 53);
-    }
-    #convert:hover,
-    #reset:hover,
-    #completionBtn:hover {
-        background-color: rgb(61, 61, 61);
-    }
-    #copy {
-        color: whitesmoke;
-        background-color: rgb(53, 53, 53);
-    }
-    #copy:hover {
-        background-color: rgb(61, 61, 61);
-    }
-    #mistakes {
-        color: whitesmoke;
-    }
-    #completion {
-        border: 1px solid rgb(31, 31, 31);
-        background-color: rgb(31, 31, 31);
-    }
-    tr, td {
-        border: 1px solid rgb(31, 31, 31);
-        background-color: rgb(39, 39, 39);
-    }
-    #completion td {
-        color: whitesmoke;
-    }
-    .grey {
-        background-color: grey;
+    body:not(.lightChosen) {
+        --ground: rgb(39, 39, 39);
+        --ink: whitesmoke;
+        --field-ink: whitesmoke;
+        --field-ground: rgb(83, 83, 83);
+        --field-border: rgb(83, 83, 83);
+        --menu-ground: rgb(31, 31, 31);
+        --menu-hover: rgb(41, 41, 41);
+        --button-ground: rgb(53, 53, 53);
+        --button-hover: rgb(61, 61, 61);
+        --suggestion-ground: rgb(39, 39, 39);
+        --suggestion-border: rgb(31, 31, 31);
+        --suggestion-chosen: rgb(61, 61, 61);
+        --veil: rgba(31, 31, 31, 0.7);
+        --panel-ground: rgb(31, 31, 31);
+        --input-ground: rgb(61, 61, 61);
+        --grey-box: grey;
+        --accent: #22b98d;
+        --light-art: none;
+        --dark-art: inline-block;
     }
 }
+
+/* The switch in Settings, which has the last word in both directions */
+body.darkChosen {
+    --ground: rgb(39, 39, 39);
+    --ink: whitesmoke;
+    --field-ink: whitesmoke;
+    --field-ground: rgb(83, 83, 83);
+    --field-border: rgb(83, 83, 83);
+    --menu-ground: rgb(31, 31, 31);
+    --menu-hover: rgb(41, 41, 41);
+    --button-ground: rgb(53, 53, 53);
+    --button-hover: rgb(61, 61, 61);
+    --suggestion-ground: rgb(39, 39, 39);
+    --suggestion-border: rgb(31, 31, 31);
+    --suggestion-chosen: rgb(61, 61, 61);
+    --veil: rgba(31, 31, 31, 0.7);
+    --panel-ground: rgb(31, 31, 31);
+    --input-ground: rgb(61, 61, 61);
+    --grey-box: grey;
+    --accent: #22b98d;
+    --light-art: none;
+    --dark-art: inline-block;
+}
+
+/* The three black drawings need a whitesmoke twin to show up on a dark menu. The
+   Chrome and Firefox logos are already coloured and read against either ground */
+@media (prefers-color-scheme: dark) {
+    body:not(.lightChosen) #settingsBtn { background-image: url("../images/setting_dark.png"); }
+    body:not(.lightChosen) #docs        { background-image: url("../images/documentation_dark.png"); }
+    body:not(.lightChosen) #git         { background-image: url("../images/github_dark.png"); }
+}
+body.darkChosen #settingsBtn { background-image: url("../images/setting_dark.png"); }
+body.darkChosen #docs        { background-image: url("../images/documentation_dark.png"); }
+body.darkChosen #git         { background-image: url("../images/github_dark.png"); }
+body.lightChosen #settingsBtn { background-image: url("../images/setting.png"); }
+body.lightChosen #docs        { background-image: url("../images/documentation.png"); }
+body.lightChosen #git         { background-image: url("../images/github.png"); }
+
+/* Everything below reads the palette and never names a colour of its own */
+body {
+    background-color: var(--ground);
+    color: var(--ink);
+}
+#title_light  { display: var(--light-art); }
+#title_dark   { display: var(--dark-art); opacity: 85%; }
+#subtitle     { color: var(--accent); }
+#text_in,
+#text_out {
+    color: var(--field-ink);
+    border: 2px solid var(--field-border);
+    background-color: var(--field-ground);
+}
+.infoButton_light {
+    display: var(--light-art);
+    background-color: var(--ground);
+    border: none;
+    float: right;
+}
+.infoButton_dark {
+    display: var(--dark-art);
+    background-color: var(--ground);
+    border: none;
+    float: right;
+}
+.info_light,
+.info_dark {
+    width: 15px;
+    height: 15px;
+    cursor: default;
+    float: right;
+}
+.dropdownInfo {
+    background-color: var(--menu-ground);
+}
+#docs,
+#git,
+#chromeext,
+#firefoxadd,
+#settingsBtn,
+#adjustSpaces,
+#changeFont,
+#changeMode {
+    color: var(--ink);
+    background-color: var(--menu-ground);
+}
+#docs:hover,
+#git:hover,
+#chromeext:hover,
+#firefoxadd:hover,
+#settingsBtn:hover,
+#adjustSpaces:hover,
+#changeFont:hover,
+#changeMode:hover {
+    background-color: var(--menu-hover);
+}
+#convert,
+#reset,
+#completionBtn,
+#copy,
+input[type=button].symbolBtn,
+#settingsContent input[type=button],
+#settingsContent input[type=reset] {
+    color: var(--ink);
+    background-color: var(--button-ground);
+}
+#convert:hover,
+#reset:hover,
+#completionBtn:hover,
+#copy:hover,
+input[type=button].symbolBtn:hover,
+#settingsContent input[type=button]:hover,
+#settingsContent input[type=reset]:hover {
+    background-color: var(--button-hover);
+}
+#mistakes {
+    color: var(--ink);
+}
+#completion {
+    border: 1px solid var(--suggestion-border);
+    background-color: var(--suggestion-border);
+}
+tr, td {
+    border: 1px solid var(--suggestion-border);
+    background-color: var(--suggestion-ground);
+}
+#completion td {
+    color: var(--ink);
+}
+#completion button.chosen {
+    /* Where the arrow keys are. A class rather than an inline colour, so the highlight
+       follows the theme without being repainted by hand */
+    background-color: var(--suggestion-chosen);
+}
+#settingsBox {
+    background-color: var(--veil);
+}
+#settingsContent {
+    background-color: var(--panel-ground);
+    color: var(--ink);
+}
+#settingsContent input[type=number],
+#settingsContent input[type=text],
+#settingsContent select {
+    color: var(--ink);
+    background-color: var(--input-ground);
+}
+.grey {
+    background-color: var(--grey-box);
+}
+
 /* Asks how wide the window is, not how wide the screen is. 'max-device-width' is out of
    the spec and reads the physical display, so a narrow window on a desktop never got
    these rules and a phone got them even in a small window */
@@ -402,17 +515,22 @@ html {
        with no viewport tag a phone laid the page out at about 980px and then scaled the
        whole thing down, so 28px was what it took to end up readable. The tag is there
        now, the page is laid out at the width it really has, and the sizes are ordinary
-       again. The rules that only repeated the desktop ones word for word are gone, as
-       are two that named #info_light and #info_dark -- those are classes in the HTML,
-       so the rules never matched anything */
+       again */
     #body {
         /* 85% of a phone is a lot of nothing down each side */
         width: auto;
         padding: 0 12px 12px;
     }
+    #title_container {
+        flex-wrap: wrap;
+    }
     #title_light,
     #title_dark {
-        width: 70%;
+        height: 44px;
+        margin-right: 8px;
+    }
+    #subtitle {
+        font-size: 16px;
     }
     #text_in,
     #text_out {
@@ -436,13 +554,24 @@ html {
         padding: 12px 14px;
         margin: 0 6px 6px 0;
     }
+    #symbolRow.shown {
+        /* Their own line, under Convert, Completion and Clear */
+        display: block;
+        margin-top: 10px;
+    }
+    input[type=button].symbolBtn {
+        /* A finger, not a mouse pointer */
+        min-width: 48px;
+        padding: 12px 8px;
+    }
     #docs,
     #git,
+    #chromeext,
+    #firefoxadd,
+    #settingsBtn,
     #adjustSpaces,
     #changeFont,
-    #changeMode,
-    #chromeext,
-    #firefoxadd {
+    #changeMode {
         font-size: 16px;
         padding-top: 10px;
         padding-bottom: 10px;
@@ -453,6 +582,10 @@ html {
     }
     #completion button {
         max-width: calc(100vw - 40px);
+    }
+    #settingsContent {
+        width: 92%;
+        height: 88%;
     }
     .box {
         width: 80%;
