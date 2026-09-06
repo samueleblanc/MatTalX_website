@@ -1,47 +1,20 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://mattalx.org/css/web-version.css">
-    <script src="https://mattalx.org/js/web-version.js" type="module"></script>
-    <link rel="icon" href="https://mattalx.org/images/mattalx_favicon96.png">
-    <title>MatTalX</title>
-</head>
-<body>
-    <header>
-        <div class="infoDiv">
-            <button class="infoButton_light"><img class="info_light" alt="Info" src="https://mattalx.org/images/question_mark_nobg_light.png"></button>
-            <button class="infoButton_dark"><img class="info_dark" alt="Info" src="https://mattalx.org/images/question_mark_nobg_dark.png"></button><br>
-        <div class="dropdownInfo">
-            <a target="_blank" href="https://mattalx.org/documentation.html"><input type="button" value="Documentation" id="docs"></a>
-            <a target="_blank" href="https://github.com/samueleblanc/MatTalX"><input type="button" value="Code (GitHub)" id="git"></a>
-            <a target="_blank" href="https://chrome.google.com/webstore/detail/mattalx-write-math-symbol/jllceliamggkpffccbefpefgmcigaglb"><input type="button" value="Chrome extension" id="chromeext"></a>
-            <a target="_blank" href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/"><input type="button" value="Firefox add-on" id="firefoxadd"></a>
-            <span id="adjustSpaces"><label for="adjust">Adjust spaces</label><input type="checkbox" name="adjust" id="adjust" checked></span>
-            <span id="changeFont"><label for="mathFont">Mathematical font</label><input type="checkbox" name="mathFont" id="mathFont" checked></span>
-            <span id="changeMode"><label for="mathMode">Math mode</label><input type="checkbox" name="mathMode" id="mathMode" checked></span>
-        </div>
-        </div>
-        <a href="https://mattalx.org/"><img id="title_light" alt="MatTalX" src="https://mattalx.org/images/mattalx_logo_nobg_light.png"></a>
-        <a href="https://mattalx.org/"><img id="title_dark" alt="MatTalX" src="https://mattalx.org/images/mattalx_logo_nobg_dark.png"></a>
-    </header>
-    <div id="body">
-    <form name="text_input">
-        <textarea type="text" name="text_in" id="text_in" spellcheck="false"></textarea>
-        <div class="suggestion"><table id="completion"></table></div><br>
-        <input type="button" value="Convert" id="convert">
-        <input type="button" value="Completion" id="completionBtn">
-        <input type="reset" value="Clear" id="reset"><br><br>
-        <textarea type="text" name="text_out" id="text_out" spellcheck="false" disabled></textarea><br><br>
-        <input type="button" value="Copy text" id="copy"><br>
-        <p id="mistakes"></p><br>
-    </form>
-    </div>
-    <div class="grey box" id="getMatTalX">
-        <h1>Get MatTalX</h1>
-        <span id="availableText">Available with <b>full functionality</b> in the Chrome webstore and in the Firefox add-ons marketplace</span><br>
-        <a href="https://chrome.google.com/webstore/detail/mattalx-write-math-symbol/jllceliamggkpffccbefpefgmcigaglb" target="_blank"><img src="https://mattalx.org/images/chromelogo.png" id="chromelogo" alt="Chrome logo"></a>
-        <a href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/" target="_blank"><img src="https://mattalx.org/images/firefoxlogo.png" id="firefoxlogo" alt="Firefox logo"></a>
-    </div>
-</body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- This page moved to https://mattalx.org/web-version/. Kept because the old address is
+             out in the world and cannot be recalled: it is the privacy policy and the
+             documentation link registered with the Chrome and Firefox stores, it sits in
+             the popup of every copy already installed, and search engines still hold it.
+             GitHub Pages serves files, not redirects, so the redirect has to be the page -->
+        <meta http-equiv="refresh" content="0; url=https://mattalx.org/web-version/">
+        <link rel="canonical" href="https://mattalx.org/web-version/">
+        <meta name="robots" content="noindex">
+        <link rel="icon" href="https://mattalx.org/images/mattalx_favicon96.png">
+        <title>MatTalX web version moved</title>
+    </head>
+    <body>
+        <p>This page is now at <a href="https://mattalx.org/web-version/">mattalx.org/web-version/</a>.</p>
+        <script>window.location.replace("https://mattalx.org/web-version/");</script>
+    </body>
 </html>
