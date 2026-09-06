@@ -1422,6 +1422,344 @@ const textit = (arg, initialCommand) => {
 	return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
 };
 
+const emph = (arg, initialCommand) => {
+    // It "emphasizes" the text. So, if the text is normal, it puts it in italic, if it's in italic it becomes normal.
+    const symbols = {
+        "A" : "\u{1D608}",
+        "a" : "\u{1D622}",
+        "B" : "\u{1D609}",
+        "b" : "\u{1D623}",
+        "C" : "\u{1D60A}",
+        "c" : "\u{1D624}",
+        "D" : "\u{1D60B}",
+        "d" : "\u{1D625}",
+        "E" : "\u{1D60C}",
+        "e" : "\u{1D626}",
+        "F" : "\u{1D60D}",
+        "f" : "\u{1D627}",
+        "G" : "\u{1D60E}",
+        "g" : "\u{1D628}",
+        "H" : "\u{1D60F}",
+        "h" : "\u{1D629}",
+        "I" : "\u{1D610}",
+        "i" : "\u{1D62A}",
+        "J" : "\u{1D611}",
+        "j" : "\u{1D62B}",
+        "K" : "\u{1D612}",
+        "k" : "\u{1D62C}",
+        "L" : "\u{1D613}",
+        "l" : "\u{1D62D}",
+        "M" : "\u{1D614}",
+        "m" : "\u{1D62E}",
+        "N" : "\u{1D615}",
+        "n" : "\u{1D62F}",
+        "O" : "\u{1D616}",
+        "o" : "\u{1D630}",
+        "P" : "\u{1D617}",
+        "p" : "\u{1D631}",
+        "Q" : "\u{1D618}",
+        "q" : "\u{1D632}",
+        "R" : "\u{1D619}",
+        "r" : "\u{1D633}",
+        "S" : "\u{1D61A}",
+        "s" : "\u{1D634}",
+        "T" : "\u{1D61B}",
+        "t" : "\u{1D635}",
+        "U" : "\u{1D61C}",
+        "u" : "\u{1D636}",
+        "V" : "\u{1D61D}",
+        "v" : "\u{1D637}",
+        "W" : "\u{1D61E}",
+        "w" : "\u{1D638}",
+        "X" : "\u{1D61F}",
+        "x" : "\u{1D639}",
+        "Y" : "\u{1D620}",
+        "y" : "\u{1D63A}",
+        "Z" : "\u{1D621}",
+        "z" : "\u{1D63B}",
+
+        "𝐴" : "A",
+        "𝑎" : "a",
+        "𝐵" : "B",
+        "𝑏" : "b",
+        "𝐶" : "C",
+        "𝑐" : "c",
+        "𝐷" : "D",
+        "𝑑" : "d",
+        "𝐸" : "E",
+        "𝑒" : "e",
+        "𝐹" : "F",
+        "𝑓" : "f",
+        "𝐺" : "G",
+        "𝑔" : "g",
+        "𝐻" : "H",
+        "ℎ" : "h",
+        "𝐼" : "I",
+        "𝑖" : "i",
+        "𝐽" : "J",
+        "𝑗" : "j",
+        "𝐾" : "K",
+        "𝑘" : "k",
+        "𝐿" : "L",
+        "𝑙" : "l",
+        "𝑀" : "M",
+        "𝑚" : "m",
+        "𝑁" : "N",
+        "𝑛" : "n",
+        "𝑂" : "O",
+        "𝑜" : "o",
+        "𝑃" : "P",
+        "𝑝" : "p",
+        "𝑄" : "Q",
+        "𝑞" : "q",
+        "𝑅" : "R",
+        "𝑟" : "r",
+        "𝑆" : "S",
+        "𝑠" : "s",
+        "𝑇" : "T",
+        "𝑡" : "t",
+        "𝑈" : "U",
+        "𝑢" : "u",
+        "𝑉" : "V",
+        "𝑣" : "v",
+        "𝑊" : "W",
+        "𝑤" : "w",
+        "𝑋" : "X",
+        "𝑥" : "x",
+        "𝑌" : "Y",
+        "𝑦" : "y",
+        "𝑍" : "Z",
+        "𝑧" : "z",
+
+        "𝘈" : "A",
+        "𝘢" : "a",
+        "𝘉" : "B",
+        "𝘣" : "b",
+        "𝘊" : "C",
+        "𝘤" : "c",
+        "𝘋" : "D",
+        "𝘥" : "d",
+        "𝘌" : "E",
+        "𝘦" : "e",
+        "𝘍" : "F",
+        "𝘧" : "f",
+        "𝘎" : "G",
+        "𝘨" : "g", 
+        "𝘏" : "H",
+        "𝘩" : "h",
+        "𝘐" : "I",
+        "𝘪" : "i", 
+        "𝘑" : "J",
+        "𝘫" : "j",
+        "𝘒" : "K", 
+        "𝘬" : "k",
+        "𝘓" : "L", 
+        "𝘭" : "l",
+        "𝘔" : "M",
+        "𝘮" : "m",
+        "𝘕" : "N",
+        "𝘯" : "n",
+        "𝘖" : "O",
+        "𝘰" : "o",
+        "𝘗" : "P",
+        "𝘱" : "p",
+        "𝘘" : "Q",
+        "𝘲" : "q",
+        "𝘙" : "R",
+        "𝘳" : "r",
+        "𝘚" : "S",
+        "𝘴" : "s",
+        "𝘛" : "T",
+        "𝘵" : "t",
+        "𝘜" : "U",
+        "𝘶" : "u",
+        "𝘝" : "V",
+        "𝘷" : "v",
+        "𝘞" : "W",
+        "𝘸" : "w",
+        "𝘟" : "X",
+        "𝘹" : "x",
+        "𝘠" : "Y",
+        "𝘺" : "y",
+        "𝘡" : "Z",
+        "𝘻" : "z",
+
+        "𝗔" : "\u{1D63C}",
+        "𝗮" : "\u{1D656}",
+        "𝗕" : "\u{1D63D}",
+        "𝗯" : "\u{1D657}",
+        "𝗖" : "\u{1D63E}",
+        "𝗰" : "\u{1D658}",
+        "𝗗" : "\u{1D63F}",
+        "𝗱" : "\u{1D659}",
+        "𝗘" : "\u{1D640}",
+        "𝗲" : "\u{1D65A}",
+        "𝗙" : "\u{1D641}",
+        "𝗳" : "\u{1D65B}",
+        "𝗚" : "\u{1D642}",
+        "𝗴" : "\u{1D65C}",
+        "𝗛" : "\u{1D643}",
+        "𝗵" : "\u{1D65D}",
+        "𝗜" : "\u{1D644}",
+        "𝗶" : "\u{1D65E}",
+        "𝗝" : "\u{1D645}",
+        "𝗷" : "\u{1D65F}",
+        "𝗞" : "\u{1D646}",
+        "𝗸" : "\u{1D660}",
+        "𝗟" : "\u{1D647}",
+        "𝗹" : "\u{1D661}",
+        "𝗠" : "\u{1D648}",
+        "𝗺" : "\u{1D662}",
+        "𝗡" : "\u{1D649}",
+        "𝗻" : "\u{1D663}",
+        "𝗢" : "\u{1D64A}",
+        "𝗼" : "\u{1D664}",
+        "𝗣" : "\u{1D64B}",
+        "𝗽" : "\u{1D665}",
+        "𝗤" : "\u{1D64C}",
+        "𝗾" : "\u{1D666}",
+        "𝗥" : "\u{1D64D}",
+        "𝗿" : "\u{1D667}",
+        "𝗦" : "\u{1D64E}",
+        "𝘀" : "\u{1D668}",
+        "𝗧" : "\u{1D64F}",
+        "𝘁" : "\u{1D669}",
+        "𝗨" : "\u{1D650}",
+        "𝘂" : "\u{1D66A}",
+        "𝗩" : "\u{1D651}",
+        "𝘃" : "\u{1D66B}",
+        "𝗪" : "\u{1D652}",
+        "𝘄" : "\u{1D66C}",
+        "𝗫" : "\u{1D653}",
+        "𝘅" : "\u{1D66D}",
+        "𝗬" : "\u{1D654}",
+        "𝘆" : "\u{1D66E}",
+        "𝗭" : "\u{1D655}",
+        "𝘇" : "\u{1D66F}",
+
+        // And back again: a second \emph inside \textbf returns to upright bold,
+        // the way \textbf{\emph{\emph{x}}} does in LaTeX
+        "𝘼" : "\u{1D5D4}",
+        "𝙖" : "\u{1D5EE}",
+        "𝘽" : "\u{1D5D5}",
+        "𝙗" : "\u{1D5EF}",
+        "𝘾" : "\u{1D5D6}",
+        "𝙘" : "\u{1D5F0}",
+        "𝘿" : "\u{1D5D7}",
+        "𝙙" : "\u{1D5F1}",
+        "𝙀" : "\u{1D5D8}",
+        "𝙚" : "\u{1D5F2}",
+        "𝙁" : "\u{1D5D9}",
+        "𝙛" : "\u{1D5F3}",
+        "𝙂" : "\u{1D5DA}",
+        "𝙜" : "\u{1D5F4}",
+        "𝙃" : "\u{1D5DB}",
+        "𝙝" : "\u{1D5F5}",
+        "𝙄" : "\u{1D5DC}",
+        "𝙞" : "\u{1D5F6}",
+        "𝙅" : "\u{1D5DD}",
+        "𝙟" : "\u{1D5F7}",
+        "𝙆" : "\u{1D5DE}",
+        "𝙠" : "\u{1D5F8}",
+        "𝙇" : "\u{1D5DF}",
+        "𝙡" : "\u{1D5F9}",
+        "𝙈" : "\u{1D5E0}",
+        "𝙢" : "\u{1D5FA}",
+        "𝙉" : "\u{1D5E1}",
+        "𝙣" : "\u{1D5FB}",
+        "𝙊" : "\u{1D5E2}",
+        "𝙤" : "\u{1D5FC}",
+        "𝙋" : "\u{1D5E3}",
+        "𝙥" : "\u{1D5FD}",
+        "𝙌" : "\u{1D5E4}",
+        "𝙦" : "\u{1D5FE}",
+        "𝙍" : "\u{1D5E5}",
+        "𝙧" : "\u{1D5FF}",
+        "𝙎" : "\u{1D5E6}",
+        "𝙨" : "\u{1D600}",
+        "𝙏" : "\u{1D5E7}",
+        "𝙩" : "\u{1D601}",
+        "𝙐" : "\u{1D5E8}",
+        "𝙪" : "\u{1D602}",
+        "𝙑" : "\u{1D5E9}",
+        "𝙫" : "\u{1D603}",
+        "𝙒" : "\u{1D5EA}",
+        "𝙬" : "\u{1D604}",
+        "𝙓" : "\u{1D5EB}",
+        "𝙭" : "\u{1D605}",
+        "𝙔" : "\u{1D5EC}",
+        "𝙮" : "\u{1D606}",
+        "𝙕" : "\u{1D5ED}",
+        "𝙯" : "\u{1D607}",
+
+        "𝟬" : "𝟬",
+        "𝟭" : "𝟭",
+        "𝟮" : "𝟮",
+        "𝟯" : "𝟯",
+        "𝟰" : "𝟰",
+        "𝟱" : "𝟱",
+        "𝟲" : "𝟲",
+        "𝟳" : "𝟳",
+        "𝟴" : "𝟴",
+        "𝟵" : "𝟵",
+
+        "." : ".",
+        "," : ",",
+        "'" : "'",
+        "′" : "'",
+        '"' : '"',
+        "″" : '"',
+        "!" : "!",
+        "?" : "?",
+        "-" : "-",
+        "\u2212" : "\u2212",
+        "_" : "_",
+        "^" : "^",
+        "/" : "/",
+        "+" : "+",
+        "=" : "=",
+        "$" : "$",
+        "¢" : "¢",
+        "£" : "£",
+        "%" : "%",
+        "&" : "&",
+        "*" : "*",
+        "@" : "@",
+        "#" : "#",
+        "|" : "|",
+        "\\" : "\\",
+        ":" : ":",
+        "∶" : ":",
+        ";" : ";",
+        ">" : ">",
+        "<" : "<",
+        "°" : "°",
+        "(" : "(",
+        ")" : ")",
+        "[" : "[",
+        "]" : "]",
+        "{" : "{",
+        "}" : "}",
+        "0" : "0",
+        "1" : "1",
+        "2" : "2",
+        "3" : "3",
+        "4" : "4",
+        "5" : "5",
+        "6" : "6",
+        "7" : "7",
+        "8" : "8",
+        "9" : "9",
+
+        "\u2710" : spacesChar.add,
+        "\u270E" : spacesChar.remove,
+        " " : spacesChar.add,
+        "\u000A" : "\u000A",
+        "" : ""
+	};
+	return replaceLetters(arg[0], symbols, initialCommand).concat(extraArgs(arg.slice(1), initialCommand));
+};
+
 const texttt = (arg, initialCommand) => {
     // texttt stands for text typewriter
     // This function converts the list of characters to the corresponding typewriter character
@@ -2040,10 +2378,10 @@ const frac = (arg, initialCommand) => {
         return output.concat(extraArgs(arg.slice(2), initialCommand));
     } else {
         // TODO: Why???
-        if (arg.join("").includes(spacesChar.add)) {
+        if (argsText(arg).includes(spacesChar.add)) {
             const spaces = arg.filter(c => {return c.includes(spacesChar.add)});
             for (let i in spaces) {
-                mistakes(initialCommand + "{" + arg.join("") + "}", undefined, spaces[i]);
+                mistakes(initialCommand + "{" + argsText(arg) + "}", undefined, spaces[i]);
             };
         };
         output = ["(", 
@@ -2517,7 +2855,7 @@ const mathDictionary = {
     "\\leftsquigarrow" : "\u21DC",
     "\\rightsquigarrow" : "\u21DD",
     "\\leftrightsquigarrow" : "\u21AD",
-    "\\longrightsquiglearrow" : "\u27FF",
+    "\\longrightsquigarrow" : "\u27FF",
     "\\looparrowleft" : "\u21AB",
     "\\looparrowright" : "\u21AC",
     "\\circlearrowleft" : "\u21BA",
@@ -2551,6 +2889,7 @@ const mathDictionary = {
     "\\text" : text,
     "\\textbf" : textbf,
     "\\textit" : textit,
+    "\\emph" : emph,
     "\\texttt" : texttt,
     "\\textsc" : textsc,
 
@@ -2819,8 +3158,6 @@ const mathDictionary = {
     "\\%" : "%",
     "\\{" : "{",
     "\\}" : "}",
-    "\\(" : "(",
-    "\\)" : ")",
     "\\$" : "$",
     "\\#" : "#",
     "\\backslash" : "\\",
@@ -2975,6 +3312,12 @@ const noStyleGreek = {
     "\\omega" : "\u03C9"
 };
 
+// Names that were once misspelled, kept so a text written with the old one still converts
+// Left out of defaultDict on purpose: they convert, but there is no reason to suggest them
+export const oldNames = {
+    "\\longrightsquiglearrow" : "\u27FF"   // \longrightsquigarrow
+};
+
 // Default dict (in math mode), used in the completion popup
 export const defaultDict = {...mathDictionary, ...stdGreek};
 
@@ -3012,6 +3355,7 @@ const textCommands = {
     "\\ae" : "\u00E6",
     "\\textbf" : textbf,
     "\\textit" : textit,
+    "\\emph" : emph,
     "\\texttt" : texttt,
     "\\textsc" : textsc,
     "\\hspace" : hspace,
@@ -3878,11 +4222,16 @@ const settingsFunctions = {
 
 // Main functions
 
-function tokenize(fullText, mathmode) {
+function tokenize(fullTextString, mathmode) {
+    // Everything MatTalX writes is outside the basic plane, so a symbol like '𝛼' takes two
+    // places in a string. Walking characters rather than those halves is what lets an
+    // already converted text be converted again without being cut in two.
+    const fullText = Array.from(fullTextString);
     // This function takes the text as entered by the user, and outputs a list of tokens
     // For instance "curl written as $\nabla \times \mathbf{F}$" will output
     //  [c,u,r,l, ,w,r,i,t,t,e,n, ,a,s, ,STARTMM,\nabla, ,\times, ,\mathbf,STARTARG,F,ENDARG,ENDMM]
     const brackets = ["[", "]"];
+    const parentheses = ["(", ")"];
     const commandStoppers = [" ", "\u000A", ",", "/", "-", "+", "<", ">", "|", "?", "(", ")"]; 
     // N.B. Brackets also stops commands (most of the time)
     const potentialCommandStoppers = [":" , ";" , "~", ".", "!", "'", '"', "=", "%", "#"];
@@ -3899,7 +4248,29 @@ function tokenize(fullText, mathmode) {
 
     for (i=0; i<fullText.length; i++) {
         if (trigger) {
-            if (commandStoppers.includes(fullText[i])) {
+            if ((parentheses.includes(fullText[i])) && (fullText[i-1] === "\\")) {
+                // '\(' and '\)' enter and leave math mode, like '$'
+                // Unlike '\[' and '\]', they don't skip a line
+                if (mathmode) {
+                    if ((fullText[i] === ")") && (mathmodeStarter === "\\(")) {
+                        mathmode = false;
+                        mathmodeStarter = "";
+                        outTokens.push(specialTokens.endMathmode);
+                    } else {
+                        outTokens.push(temporaryBox.join("") + fullText[i]);
+                    };
+                } else {
+                    if (fullText[i] === "(") {
+                        mathmode = true;
+                        mathmodeStarter = "\\(";
+                        outTokens.push(specialTokens.startMathmode);
+                    } else {
+                        outTokens.push(temporaryBox.join("") + fullText[i]);
+                    };
+                };
+                trigger = false;
+                temporaryBox = [];
+            } else if (commandStoppers.includes(fullText[i])) {
                 outTokens.push(temporaryBox.join(""));
                 outTokens.push(fullText[i]);
                 trigger = false;
@@ -4069,7 +4440,7 @@ function tokenize(fullText, mathmode) {
             } else if (fullText[i] === "{") {
                 outTokens.push(specialTokens.startArgument);
             } else {
-                char = fullText[i].normalize("NFD").split("");
+                char = Array.from(fullText[i].normalize("NFD"));
                 outTokens.push(...char);
             };
         };
@@ -4078,11 +4449,15 @@ function tokenize(fullText, mathmode) {
     if (startMathmode) {
         outTokens.push(specialTokens.endMathmode);
     };
-    return expandBracelessArgs(outTokens);
+    return outTokens;
 };
 
 function tokensToText(tokens, dictMM, dictOut, adjustSpacing, callSpaceCommand=true) {
     // Takes a list of tokens as input and uses the dictonary to convert them to symbols
+
+    // What is written without curly brackets is filled in first, which needs the dictionaries
+    // to know what takes an argument
+    tokens = expandBracelessArgs(tokens, dictMM, dictOut);
     
     // The basic idea of the algorithm is:
     // Loop on tokens
@@ -4176,9 +4551,9 @@ function tokensToText(tokens, dictMM, dictOut, adjustSpacing, callSpaceCommand=t
                         };
                         if (mathmode) {
                             mathmodeText += str(mathord(arg, "").join(""));
-                            mistakes("{"+arg.join("")+"}", mathord(arg, "").join(""), arg.join(""));
+                            mistakes("{"+argsText(arg)+"}", mathord(arg, "").join(""), argsText(arg));
                         } else {
-                            outText += mistakes("Out of math mode", undefined, "Can't find a function for {" + arg.join("") + "}" + ". Use '\\{' or '\\}' to output a curly bracket", "{" + arg.join("") + "}");
+                            outText += mistakes("Out of math mode", undefined, "Can't find a function for {" + argsText(arg) + "}" + ". Use '\\{' or '\\}' to output a curly bracket", "{" + argsText(arg) + "}");
                         };
                         arg = [];
                     };
@@ -4201,12 +4576,6 @@ function tokensToText(tokens, dictMM, dictOut, adjustSpacing, callSpaceCommand=t
             if (typeof command == "function") {
                 if (tokens[i+1] === specialTokens.startArgument) {
                     fctStack.push(tokens[i]);
-                } else if (tokens.slice(i+1).filter(x => x !== " ")[0] === specialTokens.startArgument) {
-                    if (mathmode) {
-                        mathmodeText += mistakes(tokens[i]+" {}", undefined, "Remove extra spaces", tokens[i]);
-                    } else {
-                        outText += mistakes("Out of math mode: "+tokens[i]+" {}", undefined, "Remove extra spaces", tokens[i]);
-                    };
                 } else {
                     if (mathmode) {
                         if (command === sqrt) {
@@ -4242,11 +4611,22 @@ function tokensToText(tokens, dictMM, dictOut, adjustSpacing, callSpaceCommand=t
                         mistakes(tokens[i], dict[tokens[i]]);
                     } else {
                         outText += str(dict[tokens[i]], tokens[i]);
-                        mistakes("Out of math mode", dict[tokens[i]], tokens[i]);
+                        if (tokens[i][0] === "\\") {
+                            // Out of math mode a character is just text, and text that is
+                            // already converted shouldn't look like a mistake. A command
+                            // that didn't convert is still worth saying out loud
+                            mistakes("Out of math mode", dict[tokens[i]], tokens[i]);
+                        };
                     };
                 };
             };
         };
+    };
+    if (mathmode) {
+        // Math mode was left open, so the text is converted as if it had been closed at the end
+        // rather than being dropped with the rest of mathmodeText
+        outText += adjustSpacing(mathmodeText);
+        mathmodeText = "";
     };
     if (mathmodeOccurence % 2 !== 0) {
         mistakes("Math mode was not closed", undefined);
@@ -4262,8 +4642,29 @@ function tokensToText(tokens, dictMM, dictOut, adjustSpacing, callSpaceCommand=t
 
 // Used by main functions
 
+function isCommand(token, mathmode) {
+    // Says if a token is a command, so that what follows it can be its argument
+    if ((token === undefined) || (Object.values(specialTokens).includes(token))) {
+        return false;
+    } else if ((token[0] === "^") || (token[0] === "_")) {
+        // Out of math mode they are not superscript and subscript, just characters
+        return mathmode;
+    };
+    return (token[0] === "\\") && (token.length > 1);
+};
+
+function takesArgument(token, dict) {
+    // Says if a command is one the dictionary knows how to give an argument to
+    // A command it doesn't know keeps whatever is between its curly brackets, but is not
+    // given an argument it wasn't written with
+    // '\sqrt[3]' is called with '\sqrt', the same way tokensToText looks it up
+    const name = (token.substring(0,5) === "\\sqrt") ? token.replace(/\[.*\]/g, "") : token;
+    return (typeof dict[name] === "function");
+};
+
 function bracelessArg(token) {
-    // Says if a token can be the argument of a braceless '^' or '_' (e.g. the '2' in 'x^2')
+    // Says if a token can be the argument of a command written without curly brackets
+    // (e.g. the '2' in 'x^2')
     if ((token === undefined) || (Object.values(specialTokens).includes(token))) {
         return false;
     } else if ((notBracelessArg.includes(token)) || (token[0] === "^") || (token[0] === "_")) {
@@ -4275,32 +4676,49 @@ function bracelessArg(token) {
     };
 };
 
-function expandBracelessArgs(tokens) {
-    // As in LaTeX, a '^' or '_' written without curly brackets takes the single token that
-    // follows it as its argument, so 'x^2' is a shorthand for 'x^{2}' and 'x^\alpha' for 'x^{\alpha}'
-    // Only applies in math mode, since that is where '^' and '_' mean superscript and subscript
-    // tokenize leaves these in two shapes: merged (e.g. '^2n') or a lone '^' followed by a command
+function expandBracelessArgs(tokens, dictMM, dictOut) {
+    // As in LaTeX, a command written without curly brackets takes the first thing that
+    // follows it as its argument, and only that: 'x^2' is a shorthand for 'x^{2}', '\mathbf x'
+    // for '\mathbf{x}', and '\sqrt x + y' for '\sqrt{x} + y'
+    // The spaces in between mean nothing either, so '\mathbf {x}' is '\mathbf{x}' too
+    // tokenize leaves '^' and '_' in two shapes: merged (e.g. '^2n') or alone, followed by a command
     let newTokens = [];
     let mathmode = false;
-    let chars, i, j;
+    let dict, chars, next, i, j;
     for (i=0; i<tokens.length; i++) {
         if (tokens[i] === specialTokens.startMathmode) {
             mathmode = true;
         } else if (tokens[i] === specialTokens.endMathmode) {
             mathmode = false;
         };
-        if ((!mathmode) || ((tokens[i][0] !== "^") && (tokens[i][0] !== "_"))) {
+        dict = (mathmode) ? dictMM : dictOut;
+
+        if (!isCommand(tokens[i], mathmode)) {
             newTokens.push(tokens[i]);
-        } else if (tokens[i].length > 1) {
+            continue;
+        };
+        if ((tokens[i].length > 1) && ((tokens[i][0] === "^") || (tokens[i][0] === "_"))) {
             // Merged by tokenize (e.g. '^2n'), so the first character is the argument and the rest follows
             chars = Array.from(tokens[i].substring(1));
             newTokens.push(tokens[i][0], specialTokens.startArgument, chars[0], specialTokens.endArgument);
             for (j=1; j<chars.length; j++) {
-                newTokens.push(...chars[j].normalize("NFD").split(""));
+                newTokens.push(...Array.from(chars[j].normalize("NFD")));
             };
-        } else if (bracelessArg(tokens[i+1])) {
-            newTokens.push(tokens[i], specialTokens.startArgument, tokens[i+1], specialTokens.endArgument);
-            ++i;  // Skips the token that just became the argument
+            continue;
+        };
+
+        // The argument is whatever comes next, however many spaces the user left in between
+        j = i + 1;
+        while (tokens[j] === " ") {
+            ++j;
+        };
+        next = tokens[j];
+        if (next === specialTokens.startArgument) {
+            newTokens.push(tokens[i]);
+            i = j - 1;  // Drops the spaces, the curly brackets already say what the argument is
+        } else if ((takesArgument(tokens[i], dict)) && (bracelessArg(next))) {
+            newTokens.push(tokens[i], specialTokens.startArgument, next, specialTokens.endArgument);
+            i = j;  // Skips the spaces and the token that just became the argument
         } else {
             newTokens.push(tokens[i]);
         };
@@ -4376,6 +4794,13 @@ function addSymbolArray(args, command, checkMistakes=true) {
 function str(command, original=undefined) {
     // Make sure the command is a string, or keep the text that couldn't be converted
     return (typeof command === "string") ? command : failure(original);
+};
+
+function argsText(args) {
+    // Every argument of a command, one after the other, as the user wrote them
+    // 'args' holds one list of tokens per argument, so a plain join would leave a comma
+    // between them (e.g. '{a,b,c}' for '{abc}')
+    return args.map((a) => a.join("")).join("");
 };
 
 function extraArgs(args, initialCommand) {
@@ -4600,55 +5025,66 @@ function adjustSpacesCommon(input, symbolSpaced, conditionalSpaces) {
         // For instance, the spaces in 'x \equiv_{2} 0 \def x \equiv 0 (mod 2)' should be kept the same and therefore 'delay' the space
         // to be added from \equiv because of the subscript.
         const spacedChar = characters.concat(noSpaceSymbols, Object.values(Superscript));  // Add space around 'conditionalSpaces' if the previous symbol is in spacedChar
+        // Characters, not UTF-16 halves, so a symbol is never read as two things.
+        // The marks around what couldn't be converted go first: every command has run by
+        // now, and leaving them in would hide the character the spacing rules look at
+        const chars = Array.from(stripFailures(input).replace(/ /g, ""));
         let output = "";
-        input = input.replace(/ /g, "");
+        let previous = undefined;   // Last character written, kept rather than read back out
+        const write = (text) => {
+            output += text;
+            const written = Array.from(text);
+            if (written.length > 0) {
+                previous = written[written.length - 1];
+            };
+        };
         let delayedSpace = false;
         let spaceStored = [];
-        for (let i in input) {
-            delayedSpace = noSpaceSymbols.includes(input[parseInt(i)+1]);
-            if (symbolSpaced.includes(input[i])) {
-                if ((output[output.length - 1] !== " ") && (output[output.length - 1] !== undefined)) {
+        for (let i=0; i<chars.length; i++) {
+            delayedSpace = noSpaceSymbols.includes(chars[i+1]);
+            if (symbolSpaced.includes(chars[i])) {
+                if ((previous !== " ") && (previous !== undefined)) {
                     if (delayedSpace) {
-                        output += " " + input[i];
+                        write(" " + chars[i]);
                         spaceStored.push(" ");
                     } else {
-                        output += " " + input[i] + " ";
+                        write(" " + chars[i] + " ");
                     }
                 } else {
                     if (delayedSpace) {
-                        output += input[i];
+                        write(chars[i]);
                         spaceStored.push(" ");
                     } else {
-                        output += input[i] + " ";
+                        write(chars[i] + " ");
                     };
                 };
-            } else if (conditionalSpaces.includes(input[i])) {
-                if ((output[output.length - 1] !== " ") && (output[output.length - 1] !== undefined) && (spacedChar.includes(output[output.length - 1]))) {
+            } else if (conditionalSpaces.includes(chars[i])) {
+                if ((previous !== " ") && (previous !== undefined) && (spacedChar.includes(previous))) {
                     if (delayedSpace) {
-                        output += " " + input[i];
+                        write(" " + chars[i]);
                     } else {
-                        output += " " + input[i] + " ";
+                        write(" " + chars[i] + " ");
                     };
                 } else {
-                    output += input[i];
+                    write(chars[i]);
                 };
             } else {
                 if (delayedSpace) {
-                    output += input[i];
+                    write(chars[i]);
                 } else {
                     if (spaceStored.length >= 1) {
-                        output += input[i] + " ";
+                        write(chars[i] + " ");
                         spaceStored = [];
                     }
                     else {
-                        output += input[i];
+                        write(chars[i]);
                     };
                 };
             };
         };
         return spaceCommand(output);
     } else {
-        return spaceCommand(input);
+        return spaceCommand(stripFailures(input));
     };
 };
 
@@ -4697,7 +5133,6 @@ export function convert(fullText, userSettings) {
     // Returns the converted text and the errors found on the way, for the interface to display
     settings = {...defaultConversionSettings, ...userSettings};
     errorsList = "";
-    const dictOutMathmode = {...lettersOutMathMode, ...accents, ...textCommands};
     const firstWord = fullText.split(" ")[0];
     let fullDict;
     if (firstWord === "!chem") {  // TODO: Should remove this option
@@ -4714,8 +5149,32 @@ export function convert(fullText, userSettings) {
     return {text: stripFailures(fullText), errors: stripFailures(errorsList)};
 };
 
+// Nothing out of math mode depends on the settings, so it is built once
+const dictOutMathmode = {...lettersOutMathMode, ...accents, ...textCommands};
+
+// Building the dictionary in math mode is nearly all of the time a conversion takes, and it
+// only depends on the settings, so the last one is kept and handed back when they are the same
+// Nothing writes to it while converting, only while building it, which is what makes this safe
+let builtDict = {key: null, dict: null, errors: ""};
+
 function makeDict(documentClass) {
     // Returns the full dictionary (in mathmode) with all the commands, letters, etc. based on documentclass and font choice
+    const key = documentClass + "\u0000" + settings.mathFont + "\u0000" +
+                JSON.stringify(settings.customCommands);
+    if (builtDict.key === key) {
+        // What was said while building it has to be said again: a command the user got
+        // wrong would otherwise be reported once and never again
+        errorsList += builtDict.errors;
+        return builtDict.dict;
+    };
+    const before = errorsList.length;
+    const dict = buildDict(documentClass);
+    builtDict = {key: key, dict: dict, errors: errorsList.substring(before)};
+    return dict;
+};
+
+function buildDict(documentClass) {
+    // Puts the dictionary together, which makeDict() only does when it has to
     const greek = (settings.mathFont) ? stdGreek : noStyleGreek;
     let letters;  // lettersMath or lettersNoFont
     if (documentClass === "!chem") {
@@ -4723,7 +5182,7 @@ function makeDict(documentClass) {
     } else {  // documentClass === "default"
         letters = (settings.mathFont) ? lettersMath : lettersNoFont;
     };
-    return buildAllCommands({...mathDictionary, ...greek, ...letters, ...accents});
+    return buildAllCommands({...mathDictionary, ...oldNames, ...greek, ...letters, ...accents});
 };
 
 function buildAllCommands(fullDict) {
@@ -4827,7 +5286,7 @@ function declareMathOperator(fullDict, argNums, input, output) {
     // TODO: If text: \mathrm, else: nothing
     const newOp = (arg, initialCommand) => {
         // This function will be the value of every operator built by the user
-        return [outputSymbol + "[" + arg.join("") + "]"];
+        return [outputSymbol + "[" + argsText(arg) + "]"];
     };
     fullDict[input] = newOp;
     return fullDict;
