@@ -14,6 +14,7 @@
     --ink-soft: #5c6b65;
     --rule: #dfe5e2;
     --accent: #0f8867;
+    --link: #0a654d;
     --accent-soft: #e6f3ee;
     --code-ink: #234f42;
     --header: #000000;
@@ -27,6 +28,7 @@
         --ink-soft: #9aa8a2;
         --rule: #2a3336;
         --accent: #22b98d;
+        --link: #22b98d;
         --accent-soft: #16302a;
         --code-ink: #8fd9c1;
         --header: #000000;
@@ -102,7 +104,7 @@ header #logo:hover { opacity: 80%; }
     text-decoration: none;
 }
 #toc a:hover { background-color: var(--accent-soft); }
-#toc a.here { background-color: var(--accent-soft); color: var(--accent); font-weight: 600; }
+#toc a.here { background-color: var(--accent-soft); color: var(--link); font-weight: 600; }
 #toc .count { color: var(--ink-soft); font-size: 12px; font-variant-numeric: tabular-nums; }
 
 main { padding: 24px 0 80px; min-width: 0; }
@@ -165,11 +167,14 @@ a.button {
     text-decoration: none;
     font-size: 15px;
 }
-a.button:hover { border-color: var(--accent); color: var(--accent); }
+a.button:hover { border-color: var(--accent); color: var(--link); }
 
 /* Prose */
 .prose p { max-width: 68ch; }
-.prose a { color: var(--accent); }
+.prose a { color: var(--link); }
+/* A button is a button, not a link in a paragraph: the two rules had equal specificity
+   and this one came second, so every store button was being painted link-green */
+.prose a.button { color: var(--ink); }
 p.aside, p.note {
     color: var(--ink-soft);
     border-left: 3px solid var(--rule);
@@ -252,9 +257,9 @@ ul.cmds code {
     max-width: 60%;
     word-break: break-word;
 }
-.sym:hover { color: var(--accent); }
+.sym:hover { color: var(--link); }
 .sym:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
-.sym.copied { color: var(--accent); }
+.sym.copied { color: var(--link); }
 
 /* Nothing matched the search */
 #empty {

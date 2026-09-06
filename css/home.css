@@ -1,15 +1,73 @@
+/*
+    The home page.
+
+    Colours come from one set of custom properties, redeclared under prefers-color-scheme.
+    Before this the dark block set a whitesmoke background -- a light colour -- and never
+    set a text colour, so 'dark mode' was the light page with a slightly grey ground.
+
+    The .light / .dark classes still do what they always did: show one set of screenshots
+    or the other. The wordmark now uses the same pair, since the one drawn for a light
+    ground disappears against a dark one.
+*/
+
+:root {
+    --ground: #ffffff;
+    --raised: #f5f7f6;
+    --ink: #16211d;
+    --ink-soft: #5c6b65;
+    --rule: #dfe5e2;
+    --accent: #0f8867;
+    --link: #0a654d;
+    --code-ink: #234f42;
+    --grey-box: lightgrey;
+    --button-ground: rgb(230, 229, 229);
+    --button-hover: lightgrey;
+    --arrow-veil: rgba(0, 0, 0, 0.4);
+    --squiggle: blue;
+    --band: #000000;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ground: #14181a;
+        --raised: #1c2225;
+        --ink: #e4ece8;
+        --ink-soft: #9aa8a2;
+        --rule: #2a3336;
+        --accent: #22b98d;
+        --link: #22b98d;
+        --code-ink: #8fd9c1;
+        --grey-box: #232a2d;
+        --button-ground: rgb(53, 53, 53);
+        --button-hover: rgb(66, 66, 66);
+        --arrow-veil: rgba(255, 255, 255, 0.25);
+        --squiggle: #7fb2ff;
+        --band: #000000;
+    }
+}
+
 body {
     margin: auto;
+    background-color: var(--ground);
+    color: var(--ink);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+::selection {
+    background-color: var(--accent);
+    color: var(--ground);
+}
+html {
+    scrollbar-color: var(--accent) transparent;
+}
+a { color: var(--link); }
+header a, footer a { color: white; }
 header,
 footer {
-    background-color: black;
+    background-color: var(--band);
     text-align: right;
 }
 header input[type=button],
 footer input[type=button] {
-    background-color: black;
+    background-color: var(--band);
     border: none;
     color: white;
     padding: 15px;
@@ -25,7 +83,7 @@ header a,
 footer a {
     text-decoration: none;
 }
-#mattalx_logo {
+.brandmark {
     display: block;
     margin: auto;
     width: 45%;
@@ -59,7 +117,7 @@ p, li{
     width: auto;
     padding: 16px;
     margin-top: -22px;
-    color: black;
+    color: var(--ink);
     font-weight: bold;
     font-size: 18px;
     transition: 0.5s ease;
@@ -74,7 +132,7 @@ p, li{
 }
 #previous:hover, 
 #next:hover {
-    background-color: rgba(0,0,0,0.4);
+    background-color: var(--arrow-veil);
 }
 .box {
     margin: 2% 10%;
@@ -82,7 +140,7 @@ p, li{
     border-radius: 7px;
 }
 .grey {
-    background-color: lightgrey;
+    background-color: var(--grey-box);
 }
 #exemples li {
     text-align: center;
@@ -92,11 +150,17 @@ p, li{
     font-size: 14px;
     font-family: Helvetica, Arial, sans-serif;
     border: none;
+    border-radius: 5px;
     padding: 8px;
     min-width: 70px;
     width: fit-content;
     height: auto;
     margin-left: 8px;
+    color: var(--ink);
+    background-color: var(--button-ground);
+}
+#copy:hover {
+    background-color: var(--button-hover);
 }
 #pics_block {
     display: flex;
@@ -148,18 +212,23 @@ p, li{
 code {
     font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
     font-size: 0.92em;
+    color: var(--code-ink);
     white-space: nowrap;
+}
+.squiggle {
+    /* Was an inline style, and so could only ever be one colour */
+    text-decoration: underline wavy var(--squiggle) 1px;
 }
 /* A key to press. Drawn as a key, so a shortcut reads as one at a glance */
 kbd {
     font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
     font-size: 0.88em;
     padding: 2px 6px;
-    border: 1px solid #b9bec4;
+    border: 1px solid var(--rule);
     border-bottom-width: 2px;
     border-radius: 4px;
-    background-color: white;
-    color: black;
+    background-color: var(--raised);
+    color: var(--ink);
     white-space: nowrap;
 }
 #shortcut_list {
@@ -178,12 +247,12 @@ kbd {
 }
 #new_in_three::marker,
 #new_in_three li::marker {
-    color: #0f8867;
+    color: var(--accent);
 }
 #textEditor::marker {
     content: "\\pi ";
     font-family: monospace;
-    color: blue;
+    color: var(--squiggle);
     font-size: 0.9em;
 }
 #makeOps::marker {
@@ -205,34 +274,17 @@ html {
     scrollbar-color: #0f8867 transparent;
 }
 
+/* All that is left for the colour scheme to decide is which pictures are shown: the
+   screenshots taken against a light interface, or the ones taken against a dark one.
+   Everything else reads the palette above */
 @media (prefers-color-scheme: light) {
-    body {
-        background-color: white;
-    }
     .dark {
         display: none;
     }
-    #copy {
-        color: black;
-        background-color: rgb(230, 229, 229);
-    }
-    #copy:hover {
-        background-color: lightgrey;
-    }
 }
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: whitesmoke;
-    }
     .light {
         display: none;
-    }
-    #copy {
-        color: whitesmoke;
-        background-color: rgb(53, 53, 53);
-    }
-    #copy:hover {
-        background-color: rgb(66, 66, 66);
     }
 }
 
@@ -240,7 +292,7 @@ html {
    the spec and reads the physical display, so a narrow window on a desktop never got
    these rules and a phone got them even in a small window */
 @media only screen and (max-width: 550px) {
-    #mattalx_logo {
+    .brandmark {
         width: 90%;
         height: auto;
     }

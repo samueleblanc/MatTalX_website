@@ -317,6 +317,7 @@ tr, td {
     --input-ground: white;
     --grey-box: lightgrey;
     --accent: #0f8867;
+    --link: #0a654d;
 
     /* Which of the two logos and which question mark are shown. A custom property can
        carry a 'display' as easily as a colour, and that keeps the swap with the theme
@@ -351,8 +352,9 @@ html {
         --veil: rgba(31, 31, 31, 0.7);
         --panel-ground: rgb(31, 31, 31);
         --input-ground: rgb(61, 61, 61);
-        --grey-box: grey;
+        --grey-box: #232a2d;
         --accent: #22b98d;
+    --link: #22b98d;
         --light-art: none;
         --dark-art: inline-block;
     }
@@ -375,8 +377,9 @@ body.darkChosen {
     --veil: rgba(31, 31, 31, 0.7);
     --panel-ground: rgb(31, 31, 31);
     --input-ground: rgb(61, 61, 61);
-    --grey-box: grey;
+    --grey-box: #232a2d;
     --accent: #22b98d;
+    --link: #22b98d;
     --light-art: none;
     --dark-art: inline-block;
 }
@@ -402,7 +405,7 @@ body {
 }
 #title_light  { display: var(--light-art); }
 #title_dark   { display: var(--dark-art); opacity: 85%; }
-#subtitle     { color: var(--accent); }
+#subtitle     { color: var(--link); }
 #text_in,
 #text_out {
     color: var(--field-ink);

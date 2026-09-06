@@ -15,14 +15,37 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/images/mattalx_favicon32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="/images/mattalx_favicon96.png">
         <style>
+            :root {
+                --ground: #ffffff;
+                --ink: #16211d;
+                --ink-soft: #5c6b65;
+                --rule: #dfe5e2;
+                --accent: #0f8867;
+                --link: #0a654d;
+                --button-ground: rgb(230, 229, 229);
+                --button-hover: lightgrey;
+            }
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --ground: #14181a;
+                    --ink: #e4ece8;
+                    --ink-soft: #9aa8a2;
+                    --rule: #2a3336;
+                    --accent: #22b98d;
+                    --link: #22b98d;
+                    --button-ground: rgb(53, 53, 53);
+                    --button-hover: rgb(66, 66, 66);
+                }
+            }
             body {
                 margin: 0;
-                background-color: white;
-                color: black;
+                background-color: var(--ground);
+                color: var(--ink);
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
+            html { scrollbar-color: var(--accent) transparent; }
             header {
-                background-color: black;
+                background-color: #000000;
                 text-align: left;
             }
             header img {
@@ -47,7 +70,7 @@
                 /* Something true and on topic, rather than a cartoon */
                 font-size: 26px;
                 margin: 28px 0;
-                color: #0f8867;
+                color: var(--accent);
             }
             ul { list-style: none; padding: 0; }
             li { display: inline-block; margin: 6px; }
@@ -55,13 +78,14 @@
                 display: inline-block;
                 padding: 12px 18px;
                 border-radius: 6px;
-                background-color: rgb(230, 229, 229);
-                color: black;
+                background-color: var(--button-ground);
+                color: var(--ink);
                 font-size: 16px;
                 text-decoration: none;
             }
-            a.button:hover { background-color: lightgrey; }
-            ::selection { background-color: #0f8867; }
+            a.button:hover { background-color: var(--button-hover); }
+            main a:not(.button) { color: var(--link); }
+            ::selection { background-color: var(--accent); color: var(--ground); }
         </style>
     </head>
     <body>
