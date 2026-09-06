@@ -16,7 +16,7 @@ a {
     text-decoration: none;
 }
 .infoDiv:hover .dropdownInfo {
-    text-align: center;
+    text-align: left;
     display: block;
     padding: 8px;
 }
@@ -30,7 +30,8 @@ a {
     position: relative;
 }
 body {
-    min-width: 500px;
+    /* No floor. The popup needs one because a popup is sized by its contents; a page is
+       sized by the window, and a phone is narrower than any floor worth setting */
     height: auto;
 }
 #text_in {
@@ -48,8 +49,8 @@ body {
     text-decoration: none;
 }
 .shortcuts {
-    font-size: 15x;
-    font-family: 'Times New Roman';
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif;
     text-decoration: none;
     cursor: default;
 }
@@ -72,27 +73,50 @@ body {
     display: block;
     width: 100%;
     font-size: 15px;
-    font-family: 'Times New Roman';
+    font-family: Helvetica, Arial, sans-serif;
     text-decoration: none;
     border: none;
+    /* Left, so the four pictures line up in a column down the menu and the rows below
+       start where their labels do, rather than every row finding its own centre */
+    text-align: left;
+    /* border-box, or the indent below is added to the 100% width and the menu grows a
+       scrollbar it has no use for. An <input> already gets border-box from the browser */
+    box-sizing: border-box;
+    padding-left: 10px;
 }
+
+/* The rows that carry a picture. An <input> can't hold an <img>, so the picture is a
+   background: 16px at the left, with the text pushed clear of it */
+#docs,
+#git,
+#chromeext,
+#firefoxadd {
+    padding-left: 30px;
+    background-repeat: no-repeat;
+    background-position: 8px center;
+    background-size: auto 16px;
+}
+#docs       { background-image: url("../images/documentation.png"); }
+#git        { background-image: url("../images/github.png"); }
+#chromeext  { background-image: url("../images/chromelogo.png"); }
+#firefoxadd { background-image: url("../images/firefoxlogo.png"); }
 #convert,
 #reset {
     font-size: 14px;
-    font-family: 'Lucida Grande';
+    font-family: Helvetica, Arial, sans-serif;
     border: none;
     padding: 8px;
 }
 #completionBtn {
     display: inline-block;
     font-size: 14px;
-    font-family: 'Lucida Grande';
+    font-family: Helvetica, Arial, sans-serif;
     border: none;
     padding: 8px;
 }
 #copy {
     font-size: 14px;
-    font-family: 'Lucida Grande';
+    font-family: Helvetica, Arial, sans-serif;
     border: none;
     padding: 8px;
     min-width: 70px;
@@ -101,8 +125,8 @@ body {
 }
 #mistakes {
     white-space: pre-wrap;
-    font-size: 15x;
-    font-family: 'Times New Roman';
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif;
 }
 #completion {
     display: none;
@@ -158,6 +182,19 @@ tr, td {
 }
 
 /* Colors and style */
+
+/* MatTalX's own green, the same three lines the popup carries: the tick in a checkbox,
+   selected text, and the scrollbar. Without them the browser picks its default blue */
+:root {
+    accent-color: #0f8867;
+}
+::selection {
+    background-color: #0f8867;
+}
+html {
+    scrollbar-color: #0f8867 transparent;
+}
+
 @media (prefers-color-scheme: light) {
     body {
         background-color: white;
@@ -317,6 +354,10 @@ tr, td {
     #firefoxadd:hover  {
         background-color: rgb(41, 41, 41);
     }
+    /* The Chrome and Firefox logos are already coloured; only the two black
+       drawings need a version that shows up on a dark menu */
+    #docs { background-image: url("../images/documentation_dark.png"); }
+    #git  { background-image: url("../images/github_dark.png"); }
     #convert,
     #reset,
     #completionBtn {
@@ -353,71 +394,65 @@ tr, td {
         background-color: grey;
     }
 }
-@media only screen and (max-device-width: 550px) {
+/* Asks how wide the window is, not how wide the screen is. 'max-device-width' is out of
+   the spec and reads the physical display, so a narrow window on a desktop never got
+   these rules and a phone got them even in a small window */
+@media only screen and (max-width: 550px) {
+    /* Everything here used to be written at roughly twice these sizes, and had to be:
+       with no viewport tag a phone laid the page out at about 980px and then scaled the
+       whole thing down, so 28px was what it took to end up readable. The tag is there
+       now, the page is laid out at the width it really has, and the sizes are ordinary
+       again. The rules that only repeated the desktop ones word for word are gone, as
+       are two that named #info_light and #info_dark -- those are classes in the HTML,
+       so the rules never matched anything */
     #body {
-        margin: auto;
-        width: 85%;
-        padding: 1%;
+        /* 85% of a phone is a lot of nothing down each side */
+        width: auto;
+        padding: 0 12px 12px;
     }
-    .infoDiv {
-        position: relative;
-        float: right;
-    }
-    .infoDiv:hover .dropdownInfo {
-        text-align: center;
-        display: block;
-        padding: 8px;
-    }
-    .suggestion {
-        display: inline-block;
-        position: relative;
-    }
-    #text_in {
-        height: 200px;
-        font-size: 28px;
-    }
-    #text_out {
-        height: 200px;
-        font-size: 29px;
-    }
-    #mistakes {
-        font-size: 28x;
-    }
+    #title_light,
     #title_dark {
         width: 70%;
     }
-    #title_light {
-        width: 70%;
+    #text_in,
+    #text_out {
+        height: 160px;
+        /* 16px and no smaller: below that, iOS zooms the page in when the field is
+           tapped and never zooms back out */
+        font-size: 16px;
     }
-    .infoButton_dark {
-        width: 50%;
-        height: auto;
-    }
-    #info_dark {
-        width: 100%;
-        height: auto;
-    }
-    #info_light {
-        width: 50px;
-        height: 50px;
+    #mistakes {
+        font-size: 15px;
     }
     #convert,
     #completionBtn,
     #reset,
     #copy {
-        font-size: 28px;
-        width: 32%;
-        height: auto;
-        margin-left: 4px;
+        /* Wide enough for the word inside, rather than a fixed third of the row, which
+           cut 'Convert' down to 'Conver' and 'Copy text' to 'Copy te'. The padding is
+           what makes them a finger's worth of target */
+        width: auto;
+        font-size: 16px;
+        padding: 12px 14px;
+        margin: 0 6px 6px 0;
     }
-    #docs, 
-    #git, 
+    #docs,
+    #git,
     #adjustSpaces,
     #changeFont,
     #changeMode,
     #chromeext,
     #firefoxadd {
-        font-size: 28px;
+        font-size: 16px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .dropdownInfo {
+        /* The menu opens against the right edge, so it has to stop at the left one */
+        max-width: calc(100vw - 24px);
+    }
+    #completion button {
+        max-width: calc(100vw - 40px);
     }
     .box {
         width: 80%;

@@ -90,7 +90,7 @@ p, li{
 }
 #copy {
     font-size: 14px;
-    font-family: 'Lucida Grande';
+    font-family: Helvetica, Arial, sans-serif;
     border: none;
     padding: 8px;
     min-width: 70px;
@@ -159,6 +159,18 @@ p, li{
     content: "...  ";
 }
 
+/* MatTalX's own green, the same lines the popup and the web version carry, so selected
+   text and the scrollbar are the product's colour rather than the browser's default blue */
+:root {
+    accent-color: #0f8867;
+}
+::selection {
+    background-color: #0f8867;
+}
+html {
+    scrollbar-color: #0f8867 transparent;
+}
+
 @media (prefers-color-scheme: light) {
     body {
         background-color: white;
@@ -190,7 +202,10 @@ p, li{
     }
 }
 
-@media only screen and (max-device-width: 550px) {
+/* Asks how wide the window is, not how wide the screen is. 'max-device-width' is out of
+   the spec and reads the physical display, so a narrow window on a desktop never got
+   these rules and a phone got them even in a small window */
+@media only screen and (max-width: 550px) {
     #mattalx_logo {
         width: 90%;
         height: auto;

@@ -61,6 +61,21 @@ h1, h2, h3, h4 {
 }
 #refLinks {
     text-align: left;
+    /* The two references are bare URLs with nothing a line can be broken at, so on a
+       phone they used to push the whole page 66px wider than the screen */
+    overflow-wrap: anywhere;
+}
+
+/* MatTalX's own green, the same lines the popup and the web version carry, so selected
+   text and the scrollbar are the product's colour rather than the browser's default blue */
+:root {
+    accent-color: #0f8867;
+}
+::selection {
+    background-color: #0f8867;
+}
+html {
+    scrollbar-color: #0f8867 transparent;
 }
 
 @media (prefers-color-scheme: light) {
@@ -74,7 +89,10 @@ h1, h2, h3, h4 {
     }
 }
 
-@media only screen and (max-device-width: 550px) {
+/* Asks how wide the window is, not how wide the screen is. 'max-device-width' is out of
+   the spec and reads the physical display, so a narrow window on a desktop never got
+   these rules and a phone got them even in a small window */
+@media only screen and (max-width: 550px) {
     #logo {
         width: 35%;
         height: auto;
