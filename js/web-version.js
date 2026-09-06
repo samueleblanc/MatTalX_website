@@ -1,19 +1,25 @@
 /*
     The interface of the web version of MatTalX.
 
-    The conversion itself lives in core.js, which is the very same file the Chrome extension
-    and the Firefox add-on use. It is copied here from the MatTalX repository, so it should
-    never be edited by hand: https://github.com/samueleblanc/MatTalX
+    Neither the conversion nor the list of suggestions lives here. core.js converts and
+    completion.js decides what to suggest; both are the very same files the Chrome
+    extension and the Firefox add-on use, copied here by a workflow in the MatTalX
+    repository, so neither should ever be edited by hand:
+    https://github.com/samueleblanc/MatTalX
+
+    What belongs to this file is everything the browser gives a page rather than an
+    extension: drawing the boxes, and remembering what was written in localStorage,
+    where the extension has chrome.storage.
 */
 
 "use strict";
 
+import { convert, errorHeader } from "./core.js";
 import {
-    convert,
-    defaultDict,
-    spaceCommand,
-    errorHeader
-} from "./core.js";
+    findWord,
+    semiAutoCompletion,
+    completionList
+} from "./completion.js";
 
 
 /// GLOBALS ///
@@ -57,17 +63,83 @@ const textOut = document.getElementById("text_out");
 const mistakesBox = document.getElementById("mistakes");
 
 
-/** Other **/
+/** What is remembered **/
 
-// Used in the subsection 'Completion box' to recognize on which word is the cursor
-const wordsDelimiters = [" ", "", "\u000A", "\\", "^", "_", "(", ")", "[", "]", "{", "}", ".", ",", "/", "-", "+", "=", "<", ">", "|", "?", "!", "$"];
-const wordsDelimitersWOB = [" ", "", "\u000A", "^", "_", "(", ")", "[", "]", "{", "}", ".", ",", "/", "-", "+", "=", "<", ">", "|", "?", "!", "$"]; // Without backslash
+// The extension keeps these in chrome.storage; a page has localStorage and nothing else.
+// The names match the extension's, so the two are read the same way when reasoning about
+// either one, even though nothing is shared between a page and an extension
+const storageKey = "mattalx";
+
+// What the first box says to someone who has never been here. The same sentence the
+// extension writes on install: something to press Convert on, rather than an empty box
+const firstExample = "For all $\\epsilon > 0$, there is $N > 0$ such that $n > N$ implies " +
+                     "$|x_n - x| < \\epsilon$, where $x \\in \\mathbb R$.";
+
+const defaults = {
+    box1 : firstExample,
+    spaces : true,
+    font : true,
+    mode : false      // Off, so '$', '\(' and '\[' say where the maths is
+};
 
 
 /**************************************************************************************/
 
 
 /// FUNCTIONS ///
+
+/** Storage **/
+
+function loadSettings() {
+    // What was left here last time, with the defaults for anything missing
+    // A browser refusing localStorage (private mode, cookies blocked) throws rather than
+    // giving back nothing, and the page has to open anyway
+    try {
+        const stored = JSON.parse(window.localStorage.getItem(storageKey));
+        return (stored) ? {...defaults, ...stored} : {...defaults};
+    } catch (err) {
+        return {...defaults};
+    };
+};
+
+function saveSettings() {
+    // Everything worth finding again: what is in the first box, and the three toggles
+    try {
+        window.localStorage.setItem(storageKey, JSON.stringify({
+            box1 : textIn.value,
+            spaces : spacesButton.checked,
+            font : changeFontButton.checked,
+            mode : changeModeButton.checked
+        }));
+    } catch (err) {
+        return;  // Nothing to be done about it, and not worth interrupting anyone over
+    };
+};
+
+function applyStoredSettings() {
+    const settings = loadSettings();
+    textIn.value = settings.box1;
+    spacesButton.checked = settings.spaces;
+    changeFontButton.checked = settings.font;
+    changeModeButton.checked = settings.mode;
+};
+
+// Saved as the page goes away rather than on every keystroke. 'pagehide' is what a
+// browser gives when the tab closes or the user navigates; 'visibilitychange' catches
+// changing tab or putting the phone away, which on a phone is often the only one that
+// fires. The extension listens for the very same pair, plus 'blur' for its popup
+window.addEventListener("pagehide", saveSettings);
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+        saveSettings();
+    };
+});
+
+applyStoredSettings();
+
+
+//-----------------------------------------------------//
+
 
 /** Front-end **/
 
@@ -84,10 +156,14 @@ function copyTextOut() {
 
 function clear() {
     // Clears everything
+    // The reset button empties the first box on its own, and that emptiness is what gets
+    // remembered: someone who cleared the box meant to, and should not find the example
+    // sentence waiting for them tomorrow
     copyButton.value = "Copy text";
     mistakesBox.textContent = "";
     textOut.disabled = true;
     closeCompletion();
+    saveSettings();
 };
 
 function showErrors(errors) {
@@ -151,156 +227,43 @@ function getCompletion() {
     };
 };
 
-function findWord(text, cursorPosition, addedLetter="") {
-    // Used in the completion popup
-    // Finds the word that is touched by the cursor
-    if (addedLetter.length === 1) {  // ie a letter
-        text = text.split("");
-        text[cursorPosition] += addedLetter;
-        text = text.join("");
-    } else if (addedLetter === "Backspace") {
-        text = text.split("");
-        text[cursorPosition] = "";
-        text = text.join("");
-        --cursorPosition;
-    };
-    let word = "";
-    while (!(wordsDelimiters.includes(text.charAt(cursorPosition + 1)))) {
-        ++cursorPosition;
-    };
-    while (!(wordsDelimitersWOB.includes(text.charAt(cursorPosition)))) {
-        if (text.charAt(cursorPosition) === "\\") {
-            word = text.charAt(cursorPosition) + word;
-            break;
-        } else {
-            word = text.charAt(cursorPosition) + word;
-            --cursorPosition;
-        }
-    };
-    return word;
-};
-
 function completion(command) {
     // Outputs list of other commands that are similar to the one currently being written
+    // What to suggest is decided in completion.js, which the extension uses too, so the
+    // two can't end up suggesting different things
     // The colors come from web-version.css, so light and dark mode are handled there
-    if (command === "") {
+    // The web version has no settings box, so no command built by the user is passed along
+    const found = completionList(command, [], changeFontButton.checked);
+
+    if ((found.note === null) && (found.matches.length === 0)) {
         closeCompletion();
-    } else if (command[0] !== "\\") {
-        let row = completionPopup.insertRow(-1);
-        let cell = row.insertCell(0);
-        cell.textContent = "The first character of the command must be a backslash (\\). Superscript starts with ^ and subscript with _";
-    } else {
-        command = command.substring(1, command.length);  // Erases the backslash so that, for instance, \arrow will also show \rightarrow, etc.
-        for (let keys in defaultDict) {
-            // Puts commands in button form, so they can be clicked on to replace the command being written
-            if (keys.toLowerCase().indexOf(command.toLowerCase()) !== -1) {
-                let row = completionPopup.insertRow(-1);
-                let cell = row.insertCell(0);
-                let btn = document.createElement("button");
-                btn.name = showCommand(keys);
-                btn.textContent = toReplaceCommand(keys);
-                btn.value = toReplaceCommand(keys);  // Value is unchanged
-                btn.type = "button";
-                btn.tabIndex = "0";
-
-                // Complete the command if the user clicks on that command
-                btn.addEventListener("click", () => {
-                    textIn.value = semiAutoCompletion(textIn.value, textIn.selectionEnd, btn.value);
-                    closeCompletion();
-                    textIn.focus();
-                });
-
-                // Shows what the command ouputs on mouseover, return to normal on mouseout
-                btn.addEventListener("mouseover", () => {
-                    let tmp = btn.textContent;
-                    btn.textContent = btn.name;
-                    btn.name = tmp;
-                });
-                btn.addEventListener("mouseout", () => {
-                    let tmp = btn.textContent;
-                    btn.textContent = btn.name;
-                    btn.name = tmp;
-                });
-                cell.appendChild(btn);
-            };
-        };
+        return;
     };
-};
-
-function semiAutoCompletion(textIn, cursorPosition, command) {
-    // Replace the command being written by the selected suggestion
-    let textOut = textIn;
-    // Find end of word
-    while (!(wordsDelimiters.includes(textIn.charAt(cursorPosition)))) {
-        ++cursorPosition;
+    if (found.note !== null) {
+        const row = completionPopup.insertRow(-1);
+        const cell = row.insertCell(0);
+        cell.textContent = found.note;
+        return;
     };
-    // Deletes word
-    while (textIn.charAt(cursorPosition - 1) !== "\\") {
-        textOut = textOut.substring(0, cursorPosition - 1) + textOut.substring(cursorPosition);
-        --cursorPosition;
-    };
-    // Replace by selected suggestion
-    textOut = textOut.substring(0, cursorPosition - 1) + command + textOut.substring(cursorPosition);
-    return textOut;
-};
 
-function showCommand(key) {
-    // Used in completion
-    // Changes what's seen when the user hovers on a command in the completion popup
-    if (typeof defaultDict[key] == "function") {
-        if (key == "\\sqrt") {
-            return "\\sqrt[n]{x} \u2192 ⁿ√𝑥";
-        } else if (key == "\\frac") {
-            return "\\frac{1}{2} \u2192 ¹∕₂";
-        } else if (key == "\\frac*") {
-            return "\\frac*{1}{2} \u2192 ½";
-        } else if ((key == "\\overset") || (key == "\\underset") || (key == "\\stackrel") || (key == "\\hspace") || (key == "\\vskip")) {
-            return key + "{}";
-        } else if ((key == "_") || (key == "^")) {
-            return "x" + key + "{a1} \u2192 𝑥" + spaceCommand((defaultDict[key]([["a", "1"]], key)).join(""));
-        } else if (key == "\\pmod") {
-            return key + "{n} \u2192 " + spaceCommand(defaultDict[key]([["n"]], key).join(""));
-        } else if (key == "\\matrix") {
-            return key + "{[a,b]} \u2192 " + spaceCommand(defaultDict[key](["[a,b]".split("")], key).join(""));
-        } else {
-            return key + "{abc} \u2192 " + spaceCommand((defaultDict[key]([["a", "b", "c"]], key)).join(""));
-        };
-    } else {
-        if (key == "\\:") {
-            return "1 space";
-        } else if ((key == "\\;") || ((key == "\\quad") || (key == "\\qquad"))) {
-            return defaultDict[key].length + " spaces";
-        } else if (key === "\\!") {
-            return "Remove a space";
-        } else if ((key == "\\id2") || (key == "\\id3") || (key == "\\id4") || (key == "\\idn")) {
-            const M = {
-                "\\id2": "⎡ 1 0 ⎤\u000A⎣ 0 1 ⎦",
-                "\\id3" : "⎡ 1 0 0 ⎤\u000A⎢ 0 1 0 ⎥\u000A⎣ 0 0 1 ⎦",
-                "\\id4" : "⎡ 1 0 0 0 ⎤\u000A⎢ 0 1 0 0 ⎥\u000A⎢ 0 0 1 0 ⎥\u000A⎣ 0 0 0 1 ⎦",
-                "\\idn" : "⎡ 1 0 ⋯ 0 ⎤\u000A⎢ 0 1 ⋯ 0 ⎥\u000A⎢  ⋮  ⋮  ⋱  ⋮ ⎥\u000A⎣ 0 0 ⋯ 1 ⎦"
-            }
-            return M[key];
-        } else {
-            return spaceCommand(defaultDict[key]);
-        };
-    };
-};
+    for (const suggestion of found.matches) {
+        // Puts commands in button form, so they can be clicked on to replace the command being written
+        const row = completionPopup.insertRow(-1);
+        const cell = row.insertCell(0);
+        const btn = document.createElement("button");
+        btn.textContent = suggestion.label;   // The command and what it gives
+        btn.value = suggestion.insert;        // What gets written, which is not the same
+        btn.type = "button";
+        btn.tabIndex = "0";
 
-function toReplaceCommand(key) {
-    // Used in completion
-    // Changes what the user sees when the completion popup is opened
-    if (typeof defaultDict[key] == "function") {
-        if (key == "\\sqrt") {
-            return "\\sqrt[]{}";
-        } else if (key == "\\frac") {
-            return "\\frac{}{}";
-        } else if (key == "\\frac*") {
-            return "\\frac*{}{}";
-        } else {
-            return key + "{}";
-        };
-    } else {
-        return key
+        // Complete the command if the user clicks on that command
+        btn.addEventListener("click", () => {
+            textIn.value = semiAutoCompletion(textIn.value, textIn.selectionEnd, btn.value);
+            closeCompletion();
+            textIn.focus();
+        });
+
+        cell.appendChild(btn);
     };
 };
 
@@ -323,4 +286,5 @@ function main() {
     textOut.value = result.text;
     textOut.disabled = false;
     showErrors(result.errors);
+    saveSettings();
 };

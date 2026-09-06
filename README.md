@@ -14,8 +14,11 @@ Versions:
 ## MatTalX repo
 <a href="https://github.com/samueleblanc/MatTalX" target="_blank">Here</a>
 
-## Note on js/core.js
+## Note on js/core.js and js/completion.js
 
-`js/core.js` is the conversion engine, copied straight from the MatTalX repository. It should never be
-edited here: a change over there opens a pull request on this repository on its own. `js/web-version.js`
-is the interface of the web version and belongs to this repository.
+`js/core.js` converts, and `js/completion.js` decides what to suggest. Both are copied straight from
+the MatTalX repository and neither should ever be edited here: a change to either one over there opens
+a pull request on this repository on its own.
+
+Both know nothing about the DOM, which is what makes them safe to share. `js/web-version.js` draws
+the result and belongs to this repository.

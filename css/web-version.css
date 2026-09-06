@@ -119,9 +119,15 @@ tr, td {
     width: 100%;
 }
 #completion button {
-    /* Not 'fit-content', which is way too slow with hundreds of suggestions */
-    width: 145px;
+    /* Not 'fit-content', which is way too slow with hundreds of suggestions.
+       Wide enough for the '\command: what it gives' form completion.js now returns,
+       and the same width the extension's popup uses, so a suggestion is not cut in
+       one and whole in the other */
+    width: 240px;
     height: 17px;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
     border: none;
     border-radius: 3px;
     background-color: inherit;
