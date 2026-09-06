@@ -3,8 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Write mathematical expressions anywhere - Convert LaTeX commands to plain text!">
-        <meta name="keywords" content="mattalx, latex, tex, chrome extension, firefox add-on, symbols">
+        <meta name="description" content="Type LaTeX in any text field and get Unicode maths: \alpha becomes 𝛼. Works in messages, email and social posts. Free and open source, for Chrome and Firefox.">
         <link rel="stylesheet" href="./css/home.css">
         <link rel="icon" type="image/png" sizes="32x32" href="./images/mattalx_favicon32.png">
         <link rel="icon" type="image/png" sizes="48x48" href="./images/mattalx_favicon48.png">
@@ -22,7 +21,15 @@
             gtag('js', new Date());
             gtag('config', 'G-WG1VJPJYV0');
         </script>
-        <title>MatTalX - Write math symbols</title>
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://mattalx.org/">
+        <meta property="og:site_name" content="MatTalX">
+        <meta property="og:title" content="MatTalX - LaTeX to Unicode math symbols">
+        <meta property="og:description" content="Type LaTeX in any text field and get Unicode maths: \alpha becomes 𝛼. Never leave the text box.">
+        <meta property="og:image" content="https://mattalx.org/images/og-card.png">
+        <meta property="og:image:alt" content="A message reading 'The limit is 𝛼 → 0 when 𝑛 → ∞', written with MatTalX">
+        <meta name="twitter:card" content="summary_large_image">
+        <title>MatTalX - LaTeX to Unicode math symbols</title>
     </head>
     <body>
         <header>
@@ -34,13 +41,14 @@
         </header>
         <img src="./images/mattalx_logo_nobg_light.png" id="mattalx_logo" alt="MatTalX logo"><br>
         <h1>Write <i style="font-family: Georgia, serif;">math</i> anywhere</h1>
-        <p>With MatTalX, you can easily write any symbol and send it via all your favorite platforms and websites!</p>
+        <p>With MatTalX, you write a LaTeX command and get the Unicode character it stands for &mdash; <code>\alpha</code> becomes 𝛼 &mdash;
+            so it can be sent through any platform or website that takes plain text.</p>
         <ul id="exemples">
             <li>𝐻(𝑡)|𝜓(𝑡)⟩ = 𝑖ℏ(∂/∂𝑡)|𝜓(𝑡)⟩</li>
             <li>∀𝑋 [∅ ∉ 𝑋 ⟹ ∃𝑓∶𝑋 → ∪𝑋 : ∀𝐴 ∈ 𝑋 (𝑓(𝐴) ∈ 𝐴)]</li>
             <li>ℙ(𝑋 ≥ 𝛼) ≤ 𝔼[𝑋]/𝛼</li>
         </ul>
-        <p>It works by converting the commands into text, therefore making it possible to communicate math concepts in messages, emails, 
+        <p>It works by converting the commands into Unicode text, therefore making it possible to communicate math concepts in messages, emails, 
             and social media posts!
         </p>
         <div class="slideshow grey box">
@@ -64,6 +72,18 @@
             <a id="next">❯</a>
         </div>
         <br><br>
+        <div class="grey box" id="shortcuts_box">
+            <h2>You don't have to open it</h2>
+            <p>MatTalX works where you are already writing. Write the command, press the shortcut,
+                and it is replaced where it stands &mdash; no popup, no copying, no switching tab.</p>
+            <ul id="shortcut_list">
+                <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>W</kbd> converts what you have written</li>
+                <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> suggests a command as you write it</li>
+                <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> opens and closes MatTalX</li>
+            </ul>
+            <p><i>Never leave the text box.</i></p>
+        </div>
+        <br>
         <div class="box">
             <h2>Copy and paste this example!</h2>
             <ul>
@@ -99,20 +119,30 @@
             <a href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/" target="_blank"><img src="./images/firefoxlogo.png" id="firefoxlogo" alt="Firefox logo"></a>
         </div>
         <div class="grey box">
+            <h2>New in 3.0</h2>
+            <ul id="new_in_three">
+                <li>Convert and suggest commands where you write, without opening MatTalX</li>
+                <li>A suggestion shows what the command gives: <code>\implies: ⟹</code></li>
+                <li>Math mode starts off, so an ordinary sentence stays one. The maths goes
+                    between <code>$ ... $</code>, <code>\( ... \)</code> or <code>\[ ... \]</code></li>
+                <li>A command takes what follows it, curly brackets or not: <code>\mathbf x</code>
+                    and <code>\mathbf {x}</code> both give 𝒙</li>
+                <li>When nothing happens, MatTalX says why</li>
+                <li>Converting is about ten times faster</li>
+            </ul>
+        </div>
+        <div class="grey box">
             <h2>What's next?</h2>
-            <p>
-                MatTalX is still in development, here are some features coming soon!
-                <ul>
-                    <li id="textEditor">Text editor with <span style="text-decoration: underline wavy blue 1px;">syntax highlighting</span></li>
-                    <li id="keyBoardShort">Improved writing assistance</li>
-                    <li id="makeOps">More freedom when building your own commands</li>
-                    <li id="muchMore">and much more!</li>
-                </ul>
-            </p>
+            <p>MatTalX is still in development, here are some features coming soon!</p>
+            <ul>
+                <li id="textEditor">Text editor with <span style="text-decoration: underline wavy blue 1px;">syntax highlighting</span></li>
+                <li id="makeOps">More freedom when building your own commands</li>
+                <li id="muchMore">and much more!</li>
+            </ul>
         </div>
         <h2 id="about">About</h2>
         <p>MatTalX is an open-source project developed to enable peers, friends, teachers, and students to discuss mathematics, physics, chemistry, 
-            or any other related subject efficiently on any platform. It works by converting LaTeX commands into text, therefore making it possible to write math symbols anywhere 
+            or any other related subject efficiently on any platform. It works by converting LaTeX commands into Unicode text, therefore making it possible to write math symbols anywhere 
             on the internet. <br>
             Our main goals are to provide the widest range of symbols possible while being incredibly fast.<br>
             If you have any suggestions, we would greatly appreciate your <a href="https://github.com/samueleblanc/MatTalX/issues" target="_blank">comments</a>!

@@ -1,0 +1,7 @@
+# Everything here is meant to be found. The old .html addresses are not disallowed on
+# purpose: they carry <meta name="robots" content="noindex">, and a crawler has to be
+# allowed to fetch a page before it can read that.
+User-agent: *
+Allow: /
+
+Sitemap: https://mattalx.org/sitemap.xml

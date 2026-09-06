@@ -143,14 +143,48 @@ p, li{
 #getMatTalXCellphone {
     display: none;
 }
+
+/* A command, wherever one is named in the prose */
+code {
+    font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    white-space: nowrap;
+}
+/* A key to press. Drawn as a key, so a shortcut reads as one at a glance */
+kbd {
+    font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    padding: 2px 6px;
+    border: 1px solid #b9bec4;
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    white-space: nowrap;
+}
+#shortcut_list {
+    list-style: none;
+    margin: 2% 6%;
+}
+#shortcut_list li {
+    margin: 10px 0;
+    font-size: 18px;
+}
+#shortcuts_box p {
+    margin: 2% 6%;
+}
+#new_in_three li {
+    margin: 8px 0;
+}
+#new_in_three::marker,
+#new_in_three li::marker {
+    color: #0f8867;
+}
 #textEditor::marker {
     content: "\\pi ";
     font-family: monospace;
     color: blue;
     font-size: 0.9em;
-}
-#keyBoardShort::marker {
-    content: "\2328  ";
 }
 #makeOps::marker {
     content: "\26CF  ";

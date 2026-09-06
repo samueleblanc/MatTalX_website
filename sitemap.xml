@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The five pages worth indexing. The four .html files at the root are the old
+     addresses: they redirect and carry noindex, so they are deliberately not listed -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://mattalx.org/</loc>
+        <lastmod>2026-09-06</lastmod>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://mattalx.org/web-version/</loc>
+        <lastmod>2026-09-06</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://mattalx.org/docs/</loc>
+        <lastmod>2026-09-06</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://mattalx.org/privacy/</loc>
+        <lastmod>2026-09-06</lastmod>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://mattalx.org/license/</loc>
+        <lastmod>2026-09-06</lastmod>
+        <priority>0.3</priority>
+    </url>
+</urlset>
