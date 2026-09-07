@@ -3030,9 +3030,9 @@ const mathDictionary = {
     // Matrix
     "\\matrix" : matrix,
     "\\id1" : "["+spacesChar.add+"1"+spacesChar.add+"]",
-    "\\id2" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A3 "+
+    "\\id2" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A3"+
               spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"\u23A6",
-    "\\id3" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+""+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A2"+
+    "\\id3" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A2"+
               spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"\u23A5 \u000A \u23A3"+
               spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"\u23A6",
     "\\id4" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A2"+
@@ -3040,8 +3040,8 @@ const mathDictionary = {
               "0"+spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"\u23A5 \u000A \u23A3"+spacesChar.add+"0"+spacesChar.add+
               "0"+spacesChar.add+"0"+spacesChar.add+"1"+spacesChar.add+"\u23A6",
     "\\idn" : "\u23A1"+spacesChar.add+"1"+spacesChar.add+"0"+spacesChar.add+"\u22EF"+spacesChar.add+"0"+spacesChar.add+"\u23A4 \u000A \u23A2"+spacesChar.add+
-              "0"+spacesChar.add+"1"+spacesChar.add+"\u22EF"+spacesChar.add+"0"+spacesChar.add+"\u23A5 \u000A \u23A2"+spacesChar.add+spacesChar.add+"\u22EE"+
-              spacesChar.add+spacesChar.add+"\u22EE"+spacesChar.add+spacesChar.add+"\u22F1"+spacesChar.add+spacesChar.add+"\u22EE"+spacesChar.add+
+              "0"+spacesChar.add+"1"+spacesChar.add+"\u22EF"+spacesChar.add+"0"+spacesChar.add+"\u23A5 \u000A \u23A2"+spacesChar.add+"\u22EE"+
+              spacesChar.add+"\u22EE"+spacesChar.add+"\u22F1"+spacesChar.add+"\u22EE"+spacesChar.add+
               "\u23A5 \u000A \u23A3"+spacesChar.add+"0"+spacesChar.add+"0"+spacesChar.add+"\u22EF"+spacesChar.add+"1"+spacesChar.add+"\u23A6",
     // To build your own
     "\\mlceil" : "\u23A1",
