@@ -14,6 +14,21 @@ Versions:
 ## MatTalX repo
 <a href="https://github.com/samueleblanc/MatTalX" target="_blank">Here</a>
 
+## The slideshow on the home page
+
+`images/slide_*.png` are generated, not drawn. `tools/build-slides.py` reads
+`images/screenshot/` and makes each slide: a `_pre`/`_conv` pair becomes one picture with
+the shortcut drawn between its halves, and `subset_*.webm` becomes one picture with three
+of its frames and the two shortcuts named beside them. Everything is padded to the same
+1280x680, so the page keeps its height as you click through.
+
+```
+python3 tools/build-slides.py
+```
+
+Re-run it after replacing anything in `images/screenshot/`. It needs `gst-launch-1.0` for
+the recording, and Pillow.
+
 ## The documentation page
 
 `docs/index.html` is generated, not written. `tools/build-docs.mjs` reads `js/core.js` and
