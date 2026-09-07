@@ -5249,7 +5249,12 @@ function newCommand(fullDict, argNums, input, output) {
             if (typeof fullDict[outNoSpace] == "function") {
                 outputSymbol = fullDict[outNoSpace];
             } else {
-                outputSymbol = tokensToText(tokenize(output, true), fullDict, {}, (t) => {return t;}, false);
+                // buildAllCommands ends the output with a space so that a command sitting at
+            // the end of it is recognised as finished. That space is punctuation for the
+            // parser, not something the user asked for, so it comes back off here: left
+            // on, the value is two characters rather than one and 'x^' can find no
+            // superscript for it
+            outputSymbol = tokensToText(tokenize(output, true), fullDict, {}, (t) => {return t;}, false).replace(/ $/, "");
             };
         } else {
             outputSymbol = buildCommandWithArgs(fullDict, argNums, input, output);
@@ -5267,7 +5272,12 @@ function renewCommand(fullDict, argNums, input, output) {
         if (typeof fullDict[outNoSpace] == "function") {
             outputSymbol = fullDict[outNoSpace];
         } else {
-            outputSymbol = tokensToText(tokenize(output, true), fullDict, {}, (t) => {return t;}, false);
+            // buildAllCommands ends the output with a space so that a command sitting at
+            // the end of it is recognised as finished. That space is punctuation for the
+            // parser, not something the user asked for, so it comes back off here: left
+            // on, the value is two characters rather than one and 'x^' can find no
+            // superscript for it
+            outputSymbol = tokensToText(tokenize(output, true), fullDict, {}, (t) => {return t;}, false).replace(/ $/, "");
         };
     } else {
         outputSymbol = buildCommandWithArgs(fullDict, argNums, input, output);
@@ -5281,7 +5291,9 @@ function declareMathOperator(fullDict, argNums, input, output) {
     if (argNums !== 0) {
         mistakes("Settings", undefined, "DeclareMathOperator must have 0 argument.");
     };
-    let outputSymbol = tokensToText(tokenize(output, true), fullDict, {}, (t) => {return t;});
+    // The same trailing space as in newCommand. Here it would sit between the operator
+    // and its bracket, so '\DeclareMathOperator{\Exp}{\mathbb E}' gave '𝔼 [𝑋]'
+    let outputSymbol = tokensToText(tokenize(output, true), fullDict, {}, (t) => {return t;}).replace(/ $/, "");
     // TODO: If text: \mathrm, else: nothing
     const newOp = (arg, initialCommand) => {
         // This function will be the value of every operator built by the user
