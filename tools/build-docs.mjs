@@ -348,7 +348,7 @@ ${nav}
 
                 <div id="getit" class="prose">
                     <a class="button" target="_blank" href="https://chrome.google.com/webstore/detail/mattalx-write-math-symbol/jllceliamggkpffccbefpefgmcigaglb">Chrome extension</a>
-                    <a class="button" target="_blank" href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/">Firefox add-on</a>
+                    <a class="button" target="_blank" href="https://addons.mozilla.org/firefox/addon/mattalx-latex-unicode-math/">Firefox add-on</a>
                     <a class="button" href="../web-version/">Try it in the browser</a>
                 </div>
 

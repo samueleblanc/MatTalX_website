@@ -375,6 +375,14 @@ kbd {
     content: "...  ";
     color: var(--accent);
 }
+#input_tryit::marker {
+    content: "∘  ";
+    color: var(--accent);
+}
+#output_tryit::marker {
+    content: "⇝ ";
+    color: var(--accent);
+}
 
 /* MatTalX's own green, the same lines the popup and the web version carry, so selected
    text and the scrollbar are the product's colour rather than the browser's default blue */
