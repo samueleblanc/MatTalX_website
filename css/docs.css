@@ -301,3 +301,30 @@ body.searching #empty.shown { display: block; }
     border-radius: 8px;
     background-color: var(--raised);
 }
+
+/* Below this the two-column tables in the prose cannot fit: the left cell holds one
+   long unbreakable command -- \DeclareUnicodeCharacter is 24 characters -- and it was
+   pushing the page 50px wider than a 375px phone. Stacked, each row reads as a term
+   and its definition, which is what it is */
+@media (max-width: 560px) {
+    table.wide,
+    table.wide tbody,
+    table.wide tr,
+    table.wide td {
+        display: block;
+        width: auto;
+    }
+    table.wide tr {
+        border-top: 1px solid var(--rule);
+        padding: 8px 0;
+    }
+    table.wide td {
+        border-top: 0;
+        padding: 0 0 2px;
+    }
+    table.wide td.cmd {
+        width: auto;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}

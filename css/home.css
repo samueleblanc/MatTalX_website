@@ -85,6 +85,9 @@ footer a {
 }
 .brandmark {
     display: block;
+}
+.brandmark img {
+    display: block;
     margin: auto;
     width: 45%;
     height: auto;
@@ -102,8 +105,14 @@ p, li{
     position: relative;
     margin: auto;
 }
-.slideshow .img-slide {
+.slideshow .slide {
     display: none;
+}
+.slideshow .slide.shown {
+    display: block;
+}
+.slideshow .slide img {
+    display: block;
     margin: auto;
     width: 60%;
     height: auto;
@@ -274,25 +283,11 @@ html {
     scrollbar-color: #0f8867 transparent;
 }
 
-/* All that is left for the colour scheme to decide is which pictures are shown: the
-   screenshots taken against a light interface, or the ones taken against a dark one.
-   Everything else reads the palette above */
-@media (prefers-color-scheme: light) {
-    .dark {
-        display: none;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    .light {
-        display: none;
-    }
-}
-
 /* Asks how wide the window is, not how wide the screen is. 'max-device-width' is out of
    the spec and reads the physical display, so a narrow window on a desktop never got
    these rules and a phone got them even in a small window */
 @media only screen and (max-width: 550px) {
-    .brandmark {
+    .brandmark img {
         width: 90%;
         height: auto;
     }
