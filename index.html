@@ -51,6 +51,33 @@
         </div>
         <p id="trust">Free and open source. The only permission it asks for is storage, to keep your
             work in progress &mdash; <a href="./privacy/">it cannot see your history or your tabs</a>.</p>
+        
+        <div class="video_example">
+            <video id="demo" muted loop playsinline autoplay controls preload="metadata"
+                    width="839" height="269" aria-label="MatTalX converting a command in a text box">
+                <source media="(prefers-color-scheme: dark)" src="./images/subset_dark.webm" type="video/webm">
+                <source media="(prefers-color-scheme: light)" src="./images/subset_light.webm" type="video/webm">
+                Your browser cannot play this recording.
+            </video>
+        </div>
+
+        <div class="grey box" id="shortcuts_box">
+            <h2>Fast & easy to use</h2>
+            <p>MatTalX works where you are already writing. Write the command, press the shortcut,
+                and it is replaced where it stands &mdash; no popup, no copying, no switching tab.</p>
+            <ul id="shortcut_list">
+                <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>W</kbd> converts what you have written</li>
+                <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> suggests a command as you write it</li>
+                <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> opens and closes MatTalX</li>
+            </ul>
+            <p><i>Never leave the text box.</i></p>
+        </div>
+
+        <p>
+            It works by converting the commands into Unicode text, therefore making it possible to communicate math concepts in messages, emails, 
+            and social media posts!
+        </p>
+        
         <div class="grey box">
             <h2>Try it!</h2>
             <ul id="try_it_ex">
@@ -60,9 +87,13 @@
               <li style="list-style-type:none">You can also <a href="./web-version/">try it in the browser</a>.</li>
             </ul>
         </div>
-        <p>It works by converting the commands into Unicode text, therefore making it possible to communicate math concepts in messages, emails, 
-            and social media posts!
-        </p>
+
+        <ul id="exemples">
+            <li>𝐻(𝑡)|𝜓(𝑡)⟩ = 𝑖ℏ(∂/∂𝑡)|𝜓(𝑡)⟩</li>
+            <li>∀𝑋 [∅ ∉ 𝑋 ⟹ ∃𝑓∶𝑋 → ∪𝑋 : ∀𝐴 ∈ 𝑋 (𝑓(𝐴) ∈ 𝐴)]</li>
+            <li>ℙ(𝑋 ≥ 𝛼) ≤ 𝔼[𝑋]/𝛼</li>
+        </ul>
+
         <div class="slideshow grey box">
                 <picture class="slide">
                     <source media="(prefers-color-scheme: dark)" srcset="./images/slide_completion_dark.png">
@@ -91,22 +122,7 @@
             <a id="previous">❮</a>
             <a id="next">❯</a>
         </div>
-        <div class="grey box" id="shortcuts_box">
-            <h2>Fast & easy to use</h2>
-            <p>MatTalX works where you are already writing. Write the command, press the shortcut,
-                and it is replaced where it stands &mdash; no popup, no copying, no switching tab.</p>
-            <ul id="shortcut_list">
-                <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>W</kbd> converts what you have written</li>
-                <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> suggests a command as you write it</li>
-                <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> opens and closes MatTalX</li>
-            </ul>
-            <p><i>Never leave the text box.</i></p>
-        </div>
-        <ul id="exemples">
-            <li>𝐻(𝑡)|𝜓(𝑡)⟩ = 𝑖ℏ(∂/∂𝑡)|𝜓(𝑡)⟩</li>
-            <li>∀𝑋 [∅ ∉ 𝑋 ⟹ ∃𝑓∶𝑋 → ∪𝑋 : ∀𝐴 ∈ 𝑋 (𝑓(𝐴) ∈ 𝐴)]</li>
-            <li>ℙ(𝑋 ≥ 𝛼) ≤ 𝔼[𝑋]/𝛼</li>
-        </ul>
+
         <div class="grey box">
             <h2>New in 3.0</h2>
             <ul id="new_in_three">

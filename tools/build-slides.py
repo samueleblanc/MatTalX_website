@@ -3,8 +3,11 @@
 
 The captures come in two shapes and neither is a slide on its own:
 
-  <name>_<theme>_pre.png / _conv.png   the same text before and after converting
-  subset_<theme>.webm                  a recording of a command being suggested
+  images/screenshot/<name>_<theme>_pre.png / _conv.png
+                                       the same text before and after converting
+  images/subset_<theme>.webm           a recording of a command being suggested,
+                                       which lives beside the pages because the home
+                                       page plays it as well
 
 A pair becomes one picture with the shortcut drawn between its two halves, so a
 still can show something that happens in place. The recording becomes one
@@ -28,11 +31,13 @@ SANS   = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 SLIDE_W, SLIDE_H = 1280, 680
 GREEN = {"light": (10, 101, 77), "dark": (34, 185, 141)}
 
-# Which frames of the recording to use, and where the text box and the open
-# suggestion list sit inside a 840x305 frame
-FRAMES   = {"typing": 18, "chosen": 45, "converted": 58}
-BOX      = (0, 30, 840, 132)
-BOX_LIST = (0, 30, 840, 298)
+# Which frames of the recording to use, and where the text box and the open suggestion
+# list sit inside one. Both are measured against images/subset_*.webm as it is now --
+# 839x269, 162 frames -- so re-record it and these have to be measured again. The slide
+# comes out wrong rather than failing, so look at it afterwards.
+FRAMES   = {"typing": 76, "chosen": 108, "converted": 136}
+BOX      = (0, 2, 839, 96)
+BOX_LIST = (0, 2, 839, 269)
 
 
 def palette(im):
@@ -169,7 +174,7 @@ def main():
                 out = f"{IMAGES}/slide_{name}_{theme}.png"
                 total += to_slide(from_pair(name, note, theme), out)
                 print(f"  {os.path.basename(out):32} {os.path.getsize(out)/1024:6.0f} KB")
-            frames_of(f"{SHOTS}/subset_{theme}.webm", f"{tmp}/{theme}")
+            frames_of(f"{IMAGES}/subset_{theme}.webm", f"{tmp}/{theme}")
             out = f"{IMAGES}/slide_completion_{theme}.png"
             total += to_slide(from_recording(theme, f"{tmp}/{theme}"), out)
             print(f"  {os.path.basename(out):32} {os.path.getsize(out)/1024:6.0f} KB")

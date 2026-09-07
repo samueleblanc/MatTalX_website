@@ -292,6 +292,30 @@ p, li{
     margin-top: 2%;
 }
 
+/* The recording. Centred on the page, and sitting closer to what is above and below it
+   than a box does, because it is one picture rather than a section of its own.
+   Margins between siblings collapse to the larger of the two, so the smaller gap has to
+   be asked for on the neighbours as well as here. The width comes down on a narrow
+   screen: the file is 581px wide and would otherwise make a phone scroll sideways */
+.video_example {
+    /* 92% so it keeps a margin on a phone like everything else on the page, and 581px
+       so it does not grow to the recording's own 839 on a wide screen */
+    width: 92%;
+    max-width: 581px;
+    margin: 1.5% auto;
+}
+.video_example video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+#trust:has(+ .video_example) {
+    margin-bottom: 1.5%;
+}
+.video_example + .box {
+    margin-top: 1.5%;
+}
+
 /* A command, wherever one is named in the prose */
 code {
     font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
