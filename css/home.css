@@ -25,6 +25,8 @@
     --arrow-veil: rgba(0, 0, 0, 0.4);
     --squiggle: blue;
     --band: #000000;
+    --cta-ground: #0a654d;
+    --cta-ink: #ffffff;
 }
 @media (prefers-color-scheme: dark) {
     :root {
@@ -42,6 +44,8 @@
         --arrow-veil: rgba(255, 255, 255, 0.25);
         --squiggle: #7fb2ff;
         --band: #000000;
+        --cta-ground: #22b98d;
+        --cta-ink: #14181a;
     }
 }
 
@@ -193,20 +197,17 @@ p, li{
 #pics_block #messenger_chat {
     width: 100%;
 }
-#pics_block #chromelogo,
-#pics_block #firefoxlogo {
+#pics_block .storelogo {
     width: 20%;
     padding: 20px;
 }
-#chromelogo,
-#firefoxlogo {
+.storelogo {
     opacity: 85%;
 }
-#chromelogo:hover,
-#firefoxlogo:hover {
+.storelogo:hover {
     opacity: 100%;
 }
-#pics_block #availableText {
+#pics_block .availableText {
     padding: 15px;
     font-size: 20px;
 }
@@ -215,6 +216,59 @@ p, li{
 }
 #getMatTalXCellphone {
     display: none;
+}
+
+/* The install buttons, directly under the sentence that says what MatTalX is. The two
+   store logos live further down the page; up here they would be 159 KB of pictures for
+   two words, so these are text */
+#hero_install {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 3% 11% 2%;
+}
+.install {
+    display: inline-block;
+    padding: 13px 22px;
+    border-radius: 7px;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+.install.primary {
+    background-color: var(--cta-ground);
+    color: var(--cta-ink);
+}
+.install.primary:hover {
+    filter: brightness(1.1);
+}
+.install.secondary {
+    color: var(--link);
+    border-color: var(--rule);
+}
+.install.secondary:hover {
+    border-color: var(--accent);
+}
+.install:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+/* What someone wants to know before installing anything: what it costs, and what it
+   can see. Both answers are short and good, so they belong beside the button */
+#trust {
+    text-align: center;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0 11% 3%;
+}
+
+/* Card titles, not the subject of the page: they are <h2> now, at the size they were */
+#getMatTalX h2,
+#getMatTalXCellphone h2 {
+    font-size: 2em;
+    margin-top: 2%;
 }
 
 /* A command, wherever one is named in the prose */
@@ -328,12 +382,11 @@ html {
         display: block;
         text-align: center;
     }
-    #getMatTalXCellphone #availableText {
+    #getMatTalXCellphone .availableText {
         padding: 15px;
         font-size: 20px;
     }
-    #getMatTalXCellphone #chromelogo,
-    #getMatTalXCellphone #firefoxlogo {
+    #getMatTalXCellphone .storelogo {
         width: 20%;
         padding: 20px;
     }

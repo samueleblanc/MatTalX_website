@@ -279,18 +279,16 @@ tr, td {
     border-radius: 7px;
     text-align: center;
 }
-#availableText {
+.availableText {
     padding: 15px;
     font-size: 20px;
 }
-#chromelogo,
-#firefoxlogo {
+.storelogo {
     width: 20%;
     padding: 20px;
     opacity: 85%;
 }
-#chromelogo:hover,
-#firefoxlogo:hover {
+.storelogo:hover {
     opacity: 100%;
 }
 
@@ -593,12 +591,11 @@ tr, td {
     .box {
         width: 80%;
     }
-    #availableText {
+    .availableText {
         padding: 15px;
         font-size: 20px;
     }
-    #chromelogo,
-    #firefoxlogo {
+    .storelogo {
         width: 20%;
         padding: 20px;
     }
