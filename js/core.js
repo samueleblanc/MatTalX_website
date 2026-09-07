@@ -2854,6 +2854,7 @@ const mathDictionary = {
     "\\rightarrowtail" : "\u21A3",
     "\\leftsquigarrow" : "\u21DC",
     "\\rightsquigarrow" : "\u21DD",
+    "\\leadsto" : "\u21DD",
     "\\leftrightsquigarrow" : "\u21AD",
     "\\longrightsquigarrow" : "\u27FF",
     "\\looparrowleft" : "\u21AB",
