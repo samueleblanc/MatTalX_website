@@ -291,17 +291,6 @@ body.searching #empty.shown { display: block; }
     ul.cmds { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 }
 
-/* The recording. Sized by the page rather than by the file, so it holds up on a phone */
-#demo {
-    display: block;
-    width: 100%;
-    max-width: 720px;
-    height: auto;
-    border: 1px solid var(--rule);
-    border-radius: 8px;
-    background-color: var(--raised);
-}
-
 /* Below this the two-column tables in the prose cannot fit: the left cell holds one
    long unbreakable command -- \DeclareUnicodeCharacter is 24 characters -- and it was
    pushing the page 50px wider than a 375px phone. Stacked, each row reads as a term

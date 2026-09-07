@@ -92,16 +92,6 @@
         };
     });
 
-    // A looping recording is motion nobody asked for if the reader has said they would
-    // rather not have any. autoplay cannot be withdrawn in CSS, so it is withdrawn here
-    const demo = document.getElementById("demo");
-    if ((demo) && (window.matchMedia) &&
-        (window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
-        demo.autoplay = false;
-        demo.removeAttribute("autoplay");
-        demo.pause();
-    };
-
     // The contents list follows the reading position
     const links = new Map();
     for (const a of document.querySelectorAll("#toc a")) {
