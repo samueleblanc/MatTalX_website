@@ -87,14 +87,11 @@ const renamed = {
 const notes = {
     "Fonts" : "Each takes what follows it, with or without curly brackets: " +
               "<code>\\mathbb R</code> and <code>\\mathbb{R}</code> both give ℝ.",
-    "Combining symbols" : "All but the last two take an argument and sit on it, so they are " +
-              "the one place MatTalX builds a symbol rather than looking one up. They are shown " +
-              "here with <b>Mathematical font</b> unticked, which is how they usually look best: " +
-              "the command then reaches a character that already exists &mdash; Â rather than an " +
-              "A with a circumflex left on top of it for the renderer to stack. " +
-              "<code>\\mdot</code> and <code>\\mddot</code> are the exception: they are ordinary " +
-              "characters, a middle dot and a colon, written beside a letter rather than over it, " +
-              "and they are what draws the dots in a Lewis structure.",
+    "Combining symbols" : "These take an argument and sit on it, so they are the one place " +
+              "MatTalX builds a symbol rather than looking one up. They are shown here with " +
+              "<b>Mathematical font</b> unticked, which is how they usually look best: the " +
+              "command then reaches a character that already exists &mdash; Â rather than an A " +
+              "with a circumflex left on top of it for the renderer to stack.",
     "Building your own" : "Written in Settings, under <b>Commands &amp; operators</b>, not in the box.",
     "Upright letters" : "The letters you get with <b>Mathematical font</b> unticked.",
     "Matrix" : "A matrix is written as rows in square brackets: " +

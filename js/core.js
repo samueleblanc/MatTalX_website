@@ -2928,11 +2928,6 @@ const mathDictionary = {
     "\\breve" : breve,
     "\\bar" : bar,
 
-    // Not marks like the ones above, but two ordinary characters written beside a letter
-    // rather than over it: a middle dot and a colon. They draw the dots in a Lewis structure
-    "\\mdot" : "\u2E31",
-    "\\mddot" : "\u003A",
-
     // Chess
     "\\wking" : "\u2654",
     "\\wqueen" : "\u2655",
@@ -3187,6 +3182,9 @@ const mathDictionary = {
     "\\qquad" : spacesChar.add+spacesChar.add+spacesChar.add+spacesChar.add,
     "\\!" : spacesChar.remove,
     "\\colon" : "\u003A",
+    // The dots in a Lewis structure: written beside a letter, not over it
+    "\\mdot" : "\u2E31",
+    "\\mddot" : "\u003A",
     "\\\\" : "\u000A",
     "\\linebreak" : "\u000A",
     "\\newline" : "\u000A",
