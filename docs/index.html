@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Every MatTalX command and the Unicode character it gives: 855 of them, with the delimiters, the shortcuts, and how it differs from LaTeX.">
+        <meta name="description" content="Every MatTalX command and the Unicode character it gives: 857 of them, with the delimiters, the shortcuts, and how it differs from LaTeX.">
         <link rel="stylesheet" href="../css/docs.css">
         <link rel="icon" type="image/png" sizes="32x32" href="../images/mattalx_favicon32.png">
         <link rel="icon" type="image/png" sizes="48x48" href="../images/mattalx_favicon48.png">
@@ -14,7 +14,7 @@
         <meta property="og:url" content="https://mattalx.org/docs/">
         <meta property="og:site_name" content="MatTalX">
         <meta property="og:title" content="MatTalX Documentation">
-        <meta property="og:description" content="Every MatTalX command and the Unicode character it gives: 855 of them, searchable.">
+        <meta property="og:description" content="Every MatTalX command and the Unicode character it gives: 857 of them, searchable.">
         <meta property="og:image" content="https://mattalx.org/images/og-card.png">
         <meta name="twitter:card" content="summary_large_image">
         <title>MatTalX Documentation</title>
@@ -46,7 +46,7 @@
                 <a href="#fonts">Fonts <span class="count">14</span></a>
                 <a href="#spaces">Spaces <span class="count">4</span></a>
                 <a href="#roots-and-fractions">Roots and fractions <span class="count">3</span></a>
-                <a href="#combining-symbols">Combining symbols <span class="count">22</span></a>
+                <a href="#combining-symbols">Combining symbols <span class="count">24</span></a>
                 <a href="#chess">Chess <span class="count">12</span></a>
                 <a href="#card-games">Card games <span class="count">8</span></a>
                 <a href="#money">Money <span class="count">16</span></a>
@@ -64,7 +64,7 @@
             <main>
                 <h1>Documentation</h1>
                 <p id="lede">Every command MatTalX knows and the character it gives &mdash;
-                    855 of them &mdash; with the delimiters, the shortcuts, and what it
+                    857 of them &mdash; with the delimiters, the shortcuts, and what it
                     cannot do. Click any symbol to copy it.</p>
 
                 <div id="searchbar">
@@ -608,8 +608,8 @@
             </ul>
         </section>
         <section id="combining-symbols" class="commands">
-            <h2>Combining symbols <span class="count">22</span></h2>
-            <p class="note">These sit on the character that follows, so they are the one place MatTalX builds a symbol rather than looking one up. They are shown here with <b>Mathematical font</b> unticked, which is how they usually look best: the command then reaches a character that already exists &mdash; Â rather than an A with a circumflex left on top of it for the renderer to stack.</p>
+            <h2>Combining symbols <span class="count">24</span></h2>
+            <p class="note">All but the last two take an argument and sit on it, so they are the one place MatTalX builds a symbol rather than looking one up. They are shown here with <b>Mathematical font</b> unticked, which is how they usually look best: the command then reaches a character that already exists &mdash; Â rather than an A with a circumflex left on top of it for the renderer to stack. <code>\mdot</code> and <code>\mddot</code> are the exception: they are ordinary characters, a middle dot and a colon, written beside a letter rather than over it, and they are what draws the dots in a Lewis structure.</p>
             <ul class="cmds">
                 <li><code>\overline{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A̅</span></li>
                 <li><code>\underline{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A̲</span></li>
@@ -633,6 +633,8 @@
                 <li><code>\check{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Ǎ</span></li>
                 <li><code>\breve{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Ă</span></li>
                 <li><code>\bar{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Ā</span></li>
+                <li><code>\mdot</code><span class="sym" tabindex="0" role="button" title="Copy">⸱</span></li>
+                <li><code>\mddot</code><span class="sym" tabindex="0" role="button" title="Copy">:</span></li>
             </ul>
         </section>
         <section id="chess" class="commands">

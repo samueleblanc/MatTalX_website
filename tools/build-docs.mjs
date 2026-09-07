@@ -84,17 +84,17 @@ const renamed = {
     "Hebrew alphabet" : "Hebrew letters"
 };
 
-/* Sections that are not worth a heading of their own */
-const dropped = new Set(["For Lewis Notation"]);
-
 const notes = {
     "Fonts" : "Each takes what follows it, with or without curly brackets: " +
               "<code>\\mathbb R</code> and <code>\\mathbb{R}</code> both give ℝ.",
-    "Combining symbols" : "These sit on the character that follows, so they are the one " +
-              "place MatTalX builds a symbol rather than looking one up. They are shown here " +
-              "with <b>Mathematical font</b> unticked, which is how they usually look best: " +
-              "the command then reaches a character that already exists &mdash; Â rather than " +
-              "an A with a circumflex left on top of it for the renderer to stack.",
+    "Combining symbols" : "All but the last two take an argument and sit on it, so they are " +
+              "the one place MatTalX builds a symbol rather than looking one up. They are shown " +
+              "here with <b>Mathematical font</b> unticked, which is how they usually look best: " +
+              "the command then reaches a character that already exists &mdash; Â rather than an " +
+              "A with a circumflex left on top of it for the renderer to stack. " +
+              "<code>\\mdot</code> and <code>\\mddot</code> are the exception: they are ordinary " +
+              "characters, a middle dot and a colon, written beside a letter rather than over it, " +
+              "and they are what draws the dots in a Lewis structure.",
     "Building your own" : "Written in Settings, under <b>Commands &amp; operators</b>, not in the box.",
     "Upright letters" : "The letters you get with <b>Mathematical font</b> unticked.",
     "Matrix" : "A matrix is written as rows in square brackets: " +
@@ -106,7 +106,7 @@ const notes = {
 
 const identityMatrix = /^\\id[1-4n]$/;
 
-const mathSections = sectionsOfMathDictionary().filter((group) => !dropped.has(group.name)).map((group) => {
+const mathSections = sectionsOfMathDictionary().map((group) => {
     const plain = (group.name === "Combining symbols");
     const from = (plain) ? labelsPlain : labels;
     const pairs = [];

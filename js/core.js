@@ -2928,7 +2928,8 @@ const mathDictionary = {
     "\\breve" : breve,
     "\\bar" : bar,
 
-    // For Lewis Notation
+    // Not marks like the ones above, but two ordinary characters written beside a letter
+    // rather than over it: a middle dot and a colon. They draw the dots in a Lewis structure
     "\\mdot" : "\u2E31",
     "\\mddot" : "\u003A",
 
