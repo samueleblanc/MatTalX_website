@@ -34,10 +34,8 @@
     <body>
         <header>
             <a href="./web-version/"><input type="button" value="Demo"></a>
-            <a href="./docs/"><input type="button" value="Documentation"></a>
-            <a href="#getMatTalX"><input type="button" value="Get MatTalX"></a>
-            <a href="https://github.com/samueleblanc/MatTalX" target="_blank"><input type="button" value="GitHub"></a>
-            <a href="#about"><input type="button" value="About"></a>
+            <a href="./docs/"><input type="button" value="Docs"></a>
+            <a href="https://github.com/samueleblanc/MatTalX" target="_blank" class="iconlink" title="GitHub"><img src="./images/github_dark.png" width="256" height="256" alt="GitHub"></a>
         </header>
         <picture class="brandmark">
             <source media="(prefers-color-scheme: dark)" srcset="./images/mattalx_logo_nobg_dark.png">
@@ -53,11 +51,15 @@
         </div>
         <p id="trust">Free and open source. The only permission it asks for is storage, to keep your
             work in progress &mdash; <a href="./privacy/">it cannot see your history or your tabs</a>.</p>
-        <ul id="exemples">
-            <li>𝐻(𝑡)|𝜓(𝑡)⟩ = 𝑖ℏ(∂/∂𝑡)|𝜓(𝑡)⟩</li>
-            <li>∀𝑋 [∅ ∉ 𝑋 ⟹ ∃𝑓∶𝑋 → ∪𝑋 : ∀𝐴 ∈ 𝑋 (𝑓(𝐴) ∈ 𝐴)]</li>
-            <li>ℙ(𝑋 ≥ 𝛼) ≤ 𝔼[𝑋]/𝛼</li>
-        </ul>
+        <div class="grey box">
+            <h2>Try it!</h2>
+            <ul id="try_it_ex">
+              <li>\sum_n a_n \to c \implies (a_n)_n \to 0,\: c \in \mathbb{R}</li>
+              <li><span id="exampleToCopy">∑ₙ𝑎ₙ → 𝑐 ⟹ (𝑎ₙ)ₙ → 0, 𝑐 ∈ ℝ</span></li>
+              <li style="list-style-type:none"><input type="button" value="Copy output" id="copy"> &nbsp;<i style="font-size: smaller;">and paste it anywhere!</i></li>
+              <li style="list-style-type:none">You can also <a href="./web-version/">try it in the browser</a>.</li>
+            </ul>
+        </div>
         <p>It works by converting the commands into Unicode text, therefore making it possible to communicate math concepts in messages, emails, 
             and social media posts!
         </p>
@@ -89,9 +91,8 @@
             <a id="previous">❮</a>
             <a id="next">❯</a>
         </div>
-        <br><br>
         <div class="grey box" id="shortcuts_box">
-            <h2>You don't have to open it</h2>
+            <h2>Fast & easy to use</h2>
             <p>MatTalX works where you are already writing. Write the command, press the shortcut,
                 and it is replaced where it stands &mdash; no popup, no copying, no switching tab.</p>
             <ul id="shortcut_list">
@@ -101,41 +102,11 @@
             </ul>
             <p><i>Never leave the text box.</i></p>
         </div>
-        <br>
-        <div class="box">
-            <h2>Copy and paste this example!</h2>
-            <ul>
-              <li><i>Input:</i> \sum a_{n} \rightarrow c \implies (a_{n}) \rightarrow 0,\: c \in \mathbb{R}</li>
-              <li><i>Output:</i> <span id="exampleToCopy">∑𝑎ₙ → 𝑐 ⟹ (𝑎ₙ) → 0, 𝑐 ∈ ℝ</span></li>
-              <li style="list-style-type:none"><input type="button" value="Copy text" id="copy"> &nbsp;<i style="font-size: smaller;">and paste it anywhere!</i></li>
-            </ul>
-        </div>
-        <br>
-        <h2>Discuss math on the web</h2>
-        <div id="pics_block">
-            <div class="cols">
-                <h3>Before</h3><br>
-                <img src="./images/before_mattalx_twitter_nobg.png" id="before_twitter" alt="A post on X showing raw LaTeX commands, without MatTalX" width="596" height="273" loading="lazy"><br><br>
-                <span id="noCellphone"><br><br><br></span>
-                <div class="grey box" id="getMatTalX">
-                    <h2>Get MatTalX</h2>
-                    <span class="availableText">Available in the Chrome webstore and in the Firefox add-ons marketplace</span><br>
-                    <a href="https://chrome.google.com/webstore/detail/mattalx-write-math-symbol/jllceliamggkpffccbefpefgmcigaglb" target="_blank"><img src="./images/chromelogo.png" class="storelogo" alt="Chrome logo" width="400" height="400" loading="lazy"></a>
-                    <a href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/" target="_blank"><img src="./images/firefoxlogo.png" class="storelogo" alt="Firefox logo" width="400" height="416" loading="lazy"></a>
-                </div>
-            </div>
-            <div class="cols">
-                <h3>After</h3><br>
-                <img src="./images/after_mattalx_twitter_nobg.png" id="after_twitter" alt="The same post with MatTalX, showing the converted symbols" width="596" height="273" loading="lazy"><br><br>
-                <img src="./images/messenger_chat.png" id="messenger_chat" alt="A conversation in Messenger with mathematics written in it" width="1550" height="1553" loading="lazy">
-            </div>
-        </div>
-        <div class="grey box" id="getMatTalXCellphone">
-            <h2>Get MatTalX</h2>
-            <span class="availableText">Available in the Chrome webstore and in the Firefox add-ons marketplace</span><br>
-            <a href="https://chrome.google.com/webstore/detail/mattalx-write-math-symbol/jllceliamggkpffccbefpefgmcigaglb" target="_blank"><img src="./images/chromelogo.png" class="storelogo" alt="Chrome logo" width="400" height="400" loading="lazy"></a>
-            <a href="https://addons.mozilla.org/firefox/addon/mattalx-write-math-symbols/" target="_blank"><img src="./images/firefoxlogo.png" class="storelogo" alt="Firefox logo" width="400" height="416" loading="lazy"></a>
-        </div>
+        <ul id="exemples">
+            <li>𝐻(𝑡)|𝜓(𝑡)⟩ = 𝑖ℏ(∂/∂𝑡)|𝜓(𝑡)⟩</li>
+            <li>∀𝑋 [∅ ∉ 𝑋 ⟹ ∃𝑓∶𝑋 → ∪𝑋 : ∀𝐴 ∈ 𝑋 (𝑓(𝐴) ∈ 𝐴)]</li>
+            <li>ℙ(𝑋 ≥ 𝛼) ≤ 𝔼[𝑋]/𝛼</li>
+        </ul>
         <div class="grey box">
             <h2>New in 3.0</h2>
             <ul id="new_in_three">
@@ -169,7 +140,6 @@
         <footer>
             <a href="./license/"><input type="button" value="License"></a>
             <a href="./privacy/"><input type="button" value="Privacy"></a>
-            <a href="mailto:samuel.leblanc6@usherbrooke.ca"><input type="button" value="Contact"></a>
         </footer>
         <script>
             const slides = [...document.getElementsByClassName("slide")];

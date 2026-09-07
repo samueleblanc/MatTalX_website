@@ -23,7 +23,6 @@
     --button-ground: rgb(230, 229, 229);
     --button-hover: lightgrey;
     --arrow-veil: rgba(0, 0, 0, 0.4);
-    --squiggle: blue;
     --band: #000000;
     --cta-ground: #0a654d;
     --cta-ink: #ffffff;
@@ -42,7 +41,6 @@
         --button-ground: rgb(53, 53, 53);
         --button-hover: rgb(66, 66, 66);
         --arrow-veil: rgba(255, 255, 255, 0.25);
-        --squiggle: #7fb2ff;
         --band: #000000;
         --cta-ground: #22b98d;
         --cta-ink: #14181a;
@@ -86,6 +84,29 @@ footer input[type=button]:hover {
 header a,
 footer a {
     text-decoration: none;
+}
+/* A link in the band that carries a picture instead of a word. Padded and hovered like
+   the buttons beside it, so the row reads as one set of controls.
+   The mark is the whitesmoke one in both colour schemes, because the band itself is
+   black in both: --band is #000000 under light and under dark alike, and the black mark
+   would be invisible on it. If the band ever follows the scheme, this becomes a
+   <picture> with the two files that are already here */
+header .iconlink {
+    display: inline-block;
+    /* 13 above and below rather than 15, so that 22px of mark comes to the same height
+       as 16px of text with the buttons' own padding: the band keeps the height it had
+       and the hover areas match */
+    padding: 13px 15px;
+    line-height: 0;
+    vertical-align: middle;
+}
+header .iconlink img {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+header .iconlink:hover {
+    background-color: rgb(51, 51, 51);
 }
 .brandmark {
     display: block;
@@ -280,7 +301,7 @@ code {
 }
 .squiggle {
     /* Was an inline style, and so could only ever be one colour */
-    text-decoration: underline wavy var(--squiggle) 1px;
+    text-decoration: underline wavy var(--accent) 1px;
 }
 /* A key to press. Drawn as a key, so a shortcut reads as one at a glance */
 kbd {
@@ -312,17 +333,23 @@ kbd {
 #new_in_three li::marker {
     color: var(--accent);
 }
+#try_it_ex::marker, 
+#try_it_ex li::marker {
+    color: var(--accent);
+}
 #textEditor::marker {
     content: "\\pi ";
     font-family: monospace;
-    color: var(--squiggle);
+    color: var(--accent);
     font-size: 0.9em;
 }
 #makeOps::marker {
     content: "\26CF  ";
+    color: var(--accent);
 }
 #muchMore::marker {
     content: "...  ";
+    color: var(--accent);
 }
 
 /* MatTalX's own green, the same lines the popup and the web version carry, so selected
