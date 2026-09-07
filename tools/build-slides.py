@@ -157,7 +157,7 @@ def frames_of(webm, into):
 PAIRS = [
     ("alpha", "converts where you are writing"),
     ("oint",  "converts where you are writing"),
-    ("built", "converts where you are writing"),
+    ("built", "build your own commands easily"),
     ("chess", "850 commands, more than just math"),
 ]
 
