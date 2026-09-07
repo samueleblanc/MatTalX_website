@@ -337,22 +337,22 @@ html {
 /* A system asking for dark, unless the switch in Settings has asked for light */
 @media (prefers-color-scheme: dark) {
     body:not(.lightChosen) {
-        --ground: rgb(39, 39, 39);
+        --ground: #14181a;
         --ink: whitesmoke;
         --field-ink: whitesmoke;
-        --field-ground: rgb(83, 83, 83);
-        --field-border: rgb(83, 83, 83);
-        --menu-ground: rgb(31, 31, 31);
+        --field-ground: rgb(43, 43, 43);
+        --field-border: rgb(47, 47, 47);
+        --menu-ground: black;
         --menu-hover: rgb(41, 41, 41);
-        --button-ground: rgb(53, 53, 53);
-        --button-hover: rgb(61, 61, 61);
+        --button-ground: rgb(41, 41, 41);
+        --button-hover: rgb(53, 53, 53);
         --suggestion-ground: rgb(39, 39, 39);
         --suggestion-border: rgb(31, 31, 31);
         --suggestion-chosen: rgb(61, 61, 61);
         --veil: rgba(31, 31, 31, 0.7);
         --panel-ground: rgb(31, 31, 31);
-        --input-ground: rgb(61, 61, 61);
-        --grey-box: #232a2d;
+        --input-ground: rgb(43, 42, 42);
+        --grey-box: #1a1e20;
         --accent: #22b98d;
     --link: #22b98d;
         --light-art: none;
@@ -362,22 +362,22 @@ html {
 
 /* The switch in Settings, which has the last word in both directions */
 body.darkChosen {
-    --ground: rgb(39, 39, 39);
+    --ground: #14181a;
     --ink: whitesmoke;
     --field-ink: whitesmoke;
-    --field-ground: rgb(83, 83, 83);
-    --field-border: rgb(83, 83, 83);
-    --menu-ground: rgb(31, 31, 31);
+    --field-ground: rgb(43, 43, 43);
+    --field-border: rgb(47, 47, 47);
+    --menu-ground: black;
     --menu-hover: rgb(41, 41, 41);
-    --button-ground: rgb(53, 53, 53);
-    --button-hover: rgb(61, 61, 61);
+    --button-ground: rgb(41, 41, 41);
+    --button-hover: rgb(53, 53, 53);
     --suggestion-ground: rgb(39, 39, 39);
     --suggestion-border: rgb(31, 31, 31);
     --suggestion-chosen: rgb(61, 61, 61);
     --veil: rgba(31, 31, 31, 0.7);
     --panel-ground: rgb(31, 31, 31);
-    --input-ground: rgb(61, 61, 61);
-    --grey-box: #232a2d;
+    --input-ground: rgb(43, 42, 42);
+    --grey-box: #1a1e20;
     --accent: #22b98d;
     --link: #22b98d;
     --light-art: none;
