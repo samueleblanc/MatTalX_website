@@ -18,7 +18,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
-import { dictionaries, spaceCommand } from "../js/core.js";
+import { convert, dictionaries, spaceCommand } from "../js/core.js";
 import { everyCommand } from "../js/completion.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -27,15 +27,26 @@ const VERSION = "3.0.0";
 
 /* ---------- what a command gives, straight from the suggestion box ---------- */
 
-const labels = new Map();
-for (const { insert, label } of everyCommand([], true)) {
-    // A label reads '\alpha: 𝛼'. The name is what comes before the first colon-space
-    const at = label.indexOf(": ");
-    labels.set((at === -1) ? label : label.slice(0, at), {
-        gives : (at === -1) ? "" : label.slice(at + 2),
-        insert : insert
-    });
+function labelsFor(mathFont) {
+    const map = new Map();
+    for (const { insert, label } of everyCommand([], mathFont)) {
+        // A label reads '\alpha: 𝛼'. The name is what comes before the first colon-space
+        const at = label.indexOf(": ");
+        map.set((at === -1) ? label : label.slice(0, at), {
+            gives : (at === -1) ? "" : label.slice(at + 2),
+            insert : insert
+        });
+    };
+    return map;
 };
+
+const labels = labelsFor(true);
+
+// A combining mark drawn over a mathematical italic letter is where fonts fall down
+// hardest: 𝐴 with a circumflex is two characters the renderer has to stack itself.
+// With the mathematical font off the same command reaches a character that already
+// exists -- Â -- so that is how this one section is shown
+const labelsPlain = labelsFor(false);
 
 /* ---------- the order and the grouping core.js already uses ---------- */
 
@@ -67,31 +78,46 @@ function sectionsOfMathDictionary() {
 const renamed = {
     "Math operators" : "Operators",
     "Convert text" : "Fonts",
-    "For Lewis Notation" : "Lewis notation",
     "Non italic letters" : "Upright letters",
     "To build your own" : "Building your own",
     "Square root and fractions" : "Roots and fractions",
     "Hebrew alphabet" : "Hebrew letters"
 };
 
+/* Sections that are not worth a heading of their own */
+const dropped = new Set(["For Lewis Notation"]);
+
 const notes = {
     "Fonts" : "Each takes what follows it, with or without curly brackets: " +
               "<code>\\mathbb R</code> and <code>\\mathbb{R}</code> both give ℝ.",
-    "Combining symbols" : "These sit on top of the character that follows, so they are the " +
-              "one place MatTalX does build a symbol rather than look one up.",
+    "Combining symbols" : "These sit on the character that follows, so they are the one " +
+              "place MatTalX builds a symbol rather than looking one up. They are shown here " +
+              "with <b>Mathematical font</b> unticked, which is how they usually look best: " +
+              "the command then reaches a character that already exists &mdash; Â rather than " +
+              "an A with a circumflex left on top of it for the renderer to stack.",
     "Building your own" : "Written in Settings, under <b>Commands &amp; operators</b>, not in the box.",
-    "Lewis notation" : "For drawing molecules. Use the <code>!chem</code> document class, " +
-              "which stops letters being italicised.",
     "Upright letters" : "The letters you get with <b>Mathematical font</b> unticked.",
     "Matrix" : "A matrix is written as rows in square brackets: " +
-              "<code>\\matrix{[a,b][c,d]}</code>."
+              "<code>\\matrix{[a,b][c,d]}</code>. More than one row goes on lines of its own. " +
+              "MatTalX will say so under the second box, but it is worth knowing here too: a " +
+              "matrix lines up properly with <b>Mathematical font</b> unticked, because the " +
+              "italic letters are not all the same width."
 };
 
-const mathSections = sectionsOfMathDictionary().map((group) => {
+const identityMatrix = /^\\id[1-4n]$/;
+
+const mathSections = sectionsOfMathDictionary().filter((group) => !dropped.has(group.name)).map((group) => {
+    const plain = (group.name === "Combining symbols");
+    const from = (plain) ? labelsPlain : labels;
     const pairs = [];
     for (const name of group.commands) {
-        const known = labels.get(name);
-        if (known) {
+        const known = from.get(name);
+        if (identityMatrix.test(name)) {
+            // The suggestion box calls these 'the 3x3 identity matrix', because it has one
+            // line and 17px to say it in. This page can simply draw them
+            const drawn = convert(name + " ", {mathMode: true, mathFont: true, adjustSpaces: true});
+            pairs.push([name, drawn.text.replace(/ $/, "")]);
+        } else if (known) {
             pairs.push([known.insert, known.gives]);
         } else {
             const value = dictionaries.mathDictionary[name];
@@ -106,14 +132,49 @@ const greek = Object.keys(dictionaries.stdGreek).map((name) =>
     [name, dictionaries.stdGreek[name] + "\u2003" + dictionaries.noStyleGreek[name]]);
 
 /* Superscript and subscript are keyed by the character they lift, not by a command */
-const lifted = (dict, mark) => Object.keys(dict)
-    .filter((c) => /^[\x21-\x7E]$/.test(c))
-    .map((c) => [mark.replace("x", c), dict[c]]);
+/* Built by converting rather than by reading the dictionary, because the two do not
+   always agree: the table has 'Z' against U+1646, but writing A^{Z} gives U+1DBB, and a
+   few characters cannot be written inside ^{ } at all -- a backslash opens a command and
+   a dollar closes math mode. Converting for real drops those and shows what actually
+   happens. It also settles the pencil: core.js writes U+2710 where it means a space, and
+   turns it into one on the way out, which is why the subscript comma showed a pencil.
+   The base is a single 'A', stripped off afterwards, and the mathematical font is left
+   on because that is how MatTalX runs by default -- and it matters: the superscript of
+   'Z' is U+1DBB with the font on and U+1646 with it off */
+const lifted = (dict, prefix, mark) => {
+    const rows = [];
+    for (const c of Object.keys(dict)) {
+        if (!/^[\x21-\x7E]$/.test(c)) { continue; };
+        const result = convert("A" + prefix + "{" + c + "} ",
+                               {mathMode: true, mathFont: true, adjustSpaces: true});
+        if (result.errors.trim() !== "") { continue; };
+        const gives = result.text.replace(/^[A\u{1D400}-\u{1D7FF}]/u, "").replace(/ $/, "");
+        // Left as it was written, so there is nothing to show: a character with no raised
+        // or lowered form comes back through the conversion unchanged
+        if ((gives === "") || (gives.includes(prefix + "{"))) { continue; };
+        rows.push([mark.replace("x", c), gives]);
+    };
+    return rows;
+};
 
 const textOnly = Object.keys(dictionaries.textCommands).map((name) => {
     const value = dictionaries.textCommands[name];
-    return [name, (typeof value === "function") ? (labels.get(name)?.gives ?? "") : spaceCommand(value)];
-});
+    if (typeof value !== "function") {
+        return [name, spaceCommand(value)];
+    };
+    // A command that takes an argument. The ones MatTalX also knows in math mode have a
+    // label already; the rest are the LaTeX text accents -- \'{e}, \c{c}, \v{s} -- which
+    // live only out here, so they are converted for real and shown the same way
+    const known = labels.get(name);
+    if ((known) && (known.gives.includes("\u2192"))) {
+        return [name, known.gives];
+    };
+    const result = convert(name + "{a} ", {mathMode: false, mathFont: true, adjustSpaces: true});
+    if (result.errors.trim() !== "") {
+        return [name, ""];
+    };
+    return [name, "a \u2192 " + result.text.replace(/ $/, "")];
+}).filter(([, gives]) => gives !== "");
 
 /* Greek goes after the three big mathematical sections; the rest keep core.js's order */
 const sections = [
@@ -122,11 +183,11 @@ const sections = [
       note : "Two forms are listed: the mathematical italic MatTalX uses by default, and " +
              "the upright one you get with <b>Mathematical font</b> unticked." },
     ...mathSections.slice(3),
-    { title : "Superscript", pairs : lifted(dictionaries.Superscript, "^{x}"),
+    { title : "Superscript", pairs : lifted(dictionaries.Superscript, "^", "^{x}"),
       note : "Anything below can be raised. Write <code>^</code> and the character, or " +
              "<code>^{...}</code> for more than one. Everything has to stay on one line, " +
              "so a superscript inside a superscript has no answer." },
-    { title : "Subscript", pairs : lifted(dictionaries.Subscript, "_{x}"),
+    { title : "Subscript", pairs : lifted(dictionaries.Subscript, "_", "_{x}"),
       note : "The same, lowered, with <code>_</code>." },
     { title : "Outside math mode", pairs : textOnly,
       note : "These work in ordinary text, outside the <code>$ ... $</code>." }
@@ -154,7 +215,7 @@ mathematics. It converts what sits between delimiters, and leaves the rest alone
 <table class="cmds wide">
     <tr><td class="cmd"><code>$ ... $</code></td><td>The usual one. <code>Let $x \\in \\mathbb R$.</code> gives <span class="sym">Let 𝑥 ∈ ℝ.</span></td></tr>
     <tr><td class="cmd"><code>\\( ... \\)</code></td><td>The same thing, written the way LaTeX writes inline maths.</td></tr>
-    <tr><td class="cmd"><code>\\[ ... \\]</code></td><td>The same again. LaTeX uses it for a displayed equation; here it reads as inline, because everything is one line.</td></tr>
+    <tr><td class="cmd"><code>\\[ ... \\]</code></td><td>A displayed equation, as in LaTeX: what is inside gets a line of its own. <code>a \\[ x \\] b</code> gives three lines, where the other two give one.</td></tr>
 </table>
 <p>If you would rather have everything converted and never write a delimiter, tick
 <b>Math mode</b> under the question mark. An ordinary sentence will then be converted too,
@@ -183,12 +244,11 @@ typeset box, and that changes what is possible.</p>
 <p><b>A symbol is looked up, not built.</b> ≝ is <code>\\def</code> here, where LaTeX
 writes <code>\\stackrel{\\rm def}{=}</code>. The exception is
 <a href="#combining-symbols">combining symbols</a>, which really do stack.</p>
-<p><b>Everything stays on one line.</b> <code>x^{x^{x^{x}}}</code> has no answer, because
+<p><b>Everything stays on one line.</b> <code>x^{x^{x^{x}}}</code> is unchanged, because
 a superscript cannot itself carry a superscript. Nor can
-<code>\\frac{\\frac{\\frac{a}{b}}{c}}{d}</code>. Write <code>x^(x^(x^(x)))</code> and
+<code>\\frac{\\frac{\\frac{a}{b}}{c}}{d}</code>. For the later, write
 <code>((a/b)/c)/d</code> instead.</p>
-<p><b>When a command has no answer, MatTalX says so</b> under the second box, naming the
-command rather than silently leaving it as it was.</p>
+<p><b>When a command has no answer, MatTalX says so under the second box.</b></p>
 ` },
 
 { id : "your-own", title : "Building your own commands", html : `
@@ -197,18 +257,10 @@ can be written:</p>
 <table class="cmds wide">
     <tr><td class="cmd"><code>\\newcommand</code></td><td>A name of your own for something MatTalX already knows: <code>{\\reals}{\\mathbb R}</code>.</td></tr>
     <tr><td class="cmd"><code>\\renewcommand</code></td><td>The same, for a name MatTalX already uses, which yours then replaces.</td></tr>
-    <tr><td class="cmd"><code>\\DeclareMathOperator</code></td><td>An operator, which takes an argument: <code>{\\Aut}{Aut}</code> then gives Aut(𝐺) for <code>\\Aut{G}</code>.</td></tr>
+    <tr><td class="cmd"><code>\\DeclareMathOperator</code></td><td>An operator, which takes an argument: <code>{\\Exp}{\\mathbb E}</code> then gives 𝔼[𝑋] for <code>\\Exp{X}</code>.</td></tr>
     <tr><td class="cmd"><code>\\DeclareUnicodeCharacter</code></td><td>A character by its code point, for anything MatTalX has no name for.</td></tr>
 </table>
 <p>Your own commands are suggested before the built-in ones, and they are remembered.</p>
-` },
-
-{ id : "chemistry", title : "Chemistry", html : `
-<p><code>\\ce{...}</code> writes a formula the way <i>mhchem</i> does:
-<code>\\ce{H2O}</code> gives H₂O, and <code>\\ce{SO4^2-}</code> gives SO₄²⁻.</p>
-<p>For Lewis structures, start the text with <code>!chem</code>. That switches to a
-document class where letters are not italicised, which is what you want for an element
-symbol, and makes the <a href="#lewis-notation">dot and bond marks</a> available.</p>
 ` }
 ];
 

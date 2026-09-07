@@ -66,6 +66,11 @@ export function semiAutoCompletion(textIn, cursorPosition, command) {
 // Commands written with two arguments rather than one
 const twoArguments = ["\\frac", "\\frac*", "\\overset", "\\underset", "\\stackrel"];
 
+// Of those, the ones whose first argument is a mark rather than a letter. Shown with two
+// letters they read '\\overset: A,B → B', because a letter has no form that sits above
+// another one and is simply dropped. A mark does, so these are shown with one
+const markFirst = ["\\overset", "\\underset", "\\stackrel"];
+
 // Commands whose argument is not a letter, or whose answer doesn't fit on a line
 // '\\emph' is here for a different reason: it is the one command whose answer depends on
 // how its argument already looks, and the preview is given a letter this dictionary has
@@ -117,9 +122,12 @@ function showCommand(key, dict) {
     // An argument reaches a command already converted, so the letter is converted first,
     // the same way the parser hands it over. 'A' is what the user is shown either way
     const two = twoArguments.includes(key);
-    const args = (two) ? [[dict["A"]], [dict["B"]]] : [[dict["A"]]];
+    const marked = markFirst.includes(key);
+    const args = (marked) ? [["."], [dict["A"]]] :
+                 ((two) ? [[dict["A"]], [dict["B"]]] : [[dict["A"]]]);
+    const shown = (marked) ? ".,A" : ((two) ? "A,B" : "A");
     try {
-        return key + ": " + ((two) ? "A,B" : "A") + " → " + spaceCommand(value(args, key).join(""));
+        return key + ": " + shown + " → " + spaceCommand(value(args, key).join(""));
     } catch (err) {
         return key + "{}";
     };

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Every MatTalX command and the Unicode character it gives: 860 of them, with the delimiters, the shortcuts, and how it differs from LaTeX.">
+        <meta name="description" content="Every MatTalX command and the Unicode character it gives: 855 of them, with the delimiters, the shortcuts, and how it differs from LaTeX.">
         <link rel="stylesheet" href="../css/docs.css">
         <link rel="icon" type="image/png" sizes="32x32" href="../images/mattalx_favicon32.png">
         <link rel="icon" type="image/png" sizes="48x48" href="../images/mattalx_favicon48.png">
@@ -14,7 +14,7 @@
         <meta property="og:url" content="https://mattalx.org/docs/">
         <meta property="og:site_name" content="MatTalX">
         <meta property="og:title" content="MatTalX Documentation">
-        <meta property="og:description" content="Every MatTalX command and the Unicode character it gives: 860 of them, searchable.">
+        <meta property="og:description" content="Every MatTalX command and the Unicode character it gives: 855 of them, searchable.">
         <meta property="og:image" content="https://mattalx.org/images/og-card.png">
         <meta name="twitter:card" content="summary_large_image">
         <title>MatTalX Documentation</title>
@@ -37,7 +37,6 @@
                 <a href="#shortcuts">Shortcuts</a>
                 <a href="#differences">How it differs from LaTeX</a>
                 <a href="#your-own">Building your own commands</a>
-                <a href="#chemistry">Chemistry</a>
                 <p class="navhead">Commands</p>
                 <a href="#operators">Operators <span class="count">124</span></a>
                 <a href="#relations">Relations <span class="count">132</span></a>
@@ -48,7 +47,6 @@
                 <a href="#spaces">Spaces <span class="count">4</span></a>
                 <a href="#roots-and-fractions">Roots and fractions <span class="count">3</span></a>
                 <a href="#combining-symbols">Combining symbols <span class="count">22</span></a>
-                <a href="#lewis-notation">Lewis notation <span class="count">2</span></a>
                 <a href="#chess">Chess <span class="count">12</span></a>
                 <a href="#card-games">Card games <span class="count">8</span></a>
                 <a href="#money">Money <span class="count">16</span></a>
@@ -58,15 +56,15 @@
                 <a href="#music">Music <span class="count">10</span></a>
                 <a href="#box-drawing">Box drawing <span class="count">33</span></a>
                 <a href="#other-symbols">Other symbols <span class="count">87</span></a>
-                <a href="#superscript">Superscript <span class="count">71</span></a>
+                <a href="#superscript">Superscript <span class="count">69</span></a>
                 <a href="#subscript">Subscript <span class="count">60</span></a>
-                <a href="#outside-math-mode">Outside math mode <span class="count">54</span></a>
+                <a href="#outside-math-mode">Outside math mode <span class="count">53</span></a>
             </nav>
 
             <main>
                 <h1>Documentation</h1>
                 <p id="lede">Every command MatTalX knows and the character it gives &mdash;
-                    860 of them &mdash; with the delimiters, the shortcuts, and what it
+                    855 of them &mdash; with the delimiters, the shortcuts, and what it
                     cannot do. Click any symbol to copy it.</p>
 
                 <div id="searchbar">
@@ -100,7 +98,7 @@
             <table class="cmds wide">
                 <tr><td class="cmd"><code>$ ... $</code></td><td>The usual one. <code>Let $x \in \mathbb R$.</code> gives <span class="sym">Let 𝑥 ∈ ℝ.</span></td></tr>
                 <tr><td class="cmd"><code>\( ... \)</code></td><td>The same thing, written the way LaTeX writes inline maths.</td></tr>
-                <tr><td class="cmd"><code>\[ ... \]</code></td><td>The same again. LaTeX uses it for a displayed equation; here it reads as inline, because everything is one line.</td></tr>
+                <tr><td class="cmd"><code>\[ ... \]</code></td><td>A displayed equation, as in LaTeX: what is inside gets a line of its own. <code>a \[ x \] b</code> gives three lines, where the other two give one.</td></tr>
             </table>
             <p>If you would rather have everything converted and never write a delimiter, tick
             <b>Math mode</b> under the question mark. An ordinary sentence will then be converted too,
@@ -129,12 +127,11 @@
             <p><b>A symbol is looked up, not built.</b> ≝ is <code>\def</code> here, where LaTeX
             writes <code>\stackrel{\rm def}{=}</code>. The exception is
             <a href="#combining-symbols">combining symbols</a>, which really do stack.</p>
-            <p><b>Everything stays on one line.</b> <code>x^{x^{x^{x}}}</code> has no answer, because
+            <p><b>Everything stays on one line.</b> <code>x^{x^{x^{x}}}</code> is unchanged, because
             a superscript cannot itself carry a superscript. Nor can
-            <code>\frac{\frac{\frac{a}{b}}{c}}{d}</code>. Write <code>x^(x^(x^(x)))</code> and
+            <code>\frac{\frac{\frac{a}{b}}{c}}{d}</code>. For the later, write
             <code>((a/b)/c)/d</code> instead.</p>
-            <p><b>When a command has no answer, MatTalX says so</b> under the second box, naming the
-            command rather than silently leaving it as it was.</p>
+            <p><b>When a command has no answer, MatTalX says so under the second box.</b></p>
         </section>
         <section id="your-own" class="prose">
             <h2>Building your own commands</h2>
@@ -143,18 +140,10 @@
             <table class="cmds wide">
                 <tr><td class="cmd"><code>\newcommand</code></td><td>A name of your own for something MatTalX already knows: <code>{\reals}{\mathbb R}</code>.</td></tr>
                 <tr><td class="cmd"><code>\renewcommand</code></td><td>The same, for a name MatTalX already uses, which yours then replaces.</td></tr>
-                <tr><td class="cmd"><code>\DeclareMathOperator</code></td><td>An operator, which takes an argument: <code>{\Aut}{Aut}</code> then gives Aut(𝐺) for <code>\Aut{G}</code>.</td></tr>
+                <tr><td class="cmd"><code>\DeclareMathOperator</code></td><td>An operator, which takes an argument: <code>{\Exp}{\mathbb E}</code> then gives 𝔼[𝑋] for <code>\Exp{X}</code>.</td></tr>
                 <tr><td class="cmd"><code>\DeclareUnicodeCharacter</code></td><td>A character by its code point, for anything MatTalX has no name for.</td></tr>
             </table>
             <p>Your own commands are suggested before the built-in ones, and they are remembered.</p>
-        </section>
-        <section id="chemistry" class="prose">
-            <h2>Chemistry</h2>
-            <p><code>\ce{...}</code> writes a formula the way <i>mhchem</i> does:
-            <code>\ce{H2O}</code> gives H₂O, and <code>\ce{SO4^2-}</code> gives SO₄²⁻.</p>
-            <p>For Lewis structures, start the text with <code>!chem</code>. That switches to a
-            document class where letters are not italicised, which is what you want for an element
-            symbol, and makes the <a href="#lewis-notation">dot and bond marks</a> available.</p>
         </section>
 
         <section id="operators" class="commands">
@@ -620,38 +609,30 @@
         </section>
         <section id="combining-symbols" class="commands">
             <h2>Combining symbols <span class="count">22</span></h2>
-            <p class="note">These sit on top of the character that follows, so they are the one place MatTalX does build a symbol rather than look one up.</p>
+            <p class="note">These sit on the character that follows, so they are the one place MatTalX builds a symbol rather than looking one up. They are shown here with <b>Mathematical font</b> unticked, which is how they usually look best: the command then reaches a character that already exists &mdash; Â rather than an A with a circumflex left on top of it for the renderer to stack.</p>
             <ul class="cmds">
-                <li><code>\overline{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̅</span></li>
-                <li><code>\underline{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̲</span></li>
-                <li><code>\underarrow{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴͢</span></li>
-                <li><code>\underharpoon{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴⃬</span></li>
-                <li><code>\overfrown{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴͡</span></li>
-                <li><code>\oversmile{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴͝</span></li>
-                <li><code>\undersmile{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴͜</span></li>
-                <li><code>\hat{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̂</span></li>
-                <li><code>\not{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̸</span></li>
-                <li><code>\tilde{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̃</span></li>
-                <li><code>\vec{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴⃗</span></li>
-                <li><code>\hvec{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴⃑</span></li>
-                <li><code>\dot{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̇</span></li>
-                <li><code>\ddot{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̈</span></li>
-                <li><code>\acute{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴́</span></li>
-                <li><code>\grave{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̀</span></li>
-                <li><code>\stackrel{}</code><span class="sym" tabindex="0" role="button" title="Copy">A,B → 𝐵</span></li>
-                <li><code>\overset{}</code><span class="sym" tabindex="0" role="button" title="Copy">A,B → 𝐵</span></li>
-                <li><code>\underset{}</code><span class="sym" tabindex="0" role="button" title="Copy">A,B → 𝐵</span></li>
-                <li><code>\check{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̌</span></li>
-                <li><code>\breve{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̆</span></li>
-                <li><code>\bar{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → 𝐴̄</span></li>
-            </ul>
-        </section>
-        <section id="lewis-notation" class="commands">
-            <h2>Lewis notation <span class="count">2</span></h2>
-            <p class="note">For drawing molecules. Use the <code>!chem</code> document class, which stops letters being italicised.</p>
-            <ul class="cmds">
-                <li><code>\mdot</code><span class="sym" tabindex="0" role="button" title="Copy">⸱</span></li>
-                <li><code>\mddot</code><span class="sym" tabindex="0" role="button" title="Copy">:</span></li>
+                <li><code>\overline{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A̅</span></li>
+                <li><code>\underline{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A̲</span></li>
+                <li><code>\underarrow{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A͢</span></li>
+                <li><code>\underharpoon{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A⃬</span></li>
+                <li><code>\overfrown{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A͡</span></li>
+                <li><code>\oversmile{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A͝</span></li>
+                <li><code>\undersmile{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A͜</span></li>
+                <li><code>\hat{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Â</span></li>
+                <li><code>\not{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A̸</span></li>
+                <li><code>\tilde{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Ã</span></li>
+                <li><code>\vec{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A⃗</span></li>
+                <li><code>\hvec{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → A⃑</span></li>
+                <li><code>\dot{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Ȧ</span></li>
+                <li><code>\ddot{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Ä</span></li>
+                <li><code>\acute{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Á</span></li>
+                <li><code>\grave{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → À</span></li>
+                <li><code>\stackrel{}</code><span class="sym" tabindex="0" role="button" title="Copy">.,A → Ȧ</span></li>
+                <li><code>\overset{}</code><span class="sym" tabindex="0" role="button" title="Copy">.,A → Ȧ</span></li>
+                <li><code>\underset{}</code><span class="sym" tabindex="0" role="button" title="Copy">.,A → Ạ</span></li>
+                <li><code>\check{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Ǎ</span></li>
+                <li><code>\breve{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Ă</span></li>
+                <li><code>\bar{}</code><span class="sym" tabindex="0" role="button" title="Copy">A → Ā</span></li>
             </ul>
         </section>
         <section id="chess" class="commands">
@@ -767,14 +748,23 @@
         </section>
         <section id="matrix" class="commands">
             <h2>Matrix <span class="count">6</span></h2>
-            <p class="note">A matrix is written as rows in square brackets: <code>\matrix{[a,b][c,d]}</code>.</p>
+            <p class="note">A matrix is written as rows in square brackets: <code>\matrix{[a,b][c,d]}</code>. More than one row goes on lines of its own. MatTalX will say so under the second box, but it is worth knowing here too: a matrix lines up properly with <b>Mathematical font</b> unticked, because the italic letters are not all the same width.</p>
             <ul class="cmds">
                 <li><code>\matrix{}</code><span class="sym" tabindex="0" role="button" title="Copy">[a,b] → [ a b ]</span></li>
                 <li><code>\id1</code><span class="sym" tabindex="0" role="button" title="Copy">[ 1 ]</span></li>
-                <li><code>\id2</code><span class="sym" tabindex="0" role="button" title="Copy">the 2x2 identity matrix</span></li>
-                <li><code>\id3</code><span class="sym" tabindex="0" role="button" title="Copy">the 3x3 identity matrix</span></li>
-                <li><code>\id4</code><span class="sym" tabindex="0" role="button" title="Copy">the 4x4 identity matrix</span></li>
-                <li><code>\idn</code><span class="sym" tabindex="0" role="button" title="Copy">the n by n identity matrix</span></li>
+                <li><code>\id2</code><span class="sym" tabindex="0" role="button" title="Copy">⎡ 1 0 ⎤
+⎣ 0 1 ⎦</span></li>
+                <li><code>\id3</code><span class="sym" tabindex="0" role="button" title="Copy">⎡ 1  0 ⎤
+⎢ 0 1 0 ⎥
+⎣ 0 0 1 ⎦</span></li>
+                <li><code>\id4</code><span class="sym" tabindex="0" role="button" title="Copy">⎡ 1 0 0 0 ⎤
+⎢ 0 1 0 0 ⎥
+⎢ 0 0 1 0 ⎥
+⎣ 0 0 0 1 ⎦</span></li>
+                <li><code>\idn</code><span class="sym" tabindex="0" role="button" title="Copy">⎡ 1 0 ⋯ 0 ⎤
+⎢ 0 1 ⋯ 0 ⎥
+⎢  ⋮  ⋮  ⋱  ⋮ ⎥
+⎣ 0 0 ⋯ 1 ⎦</span></li>
             </ul>
         </section>
         <section id="building-your-own" class="commands">
@@ -938,7 +928,7 @@
             </ul>
         </section>
         <section id="superscript" class="commands">
-            <h2>Superscript <span class="count">71</span></h2>
+            <h2>Superscript <span class="count">69</span></h2>
             <p class="note">Anything below can be raised. Write <code>^</code> and the character, or <code>^{...}</code> for more than one. Everything has to stay on one line, so a superscript inside a superscript has no answer.</p>
             <ul class="cmds">
                 <li><code>^{0}</code><span class="sym" tabindex="0" role="button" title="Copy">⁰</span></li>
@@ -956,12 +946,10 @@
                 <li><code>^{=}</code><span class="sym" tabindex="0" role="button" title="Copy">⁼</span></li>
                 <li><code>^{(}</code><span class="sym" tabindex="0" role="button" title="Copy">⁽</span></li>
                 <li><code>^{)}</code><span class="sym" tabindex="0" role="button" title="Copy">⁾</span></li>
-                <li><code>^{\}</code><span class="sym" tabindex="0" role="button" title="Copy">ᐠ</span></li>
                 <li><code>^{/}</code><span class="sym" tabindex="0" role="button" title="Copy">ᐟ</span></li>
                 <li><code>^{.}</code><span class="sym" tabindex="0" role="button" title="Copy">ᐧ</span></li>
                 <li><code>^{,}</code><span class="sym" tabindex="0" role="button" title="Copy">˒</span></li>
                 <li><code>^{!}</code><span class="sym" tabindex="0" role="button" title="Copy">ꜝ</span></li>
-                <li><code>^{$}</code><span class="sym" tabindex="0" role="button" title="Copy">ᙚ</span></li>
                 <li><code>^{*}</code><span class="sym" tabindex="0" role="button" title="Copy">*</span></li>
                 <li><code>^{&lt;}</code><span class="sym" tabindex="0" role="button" title="Copy">ᑉ</span></li>
                 <li><code>^{A}</code><span class="sym" tabindex="0" role="button" title="Copy">ᴬ</span></li>
@@ -1010,7 +998,7 @@
                 <li><code>^{X}</code><span class="sym" tabindex="0" role="button" title="Copy">ˣ</span></li>
                 <li><code>^{x}</code><span class="sym" tabindex="0" role="button" title="Copy">ˣ</span></li>
                 <li><code>^{y}</code><span class="sym" tabindex="0" role="button" title="Copy">ʸ</span></li>
-                <li><code>^{Z}</code><span class="sym" tabindex="0" role="button" title="Copy">ᙆ</span></li>
+                <li><code>^{Z}</code><span class="sym" tabindex="0" role="button" title="Copy">ᶻ</span></li>
                 <li><code>^{z}</code><span class="sym" tabindex="0" role="button" title="Copy">ᶻ</span></li>
             </ul>
         </section>
@@ -1033,8 +1021,8 @@
                 <li><code>_{=}</code><span class="sym" tabindex="0" role="button" title="Copy">₌</span></li>
                 <li><code>_{(}</code><span class="sym" tabindex="0" role="button" title="Copy">₍</span></li>
                 <li><code>_{)}</code><span class="sym" tabindex="0" role="button" title="Copy">₎</span></li>
-                <li><code>_{,}</code><span class="sym" tabindex="0" role="button" title="Copy">✐̦✐</span></li>
-                <li><code>_{.}</code><span class="sym" tabindex="0" role="button" title="Copy">✐̣✐</span></li>
+                <li><code>_{,}</code><span class="sym" tabindex="0" role="button" title="Copy"> ̦</span></li>
+                <li><code>_{.}</code><span class="sym" tabindex="0" role="button" title="Copy"> ̣</span></li>
                 <li><code>_{a}</code><span class="sym" tabindex="0" role="button" title="Copy">ₐ</span></li>
                 <li><code>_{e}</code><span class="sym" tabindex="0" role="button" title="Copy">ₑ</span></li>
                 <li><code>_{h}</code><span class="sym" tabindex="0" role="button" title="Copy">ₕ</span></li>
@@ -1081,7 +1069,7 @@
             </ul>
         </section>
         <section id="outside-math-mode" class="commands">
-            <h2>Outside math mode <span class="count">54</span></h2>
+            <h2>Outside math mode <span class="count">53</span></h2>
             <p class="note">These work in ordinary text, outside the <code>$ ... $</code>.</p>
             <ul class="cmds">
                 <li><code>\LaTeX</code><span class="sym" tabindex="0" role="button" title="Copy">𝐿ᴬ𝑇ᴇ𝑋</span></li>
@@ -1107,7 +1095,6 @@
                 <li><code>\newline</code><span class="sym" tabindex="0" role="button" title="Copy">
 </span></li>
                 <li><code>\tab</code><span class="sym" tabindex="0" role="button" title="Copy">	</span></li>
-                <li><code>\!</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
                 <li><code>\O</code><span class="sym" tabindex="0" role="button" title="Copy">Ø</span></li>
                 <li><code>\o</code><span class="sym" tabindex="0" role="button" title="Copy">ø</span></li>
                 <li><code>\i</code><span class="sym" tabindex="0" role="button" title="Copy">ı</span></li>
@@ -1125,21 +1112,21 @@
                 <li><code>\textsc</code><span class="sym" tabindex="0" role="button" title="Copy">A → A</span></li>
                 <li><code>\hspace</code><span class="sym" tabindex="0" role="button" title="Copy">3 → 3 spaces</span></li>
                 <li><code>\vskip</code><span class="sym" tabindex="0" role="button" title="Copy">3 → 3 empty lines</span></li>
-                <li><code>\`</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
-                <li><code>\'</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
-                <li><code>\^</code><span class="sym" tabindex="0" role="button" title="Copy">^</span></li>
-                <li><code>\&quot;</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
-                <li><code>\H</code><span class="sym" tabindex="0" role="button" title="Copy">H</span></li>
-                <li><code>\~</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
-                <li><code>\c</code><span class="sym" tabindex="0" role="button" title="Copy">c</span></li>
-                <li><code>\k</code><span class="sym" tabindex="0" role="button" title="Copy">k</span></li>
-                <li><code>\=</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
-                <li><code>\b</code><span class="sym" tabindex="0" role="button" title="Copy">b</span></li>
-                <li><code>\.</code><span class="sym" tabindex="0" role="button" title="Copy"></span></li>
-                <li><code>\d</code><span class="sym" tabindex="0" role="button" title="Copy">d</span></li>
-                <li><code>\r</code><span class="sym" tabindex="0" role="button" title="Copy">r</span></li>
-                <li><code>\u</code><span class="sym" tabindex="0" role="button" title="Copy">u</span></li>
-                <li><code>\v</code><span class="sym" tabindex="0" role="button" title="Copy">v</span></li>
+                <li><code>\`</code><span class="sym" tabindex="0" role="button" title="Copy">a → à</span></li>
+                <li><code>\'</code><span class="sym" tabindex="0" role="button" title="Copy">a → á</span></li>
+                <li><code>\^</code><span class="sym" tabindex="0" role="button" title="Copy">a → â</span></li>
+                <li><code>\&quot;</code><span class="sym" tabindex="0" role="button" title="Copy">a → ä</span></li>
+                <li><code>\H</code><span class="sym" tabindex="0" role="button" title="Copy">a → a̋</span></li>
+                <li><code>\~</code><span class="sym" tabindex="0" role="button" title="Copy">a → ã</span></li>
+                <li><code>\c</code><span class="sym" tabindex="0" role="button" title="Copy">a → a̧</span></li>
+                <li><code>\k</code><span class="sym" tabindex="0" role="button" title="Copy">a → ą</span></li>
+                <li><code>\=</code><span class="sym" tabindex="0" role="button" title="Copy">a → ā</span></li>
+                <li><code>\b</code><span class="sym" tabindex="0" role="button" title="Copy">a → a̲</span></li>
+                <li><code>\.</code><span class="sym" tabindex="0" role="button" title="Copy">a → ȧ</span></li>
+                <li><code>\d</code><span class="sym" tabindex="0" role="button" title="Copy">a → ạ</span></li>
+                <li><code>\r</code><span class="sym" tabindex="0" role="button" title="Copy">a → å</span></li>
+                <li><code>\u</code><span class="sym" tabindex="0" role="button" title="Copy">a → ă</span></li>
+                <li><code>\v</code><span class="sym" tabindex="0" role="button" title="Copy">a → ǎ</span></li>
                 <li><code>\today</code><span class="sym" tabindex="0" role="button" title="Copy">September 6, 2026</span></li>
             </ul>
         </section>
