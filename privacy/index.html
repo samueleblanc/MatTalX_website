@@ -9,12 +9,12 @@
         <link rel="icon" type="image/png" sizes="96x96" href="../images/mattalx_favicon96.png">
         <link rel="icon" type="image/png" sizes="128x128" href="../images/mattalx_favicon128-nobg.png">
         <link rel="canonical" href="https://mattalx.org/privacy/">
-        <meta name="description" content="MatTalX asks for one permission, Storage, and uses it to keep your work in progress. It cannot see your history or your tabs.">
+        <meta name="description" content="MatTalX makes no network requests. What it keeps, where it keeps it, and what each of its permissions is for.">
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://mattalx.org/privacy/">
         <meta property="og:site_name" content="MatTalX">
         <meta property="og:title" content="MatTalX Privacy">
-        <meta property="og:description" content="MatTalX asks for one permission, Storage, and uses it to keep your work in progress. It cannot see your history or your tabs.">
+        <meta property="og:description" content="MatTalX makes no network requests. What it keeps, where it keeps it, and what each of its permissions is for.">
         <meta property="og:image" content="https://mattalx.org/images/og-card.png">
         <meta name="twitter:card" content="summary_large_image">
         <title>MatTalX Privacy</title>
@@ -23,13 +23,38 @@
         <header><a href="../"><img alt="MatTalX logo" id="logo" src="../images/mattalx_logo_nobg_dark.png"></a></header>
         <br>
         <h1>Privacy policy</h1>
-        <p>The only <i>permission</i><sup><a href="https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions" target="_blank">[1]</a></sup> 
-        needed for MatTalX to work properly is <i>Storage</i><sup><a href="https://developer.chrome.com/docs/extensions/reference/storage/" target="_blank">[2]</a></sup>. It is used to store your work in progress, if any. 
-        The text written in the first box (input) right before closing MatTalX is saved, so that you can change tabs and continue the 
-        text you started without having to start over. The settings, namely 'Adjust spaces', 'Mathematical font', and 'Math mode', are also saved.<br><br>
-        MatTalX <b>does NOT have access</b> to your browser history, your open tabs, or any other private information.</p>
+        <p>MatTalX keeps what you write and how you like it set up. It makes <b>no network requests of any kind</b>: there is no
+        server behind it and nothing is sent to us. The only addresses in it are the Documentation and GitHub links, which open
+        a tab when you click them.</p>
+
+        <h2>What is kept</h2>
+        <p>The text left in the first box, so that you can change tabs and carry on where you were. The settings: 'Adjust spaces',
+        'Mathematical font', 'Math mode', dark mode, the font and its size, the copy shortcuts, and whether the completion button
+        and the main symbols are shown. And the commands you have built with <i>\newcommand</i>, <i>\renewcommand</i> and
+        <i>\DeclareMathOperator</i>.</p>
+
+        <h2>Where it is kept</h2>
+        <p>On Firefox, in the add-on's storage on this device. On Chrome, in the extension's <i>sync</i> storage: if you are signed
+        in to Chrome with syncing turned on, Google carries it to your other Chrome installs, the way it carries your bookmarks.
+        With syncing off it stays on the device. Either way it never reaches us.</p>
+
+        <h2>The permissions</h2>
+        <p>MatTalX asks for two <i>permissions</i><sup><a href="https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions" target="_blank">[1]</a></sup>
+        on Firefox and three on Chrome. <i>Storage</i><sup><a href="https://developer.chrome.com/docs/extensions/reference/storage/" target="_blank">[2]</a></sup>,
+        to keep all of the above. <i>activeTab</i><sup><a href="https://developer.chrome.com/docs/extensions/develop/concepts/activeTab" target="_blank">[3]</a></sup>,
+        and on Chrome <i>scripting</i>, for the two shortcuts that work inside a page. MatTalX can touch no page until you press
+        Alt+Shift+W or Alt+Shift+C; pressing one gives it the tab you are on, that once. It then reads the field you are writing in,
+        all of it or only what you have selected, converts it and writes it back. There is no content script, so nothing of MatTalX
+        runs anywhere you have not asked it to.<br><br>
+        MatTalX <b>does NOT have access</b> to your browsing history, your other tabs, or pages you are not writing in.</p>
+
+        <h2>mattalx.org</h2>
+        <p>The site loads nothing from anyone else and sets no cookies. The web version keeps the same things as the extension in
+        your browser's own storage, on your device, and sends them nowhere. The site is served by GitHub Pages, which, like any
+        web host, sees the requests it serves.</p>
         <br><br>
         <p id="refLinks">[1] <a href="https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions" target="_blank">https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions</a><br>
-        [2] <a href="https://developer.chrome.com/docs/extensions/reference/storage/" target="_blank">https://developer.chrome.com/docs/extensions/reference/storage/</a></p>
+        [2] <a href="https://developer.chrome.com/docs/extensions/reference/storage/" target="_blank">https://developer.chrome.com/docs/extensions/reference/storage/</a><br>
+        [3] <a href="https://developer.chrome.com/docs/extensions/develop/concepts/activeTab" target="_blank">https://developer.chrome.com/docs/extensions/develop/concepts/activeTab</a></p>
     </body>
 </html>

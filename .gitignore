@@ -1,2 +1,5 @@
 # Editor settings, which belong to whoever is editing rather than to the site
 .vscode/
+
+# Left behind whenever a tool in tools/ is imported rather than run
+__pycache__/
