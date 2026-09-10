@@ -4222,7 +4222,7 @@ const settingsFunctions = {
 
 // Main functions
 
-function tokenize(fullTextString, mathmode) {
+function tokenize(fullTextString, mathmode, spans = null) {
     // Everything MatTalX writes is outside the basic plane, so a symbol like '𝛼' takes two
     // places in a string. Walking characters rather than those halves is what lets an
     // already converted text be converted again without being cut in two.
@@ -4236,6 +4236,13 @@ function tokenize(fullTextString, mathmode) {
     // N.B. Brackets also stops commands (most of the time)
     const potentialCommandStoppers = [":" , ";" , "~", ".", "!", "'", '"', "=", "%", "#"];
     const startMathmode = mathmode;
+    // Where the maths is, when someone asks. Only mathSpans() does, and only so that a
+    // piece of text can be cut up without cutting an expression in half: what counts as
+    // maths is decided here, once, rather than by a second reading of the same rules
+    const openSpan = (at) => { if (spans) { spans.push({start: at, end: -1}); }; };
+    const closeSpan = (at) => {
+        if ((spans) && (spans.length > 0)) { spans[spans.length-1].end = at; };
+    };
     let outTokens = [];
     let temporaryBox = [];      // Stores characters that are in command (e.g. \int -> ['\', 'i', 'n', 't'])
     let trigger = false;        // true if a command has begun (e.g. input: '\' -> true)
@@ -4244,6 +4251,7 @@ function tokenize(fullTextString, mathmode) {
 
     if (startMathmode) {
         outTokens.push(specialTokens.startMathmode);
+        openSpan(0);
     };
 
     for (i=0; i<fullText.length; i++) {
@@ -4254,6 +4262,7 @@ function tokenize(fullTextString, mathmode) {
                 if (mathmode) {
                     if ((fullText[i] === ")") && (mathmodeStarter === "\\(")) {
                         mathmode = false;
+                        closeSpan(i+1);
                         mathmodeStarter = "";
                         outTokens.push(specialTokens.endMathmode);
                     } else {
@@ -4262,6 +4271,7 @@ function tokenize(fullTextString, mathmode) {
                 } else {
                     if (fullText[i] === "(") {
                         mathmode = true;
+                        openSpan(i-1);
                         mathmodeStarter = "\\(";
                         outTokens.push(specialTokens.startMathmode);
                     } else {
@@ -4289,6 +4299,7 @@ function tokenize(fullTextString, mathmode) {
                     if (mathmode) {
                         if ((fullText[i] === "]") && (mathmodeStarter === "\\[")) {
                             mathmode = false;
+                            closeSpan(i+1);
                             mathmodeStarter = "";
                             outTokens.push("\\\\");
                             outTokens.push(specialTokens.endMathmode);
@@ -4298,6 +4309,7 @@ function tokenize(fullTextString, mathmode) {
                     } else {
                         if (fullText[i] === "[") {
                             mathmode = true;
+                            openSpan(i-1);
                             mathmodeStarter = "\\[";
                             outTokens.push("\\\\");
                             outTokens.push(specialTokens.startMathmode);
@@ -4346,12 +4358,14 @@ function tokenize(fullTextString, mathmode) {
                                 outTokens.push("\\\\");
                             } else {
                                 mathmode = false;
+                                closeSpan(i+1);
                                 mathmodeStarter = "";
                                 outTokens.push(temporaryBox.join(""));
                                 outTokens.push(specialTokens.endMathmode);
                             };
                         } else if ((fullText[i-1] === "$") && (mathmodeStarter === "$$")) {
                             mathmode = false;
+                            closeSpan(i+1);
                             mathmodeStarter = "";
                             outTokens.push("\\\\");
                             outTokens.push(specialTokens.endMathmode);
@@ -4364,6 +4378,7 @@ function tokenize(fullTextString, mathmode) {
                         };
                     } else {
                         mathmode = true;
+                        openSpan(i);
                         mathmodeStarter = "$";
                         outTokens.push(temporaryBox.join(""));
                         outTokens.push(specialTokens.startMathmode);
@@ -4417,12 +4432,14 @@ function tokenize(fullTextString, mathmode) {
                             continue;
                         } else {
                             mathmode = false;
+                            closeSpan(i+1);
                             mathmodeStarter = "";
                             outTokens.push(specialTokens.endMathmode);
                         };
                     } else if (mathmodeStarter === "$$") {
                         if (fullText[i-1] === "$") {
                             mathmode = false;
+                            closeSpan(i+1);
                             mathmodeStarter = "";
                             outTokens.push("\\\\");
                             outTokens.push(specialTokens.endMathmode);
@@ -4432,6 +4449,7 @@ function tokenize(fullTextString, mathmode) {
                     };
                 } else {
                     mathmode = true;
+                    openSpan(i);
                     mathmodeStarter = "$";
                     outTokens.push(specialTokens.startMathmode);
                 };
@@ -4448,6 +4466,10 @@ function tokenize(fullTextString, mathmode) {
 
     if (startMathmode) {
         outTokens.push(specialTokens.endMathmode);
+    };
+    // A '$' with nothing closing it takes the rest of the text with it, here as there
+    if ((spans) && (spans.length > 0) && (spans[spans.length-1].end === -1)) {
+        spans[spans.length-1].end = fullText.length;
     };
     return outTokens;
 };
@@ -5147,6 +5169,30 @@ export function convert(fullText, userSettings) {
     };
     // The marks were only there to tell the parser a conversion had failed
     return {text: stripFailures(fullText), errors: stripFailures(errorsList)};
+};
+
+export function mathSpans(fullText, mathMode) {
+    // Says where the maths is, delimiters included, so that a text can be cut into pieces
+    // without cutting an expression in half. Used where the text is not one piece to begin
+    // with: a message in a page is a tree of text nodes, and a '$ ... $' can start in one
+    // and finish in another.
+    // The tokenizer is what answers, rather than a second reading of the same rules, so
+    // that what counts as maths here is exactly what convert() will treat as maths.
+    const spans = [];
+    tokenize(fullText, mathMode, spans);
+    // The tokenizer walks characters, of which the ones MatTalX writes take two places in
+    // a string. Everything outside core.js counts those places, so the answer is in them
+    const characters = Array.from(fullText);
+    const places = [0];
+    let at = 0;
+    for (const character of characters) {
+        at += character.length;
+        places.push(at);
+    };
+    return spans.map((span) => ({
+        start: places[Math.max(span.start, 0)],
+        end: places[Math.min(Math.max(span.end, 0), characters.length)]
+    }));
 };
 
 // Nothing out of math mode depends on the settings, so it is built once
