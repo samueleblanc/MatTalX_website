@@ -67,6 +67,7 @@ body {
 #git,
 #chromeext,
 #firefoxadd,
+#edgeext,
 #settingsBtn,
 #adjustSpaces,
 #changeFont,
@@ -92,7 +93,8 @@ body {
 #docs,
 #git,
 #chromeext,
-#firefoxadd {
+#firefoxadd,
+#edgeext {
     padding-left: 30px;
     background-repeat: no-repeat;
     background-position: 8px center;
@@ -103,6 +105,7 @@ body {
 #git         { background-image: url("../images/github.png"); }
 #chromeext   { background-image: url("../images/chromelogo.png"); }
 #firefoxadd  { background-image: url("../images/firefoxlogo.png"); }
+#edgeext     { background-image: url("../images/edgelogo.png"); }
 
 .settingHint {
     /* Says what the checkbox above does. Takes its colour from the row it sits in,
@@ -284,8 +287,12 @@ tr, td {
     font-size: 20px;
 }
 .storelogo {
-    width: 20%;
-    padding: 20px;
+    /* Three logos have to fit on one row of the box. The padding is a percentage of the
+       box too, so the row stays 90% of it at every width; at 20px it was fixed, and
+       between about 700px and 1000px the three came to more than the box and Edge wrapped
+       onto a line of its own */
+    width: 22%;
+    padding: 4%;
     opacity: 85%;
 }
 .storelogo:hover {
@@ -436,6 +443,7 @@ body {
 #git,
 #chromeext,
 #firefoxadd,
+#edgeext,
 #settingsBtn,
 #adjustSpaces,
 #changeFont,
@@ -447,6 +455,7 @@ body {
 #git:hover,
 #chromeext:hover,
 #firefoxadd:hover,
+#edgeext:hover,
 #settingsBtn:hover,
 #adjustSpaces:hover,
 #changeFont:hover,
@@ -569,6 +578,7 @@ tr, td {
     #git,
     #chromeext,
     #firefoxadd,
+    #edgeext,
     #settingsBtn,
     #adjustSpaces,
     #changeFont,
@@ -596,7 +606,7 @@ tr, td {
         font-size: 20px;
     }
     .storelogo {
-        width: 20%;
-        padding: 20px;
+        width: 22%;
+        padding: 4%;
     }
 }
