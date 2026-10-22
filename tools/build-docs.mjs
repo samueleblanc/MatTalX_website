@@ -349,6 +349,7 @@ ${nav}
                 <div id="getit" class="prose">
                     <a class="button" target="_blank" href="https://chromewebstore.google.com/detail/mattalx-latex-to-unicode/jllceliamggkpffccbefpefgmcigaglb">Chrome extension</a>
                     <a class="button" target="_blank" href="https://addons.mozilla.org/firefox/addon/mattalx-latex-unicode-math/">Firefox add-on</a>
+                    <a class="button" target="_blank" href="https://microsoftedge.microsoft.com/addons/detail/mattalx-latex-to-unicod/kpkhggbecnllinjfjmcfegalombhkdmc">Edge add-on</a>
                     <a class="button" href="../web-version/">Try it in the browser</a>
                 </div>
 
