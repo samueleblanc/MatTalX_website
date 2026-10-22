@@ -3177,6 +3177,9 @@ const mathDictionary = {
     "\\femalefemale" : "\u26A2",
     "\\femalemale" : "\u26A4",
     "\\" : "\\",
+    // The only space that isn't counted in ordinary ones: U+2009 is narrower than the
+    // space "\\:" gives, which is as close to LaTeX's thin space as plain text gets
+    "\\," : "\u2009",
     "\\:" : spacesChar.add,
     "\\;" : spacesChar.add+spacesChar.add,
     "\\quad" : spacesChar.add+spacesChar.add+spacesChar.add,
@@ -3342,6 +3345,9 @@ const textCommands = {
     "\\linebreak" : "\u000A",
     "\\newline" : "\u000A",
     "\\tab" : "\u0009",
+    // Unlike "\\:" and "\\;", a thin space is one LaTeX also takes outside math mode,
+    // where it is what separates a number from its unit, or a thousand from the next
+    "\\," : "\u2009",
     "\\!" : spacesChar.remove,
     "\\O" : "\u00D8",
     "\\o" : "\u00F8",
@@ -4232,9 +4238,19 @@ function tokenize(fullTextString, mathmode, spans = null) {
     //  [c,u,r,l, ,w,r,i,t,t,e,n, ,a,s, ,STARTMM,\nabla, ,\times, ,\mathbf,STARTARG,F,ENDARG,ENDMM]
     const brackets = ["[", "]"];
     const parentheses = ["(", ")"];
-    const commandStoppers = [" ", "\u000A", ",", "/", "-", "+", "<", ">", "|", "?", "(", ")"]; 
+    // These end a command name and can never be one themselves: a space or a newline
+    // after a backslash is how a backslash is written on its own, and '\(' and '\)' are
+    // taken by the branch above as math mode delimiters
+    const commandStoppers = [" ", "\u000A", "(", ")"];
     // N.B. Brackets also stops commands (most of the time)
-    const potentialCommandStoppers = [":" , ";" , "~", ".", "!", "'", '"', "=", "%", "#"];
+    // These end a name too, but after a backslash they are the name: "'" ends '\alpha' in
+    // "\alpha'" and is the whole of it in "\'e". The ones with no entry in a dictionary
+    // are reported like any other command MatTalX doesn't know, rather than quietly
+    // leaving a backslash in the text
+    const potentialCommandStoppers = [":" , ";" , "~", ".", "!", "'", '"', "=", "%", "#",
+                                      "," , "/" , "-", "+", "<", ">", "|", "?"];
+    // What a command name is made of, after the backslash. Anything else ends it at once
+    const letter = /^[A-Za-z]$/;
     const startMathmode = mathmode;
     // Where the maths is, when someone asks. Only mathSpans() does, and only so that a
     // piece of text can be cut up without cutting an expression in half: what counts as
@@ -4287,7 +4303,12 @@ function tokenize(fullTextString, mathmode, spans = null) {
                 temporaryBox = [];
             } else if (potentialCommandStoppers.includes(fullText[i])) {
                 if (fullText[i-1] === "\\") {
-                    temporaryBox.push(fullText[i]);
+                    // The name ends here: a backslash followed by something that isn't a
+                    // letter is a command exactly two characters long, so "\'e" is "\'"
+                    // and then 'e', never a command called "\'e"
+                    outTokens.push(temporaryBox.join("") + fullText[i]);
+                    trigger = false;
+                    temporaryBox = [];
                 } else {
                     outTokens.push(temporaryBox.join(""));
                     outTokens.push(fullText[i]);
@@ -4397,17 +4418,20 @@ function tokenize(fullTextString, mathmode, spans = null) {
                 };
             } else if ((fullText[i] === "^") || (fullText[i] === "_")) {
                 if (fullText[i-1] === "\\") {
-                    if (mathmode) {
-                        outTokens.push(temporaryBox.join("") + fullText[i]);
-                        trigger = false;
-                        temporaryBox = [];
-                    } else {
-                        temporaryBox.push(fullText[i]);
-                    };
+                    outTokens.push(temporaryBox.join("") + fullText[i]);
+                    trigger = false;
+                    temporaryBox = [];
                 } else {
                     outTokens.push(temporaryBox.join(""));
                     temporaryBox = [fullText[i]];
                 };
+            } else if ((fullText[i-1] === "\\") && (!letter.test(fullText[i]))) {
+                // Same rule as above, for the characters that have no branch of their own
+                // (e.g. "\`" and "\*"). It comes last, after the ones that mean something
+                // else on their own: '\(', '\[', '\{', '\$' and the rest
+                outTokens.push(temporaryBox.join("") + fullText[i]);
+                trigger = false;
+                temporaryBox = [];
             } else {
                 temporaryBox.push(fullText[i]);
             };
